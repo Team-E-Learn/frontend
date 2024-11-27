@@ -2,7 +2,7 @@
 
 ## TODO:
 - [x] Set-up deno (runtime).
-- [ ] Set-up typescript.
+- [x] Set-up typescript.
 - [ ] Set-up svelte.
 - [ ] Set-up docker.
 
