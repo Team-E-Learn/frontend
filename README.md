@@ -4,7 +4,7 @@
 - [x] Set-up deno (runtime).
 - [x] Set-up typescript.
 - [ ] Set-up svelte.
-- [ ] Set-up docker.
+- [x] Set-up docker.
 
 ## Set-up:
 1. Go to https://deno.com/ and find install instructions
