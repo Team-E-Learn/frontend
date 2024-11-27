@@ -4,7 +4,8 @@ import {Application} from "https://deno.land/x/oak/mod.ts"
 const app = new Application();
 
 app.use((ctx) => {
-  ctx.response.body = "Hello!";
+  ctx.response.headers.set("Content-Type", "text/html");
+  ctx.response.body = "<h1>Hello World</h1>";
 });
 
 await app.listen({ port: 8000 })
