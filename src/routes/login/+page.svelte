@@ -1,34 +1,53 @@
 <script lang="ts">
-    import { handleLogin } from '../../services/login';
-    import '../../styles/login.css';
-  
-    let email: string = "";
-    let password: string = "";
-  
-    // Function to handle login form submission
-    const onLogin = (event: Event) => {
-      // Prevent default form submission behavior
-      event.preventDefault();
-  
-      // Call login handler with email and password
-      const result = handleLogin(email, password);
-  
-      // Display appropriate messages based on result
-      if (!result.success) {
-        alert(result.message);
+  import { handleLogin } from './login';
+  import '../../styles/login.css';
+
+  let email: string = '';
+  let password: string = '';
+  let errorMessage: string = '';
+
+  // Handle password input and enforce 64-character limit
+  const handlePasswordInput = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    if (target.value.length > 64) {
+      target.value = target.value.slice(0, 64);
+    }
+  };
+
+  const onSubmit = async () => {
+    try {
+      const response = await handleLogin(email, password);
+      if (!response.ok) {
+        const { error } = await response.json();
+        errorMessage = error || 'Login failed. Please try again.';
       } else {
-        console.log(result.message); // "Login successful!" (or custom message)
-        // Optional: Add logic to redirect or update UI after successful login
+        const data = await response.json();
+        console.log('Login successful:', data);
+
+        // Save token to localStorage or handle user session
+        localStorage.setItem('token', data.token);
+        alert('Login successful!');
       }
-    };
-  </script>
-  
-  <div class="login-container">
-    <h2>Login</h2>
-    <form on:submit|preventDefault={onLogin}>
-      <input type="email" bind:value={email} placeholder="Email" required />
-      <input type="password" bind:value={password} placeholder="Password" maxlength="64" required/>
-      <button type="submit">Login</button>
-    </form>
-  </div>
-  
+    } catch (error) {
+      errorMessage = 'An error occurred. Please try again later.';
+    }
+  };
+</script>
+
+<div class="login-container">
+  <h2>Login</h2>
+  <form on:submit|preventDefault={onSubmit}>
+    <input type="email" bind:value={email} placeholder="Email" required />
+    <input
+      type="password"
+      bind:value={password}
+      placeholder="Password"
+      required
+      on:input={handlePasswordInput} 
+    />
+    {#if errorMessage}
+      <p class="error-message">{errorMessage}</p>
+    {/if}
+    <button type="submit">Login</button>
+  </form>
+</div>
