@@ -1,89 +1,62 @@
-/**
- * Utility function to hash a string using SHA-256.
- * This is used for securely hashing sensitive data such as passwords.
- *
- * @param data - The input data to hash.
- * @returns A promise that resolves to a hexadecimal string of the hashed data.
- */
+import allowedDomains from '../../shared/allowedDomains.json' with { type: "json" };
+
+// Utility function to hash a string using SHA-256.
 export const hashData = async (data: string): Promise<string> => {
-    try {
-      const encoder = new TextEncoder();
-      const dataBuffer = encoder.encode(data); // New TextEncoder instance to encode the string data into a byte array
-      const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer); // Hash byte array of bytes 
-      const hashArray = Array.from(new Uint8Array(hashBuffer)); // Convert hashed buffer into regular array of bytes
-      
-      // Map each byte of the array to a hexadecimal string and join them to form the final hash
-      return hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-    } catch (error) {
-      throw new Error(`Error while hashing data: ${error instanceof Error ? error.message : String(error)}`);
-    }
-  };
-  
-  /**
-   * Validates the email format using a regular expression.
-   * This regex checks for a valid email format (e.g., user@example.com).
-   *
-   * @param email - The email to validate.
-   * @returns A boolean indicating whether the email format is valid.
-   */
-  export const isValidEmail = (email: string): boolean => {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailRegex.test(email);
-  };
-  
-  /**
-   * Function to handle user login by hashing credentials and sending them to the backend API.
-   *
-   * @param email - The user's email address.
-   * @param password - The user's password.
-   * @returns A promise that resolves to the response from the backend API.
-   */
-  export const handleLogin = async (email: string, password: string): Promise<Response> => {
-    // Validate email format
+  try {
+    const encoder = new TextEncoder();
+    const dataBuffer = encoder.encode(data);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+  } catch (error) {
+    throw new Error(`Error while hashing data: ${error instanceof Error ? error.message : String(error)}`);
+  }
+};
+
+// Validates the email format using a regular expression and checks if the domain is allowed.
+export const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!emailRegex.test(email)) {
+    throw new Error('Invalid email format. Please enter a valid email address.');
+  }
+
+  const domain = email.split('@')[1];
+  if (!allowedDomains.allowedDomains.includes(domain)) {
+    throw new Error('The domain of the email is not allowed.');
+  }
+
+  return true;
+};
+
+// Function to handle user login (simulated without a backend).
+export const handleLogin = async (email: string, password: string): Promise<{ ok: boolean; message?: string; token?: string; requires2FA?: boolean }> => {
+  if (!email || !password) {
+    return { ok: false, message: 'Please provide both email and password.' };
+  }
+
+  try {
     if (!isValidEmail(email)) {
-      throw new Error('Please provide a valid email address.');
+      return { ok: false, message: 'Invalid email format or domain.' };
     }
-  
-    // Validate password length (max 64 characters)
+
     if (password.length > 64) {
-      throw new Error('Password must not exceed 64 characters.');
+      return { ok: false, message: 'Password must not exceed 64 characters.' };
     }
-  
-    // Input validation: Ensure that email and password are provided
-    if (!email || !password) {
-      throw new Error('Please provide both email and password.');
-    }
-  
-    try {
-      // Hash both email and password using the utility function
-      const [hashedEmail, hashedPassword] = await Promise.all([
-        hashData(email),
-        hashData(password),
-      ]);
-  
-      console.debug('Hashed Email:', hashedEmail);
-      console.debug('Hashed Password:', hashedPassword);
-  
-      // Sending hashed credentials to the backend API for authentication (Swagger Implementation Here)
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json', // Sent as JSON dummy data
-        },
-        body: JSON.stringify({ email: hashedEmail, password: hashedPassword }),
-      });
-  
-      // Handle non-OK HTTP responses
-      if (!response.ok) {
-        const errorData = await response.json();
-        const errorMessage = errorData?.error || 'Login failed. Please check your credentials.';
-        throw new Error(errorMessage);
-      }
-  
-      return response;
-    } catch (error) {
-      // Handle any errors during the process and rethrow with a custom message
-      throw new Error(`Login failed: ${error instanceof Error ? error.message : String(error)}`);
-    }
-  };
-  
+
+    // Simulate hashing (just a demo for this mockup)
+    const hashedEmail = await hashData(email);
+    const hashedPassword = await hashData(password);
+
+    console.debug('Hashed Email:', hashedEmail);
+    console.debug('Hashed Password:', hashedPassword);
+
+    // Simulate a successful login response
+    return {
+      ok: true,
+      token: 'fake-jwt-token',
+      requires2FA: true,
+    };
+  } catch (error) {
+    return { ok: false, message: error instanceof Error ? error.message : 'An error occurred' };
+  }
+};

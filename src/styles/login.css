@@ -1,35 +1,52 @@
+/* login.css */
 .login-container {
-  max-width: 400px;
-  margin: 2rem auto;
-  padding: 1.5rem;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background: #f9f9f9;
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-input,
-button {
-  display: block;
+input {
   width: 100%;
-  margin: 10px 0;
   padding: 10px;
-  font-size: 16px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 button {
-  background: #007bff;
-  color: #fff;
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
 }
 
 button:hover {
-  background: #0056b3;
+  background-color: #45a049;
 }
 
 .error-message {
   color: red;
-  font-size: 0.9rem;
-  margin-top: -5px;
-  margin-bottom: 10px;
+  font-size: 0.9em;
+  margin-top: 10px;
+}
+
+.setup-2fa-container {
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.setup-2fa-container img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
 }
