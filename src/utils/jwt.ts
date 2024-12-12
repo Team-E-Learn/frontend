@@ -1,4 +1,3 @@
-// utils/jwt.ts
 import { create, Header, Payload } from "https://deno.land/x/djwt@v3.0.2/mod.ts";
 
 const SECRET_KEY = "your_secret_key"; // The key must be handled correctly (convert to CryptoKey)
