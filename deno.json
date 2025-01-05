@@ -4,8 +4,5 @@
   },
   "tasks": {
     "dev": "deno run --allow-net src/main.ts"
-  },
-  "imports": {
-    "rollup": "https://deno.land/x/rollup@v2.4.2/mod.ts"
   }
 }
