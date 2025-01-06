@@ -1,7 +1,8 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { verify2FACode } from './2fa'; // Import 2FA verification logic from 2fa.ts
-  
+  import { goto } from '$app/navigation';
+
   const dispatch = createEventDispatcher();
   
   let code = '';
@@ -17,18 +18,23 @@
 
     if (result.verified) {
       console.log('Verification successful');
-      close();  // Close modal on success
+      goto('/CourseHome'); // Redirect within the SvelteKit app
     } else {
-      errorMessage = result.message || 'Verification failed. Please try again.'; // Show error message
+      errorMessage = result.message || 'Verification failed. Please try again.';
     }
   }
 </script>
 
 <div class="modal">
   <div class="modal-content">
+    <!-- Header with title -->
     <div class="modal-header">
-      <h2>Two-Factor Authentication</h2>
+      <h2>2-step verification</h2>
     </div>
+
+    <!-- Divider Line -->
+    <hr class="divider" />
+
     <div class="modal-body">
       <p>Please enter the verification code from your authenticator app.</p>
 
@@ -46,7 +52,6 @@
       {/if}
 
       <button class="button" on:click={verify}>Verify</button>
-
       <button class="button-secondary" on:click={close}>Cancel</button>
     </div>
 
