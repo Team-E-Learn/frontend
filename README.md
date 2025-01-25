@@ -15,28 +15,28 @@ deno task build
 deno run ./build/index.js
 ```
 
-### Using file structure
+## Using file structure
 
-#assets
+### assets
 
 all assets such as images go in here
 
-#lib
+### lib
 
 all library related documents go here
 
-#routes
+### routes
 
 each folder in this file will represent a route ie the file CourseHome will be url/CourseHome
 all svelte files go here
 
-#shared 
+### shared 
 
 shared files go here
 
-#styles
+### styles
 
 all css files go in here
 
-#utils
+### utils
 don't touch this otherwise things will break
