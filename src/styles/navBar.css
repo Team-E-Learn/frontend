@@ -1,0 +1,24 @@
+.topnav {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #d1b6e8;
+    overflow: hidden;
+}
+
+.topnav button {
+    background-color: #bfd7df;
+    padding: 1rem;
+}
+
+.topnav p {
+    color: #000000;
+    margin: 0;
+}
+
+.topnav img {
+    margin-left: auto;
+    padding: 0rem 1rem 0rem 0rem;
+}
