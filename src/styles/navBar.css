@@ -1,11 +1,16 @@
-.topnav {
+.nav-container {
     position: sticky;
     top: 0;
+}
+
+.topnav {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 1rem;
     background-color: #d1b6e8;
     overflow: hidden;
+    height: 2.5rem;
 }
 
 .topnav button {
