@@ -1,8 +1,8 @@
 <script lang="ts">
-    import "../../styles/homePage.css"
-    import Organisation from "./OrganisationTitle.svelte"
-    import Modules from "./moduleSelector.svelte"
+    import "../../styles/homePage.css" //import styles
+    import Organisation from "./OrganisationTitle.svelte" // organisations element
 
+    // temporary json for testing
     let courseInfo = [
         {
             "org_name": "University of Lincoln",
