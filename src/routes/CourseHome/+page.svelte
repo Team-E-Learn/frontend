@@ -3,6 +3,7 @@
     import '../../styles/global.css'; // Import global styles
     import '../../styles/homePage.css'; // Import styles
     import NavBar from "../../componenets/NavBar.svelte";
+    import Corses from "./coursesSection.svelte"
 
     onMount(() => {
     //     let button: HTMLButtonElement = document.createElement('button');
@@ -17,67 +18,5 @@
 </script>
 
 <NavBar />
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
-<p>home page</p>
+<Corses />
+

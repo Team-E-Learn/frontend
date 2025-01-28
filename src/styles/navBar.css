@@ -8,7 +8,7 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    background-color: #d1b6e8;
+    background-color: #373737;
     overflow: hidden;
     height: 2.5rem;
 }
@@ -19,7 +19,7 @@
 }
 
 .topnav p {
-    color: #000000;
+    color: #ffffff;
     margin: 0;
 }
 
