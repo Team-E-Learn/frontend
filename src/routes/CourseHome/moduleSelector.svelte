@@ -9,7 +9,7 @@
 {#if mod.modules !== undefined}
     <div class="modules">
         {#each mod.modules as mods}
-            <a>{mods.name}</a>
+            <a class="mod-buttons">{mods.name}</a>
         {/each}
     </div>
 {/if}
