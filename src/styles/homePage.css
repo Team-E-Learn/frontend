@@ -1,20 +1,29 @@
 .organisation{
     left: 0;
+    margin-top: 6vh;
 }
 
 .organisation h2{
     color: #000000;
-    margin: 6vh 0vw 0vh 0vw;
+    margin: 0;
 }
 .organisation h3{
     color: #000000;
     margin: 0;
 }
 
-.organisation p{
+.organisation.bundle{
+    margin-left: 2vw;
+    margin-top: 0;
+}
+
+.divider{
     background-image: linear-gradient(to right, #000000 , #ffffff);;
     padding: 0.5rem;
     margin: 0;
+}
+
+.divider.bundle{
 }
 
 .modules{
@@ -27,7 +36,7 @@
     margin: 1rem;
 }
 
-.modules a{
+.mod-buttons{
     border-radius: 25px;
     background-color: #58585c;
     text-align: center;
@@ -38,7 +47,7 @@
     font-size: 2vw;
 }
 
-.modules a:hover{
+.mod-buttons:hover{
     background-color: #222225;
 }
 
