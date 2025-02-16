@@ -12,7 +12,7 @@
 
 <div class="organisation">
     <h2>{org.org_name}</h2>
-    <p></p>
+    <p class="divider"></p>
 
     <!-- Render standalone modules -->
     {#if org.modules}
