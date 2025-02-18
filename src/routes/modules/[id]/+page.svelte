@@ -5,17 +5,6 @@
 
     let { data } = $props();
 
-    // fetch("/v1/auth/login", {
-    //     method: "POST",
-    //     headers: {
-    //         "Authorization": "Bearer CUM"
-    //     },
-    //     body: JSON.stringify({
-    //         "email": "cum@balls.com",
-    //         "password": "penis"
-    //     })
-    // })
 </script>
 
-<h1>{data.module_id}</h1>
-<Contents/>
+<Contents id="{data.module_id}"/>
