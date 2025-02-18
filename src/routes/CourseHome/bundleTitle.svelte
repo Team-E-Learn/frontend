@@ -7,14 +7,12 @@
     }; // pass though bundle info from json
 </script>
 
-<div class="organisation">
+<div class="organisation bundle">
     <h3>{bundle.name}</h3>
-    <p></p>
+    <p class="divider bundle"></p>
 
     <!-- Render bundle modules -->
     {#if bundle.modules !== undefined}
-        <div class="modules">
-            <Modules mod={{ modules: bundle.modules }} />
-        </div>
+        <Modules mod={{ modules: bundle.modules }} />
     {/if}
 </div>

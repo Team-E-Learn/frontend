@@ -1,0 +1,36 @@
+.contents{
+    display: flex;
+    flex-direction: column;
+}
+
+.lesson-header{
+    width: 100vw;
+}
+
+.lesson-header button{
+    width: 100%;
+    height: 3rem;
+    text-align: left;
+    font-size: 25px;
+}
+
+.lesson-section{
+    display: flex;
+    flex-direction: column;
+}
+
+.lesson-section.hidden{
+    display: none;
+}
+
+.section_content{
+    width: 98vw;
+    margin-left: 2vw;
+}
+
+.section_content button{
+    width: 100%;
+    height: 1.5rem;
+    text-align: left;
+    font-size: 15px;
+}
