@@ -88,34 +88,36 @@
     <p class="divider"></p>
 </div>
 
-<div id="dashboard" class="dashboard">
-    <div class="announcements">
-        {#each announcemntsInfo[0]["announcements"] as an}
-            <h4>{an.title}</h4>
-            <p>{an.course}</p>
-        {/each}
+<div class = "dashboardContainer">
+    <div id="dashboard" class="dashboard">
+       <div class="announcements">
+           {#each announcemntsInfo[0]["announcements"] as an}
+               <h4>{an.title}</h4>
+               <p>{an.course}</p>
+           {/each}
+        </div>
+        <div class = "grades">
+            <h1>{totalGrade}%</h1>
+        </div>
+
+       <div class = "calendar">
+            {#each callenderInfo[0]["callender"] as ca}
+                <h4>{ca.title}</h4>
+                <p>{ca.course} {ca.date}</p>
+            {/each}
+        </div>
     </div>
 
-    <div class = "grades">
-        <h1>{totalGrade}%</h1>
-    </div>
-
-    <div class = "info">
-        <h4>professors:</h4>
-        {#each courseInfo[0]["professors"] as ca}
-            <p>{ca.title}</p>
-        {/each}
-        <h4>useful links:</h4>
-        {#each courseInfo[0]["links"] as ca}
-            <a href = {ca.link}>{ca.linkTitle}</a>
-        {/each}
-    </div>
-
-    <div class = "calendar">
-        {#each callenderInfo[0]["callender"] as ca}
-            <h4>{ca.title}</h4>
-            <p>{ca.course} {ca.date}</p>
-        {/each}
+    <div class = "dashboardSide">
+        <div class = "info">
+            <h4>professors:</h4>
+            {#each courseInfo[0]["professors"] as ca}
+                <p>{ca.title}</p>
+            {/each}
+            <h4>useful links:</h4>
+            {#each courseInfo[0]["links"] as ca}
+                <p><a href = {ca.link}>{ca.linkTitle}</a></p>
+            {/each}
+        </div>
     </div>
 </div>
-
