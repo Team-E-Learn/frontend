@@ -6,5 +6,7 @@
     import Dashboard from "./homeDashboard.svelte";
 </script>
 
+<!-- calls dashboard element -->
+<Dashboard/>
 <!-- calls corses element -->
 <Corses />
