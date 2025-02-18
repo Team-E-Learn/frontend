@@ -11,7 +11,7 @@
     margin: 0;
 }
 
-/* this divider will be used around the code more. Potentially this should be moved to another Stylesheet*/
+/* this divider will be used around the code more. Potentially this should be moved to another Stylesheet */
 .divider{
     background-image: linear-gradient(to right, deeppink , #ffffff);;
     padding: 0.5rem;
