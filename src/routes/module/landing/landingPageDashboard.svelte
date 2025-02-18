@@ -1,5 +1,5 @@
 <script lang="ts">
-    import '../../styles/moduleLandingPage.css'
+    import '../../../styles/moduleLandingPage.css'
     let gradeCentreInfo = [{
         "grade": [
             {
