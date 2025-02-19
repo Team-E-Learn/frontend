@@ -2,6 +2,9 @@
     import '../../../styles/global.css'; // Import global styles
     import '../../../styles/moduleLandingPage.css'; // Import styles
     import Contents from './contentsBar.svelte' // Import contents bar
+
+    let { data } = $props();
+
 </script>
 
-<Contents/>
+<Contents id="{data.module_id}"/>

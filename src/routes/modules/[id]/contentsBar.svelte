@@ -2,6 +2,8 @@
     import '../../../styles/moduleLandingPage.css'; // Import styles
     import Lesson from "./lessons.svelte"; //Import lessons
 
+    export let id: number;
+
     let lessons = [
         {
             "lesson_name": "fundamentals",
@@ -76,6 +78,7 @@
 </script>
 
 <div class="contents">
+    <h1>{id}</h1>
     {#each lessons as lesson}
         <Lesson info={lesson}/>
     {/each}
