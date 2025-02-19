@@ -1,7 +1,7 @@
 <script lang="ts">
 
-    let content = [{
-        "content": {
+    let data = [{
+        "data": {
             "title": "Burger King Foot Lettuce",
             "text": "\n" +
                 "\n" +
@@ -17,7 +17,7 @@
 </script>
 
 <div class = "textImageBlock">
-    <h3>{content[0]["content"]["title"]}</h3>
-    <p>{content[0]["content"]["text"]}</p>
-    <img src={content[0]["content"]["image"]} alt={content[0]["content"]["altText"]}>
+    <h3>{data[0]["data"]["title"]}</h3>
+    <p>{data[0]["data"]["text"]}</p>
+    <img src={data[0]["data"]["image"]} alt={data[0]["data"]["altText"]}>
 </div>

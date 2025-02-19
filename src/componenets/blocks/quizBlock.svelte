@@ -1,7 +1,7 @@
 <script lang="ts">
 
-    let content = [{
-        "content": {
+    let data = [{
+        "data": {
             "": ""
         }
     }]

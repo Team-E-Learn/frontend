@@ -1,7 +1,7 @@
 <script lang="ts">
 
     let content = [{
-        "content": {
+        "data": {
             "title": "Burger King Foot Lettuce",
             "text": "\n" +
                 "\n" +
