@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    let content = [{
+    let data = [{
         "data": {
             "title": "Burger King Foot Lettuce",
             "text": "\n" +
@@ -16,6 +16,6 @@
 </script>
 
 <div class="textBlock">
-    <h3>{content[0]["content"]["title"]}</h3>
-    <p>{content[0]["content"]["text"]}</p>
+    <h3>{data[0]["data"]["title"]}</h3>
+    <p>{data[0]["data"]["text"]}</p>
 </div>
