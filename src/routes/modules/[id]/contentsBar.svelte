@@ -2,8 +2,6 @@
     import '../../../styles/moduleLandingPage.css'; // Import styles
     import Lesson from "./lessons.svelte"; //Import lessons
 
-    export let id: number;
-
     let lessons = [
         {
             "lesson_name": "fundamentals",
@@ -73,12 +71,11 @@
                     "section_name": "docs"
                 }
             ]
-        },
-    ]
+        }
+    ] //temporary data : Replace with api call
 </script>
 
-<div class="contents">
-    <h1>{id}</h1>
+<div class="contents small">
     {#each lessons as lesson}
         <Lesson info={lesson}/>
     {/each}
