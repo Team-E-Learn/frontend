@@ -3,6 +3,7 @@
     import '../../../styles/moduleLandingPage.css'; // Import styles
     import Contents from './contentsBar.svelte' // Import contents component
     import Blocks from '../../../componenets/block-system.svelte' // Import contents component
+    import Dashboard from './landingPageDashboard.svelte' // Import dashboard
     import {mount, onMount} from "svelte"; // Import contents bar
 
     let { data } = $props(); // Get the module_id passed in from the home page
@@ -45,6 +46,9 @@
         }
     });
 </script>
+
+
+<Dashboard/>
 
 <div style="position: relative;">
     <div class="content-stick">
