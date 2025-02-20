@@ -12,13 +12,12 @@
     isValidEmail = isValid;
     errorMessage = message;
 
+    const emailInput = document.getElementById("email") as HTMLInputElement;
     if (!isValidEmail) {
       email = "";
-      const emailInput = document.getElementById("email") as HTMLInputElement;
       emailInput.classList.add('invalid'); 
       emailInput.focus();
     } else {
-      const emailInput = document.getElementById("email") as HTMLInputElement;
       emailInput.classList.remove('invalid'); 
     }
   };
