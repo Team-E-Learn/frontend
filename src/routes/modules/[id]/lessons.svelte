@@ -2,7 +2,7 @@
     import '../../../styles/moduleLandingPage.css'; // Import styles
     import Section from "./sections.svelte";
     import {onMount} from "svelte";
-    import sections from "./sections.svelte";
+
     export let info: {
         lesson_name: string;
         lesson_id: number;
@@ -25,7 +25,7 @@
 
 <div class="lesson">
     <div class="lesson-header">
-        <button class="lesson-button">{info.lesson_name}</button>
+        <button class="lesson-button" data-lesson_id="{info.lesson_id}">{info.lesson_name}</button>
     </div>
 
     <div class="lesson-section hidden">
