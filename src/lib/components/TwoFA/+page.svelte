@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { verify2FACode } from './2fa'; // Import 2FA verification logic from 2fa.ts
+  import { verify2FACode } from '$lib/components/TwoFA/TwoFAModal'; // Import 2FA verification logic from 2fa.ts
   import { goto } from '$app/navigation';
 
   const dispatch = createEventDispatcher();
@@ -62,5 +62,5 @@
 </div>
 
 <style>
-  @import '../../styles/modal.css';
+  @import '../../../styles/modal.css';
 </style>
