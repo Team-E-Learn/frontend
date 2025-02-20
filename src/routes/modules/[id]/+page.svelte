@@ -3,10 +3,11 @@
     import '../../../styles/moduleLandingPage.css'; // Import styles
     import Contents from './contentsBar.svelte' // Import contents bar
     import LandingPageDashboard from './landingPageDashboard.svelte';
+
+    let { data } = $props();
+
 </script>
 
-let { data } = $props();
+ <LandingPageDashboard/>
 
-<LandingPageDashboard/>
-<Contents/>
 <Contents id="{data.module_id}"/>
