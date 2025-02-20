@@ -1,9 +1,9 @@
-.content-stick{
+.content-stick{ /* make the content bar sticky */
     position: sticky;
     top: 0;
 }
 
-.contents{
+.contents{/* contents bar style */
     position: absolute;
     top: 0;
     display: flex;
@@ -11,18 +11,14 @@
     overflow: scroll;
     width: 100vw;
     height: 100vh;
+    background-color: #58585c;
 }
 
-.contents.small{
+.contents.small{ /* contents bar side panel */
     width: 20vw;
 }
 
-a{
-    width: 100vw;
-    display: flex;
-}
-
-.lesson-header{
+.lesson-header{ /*  */
     width: 100%;
 }
 
@@ -31,6 +27,12 @@ a{
     height: 3rem;
     text-align: left;
     font-size: 25px;
+    background-color: #156f7d;
+    border: black;
+}
+
+.lesson-header button:hover{
+    background-color: #1a889a;
 }
 
 .lesson-section{
@@ -49,10 +51,17 @@ a{
 
 .section_button{
     width: 100%;
-    height: 1.5rem;
+    height: 2.5rem;
     text-align: left;
-    font-size: 15px;
+    font-size: 20px;
+    background-color: #396a91;
+    border: black;
 }
+
+.section_button:hover{
+    background-color: #4782b5;
+}
+
 
 #cached-lesson{
     display: none;
