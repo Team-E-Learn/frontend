@@ -12,21 +12,17 @@
 
 <div class="organisation">
     <h2>{org.org_name}</h2>
-    <p></p>
+    <p class="divider"></p>
 
     <!-- Render standalone modules -->
     {#if org.modules}
-        <div class="modules">
-            <Modules mod={{ modules: org.modules }} />
-        </div>
+        <Modules mod={{ modules: org.modules }} />
     {/if}
 
     <!-- Use an {#each} loop to render bundles components -->
     {#if org.bundles !== undefined}
-        <div class="bundles">
-            {#each org.bundles as bundle}
-                <Bundles bundle={bundle} />
-            {/each}
-        </div>
+        {#each org.bundles as bundle}
+            <Bundles bundle={bundle} />
+        {/each}
     {/if}
 </div>
