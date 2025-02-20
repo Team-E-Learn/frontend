@@ -8,10 +8,12 @@
     top: 0;
     display: flex;
     flex-direction: column;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     width: 100vw;
     height: 100vh;
     background-color: #e2b9f1;
+    transition: width 0.5s;
 }
 
 .contents.small{ /* contents bar side panel */
@@ -29,6 +31,7 @@
     font-size: 25px;
     background-color: #cd30a8;
     border: black;
+    cursor: pointer;
 }
 
 .lesson-header button:hover{
@@ -38,10 +41,17 @@
 .lesson-section{
     display: flex;
     flex-direction: column;
+    transition: transform 0.5s;
+    height: auto;
+    transform: scaleY(1);
+    transform-origin: top;
 }
 
 .lesson-section.hidden{
-    display: none;
+    transform: scaleY(0);
+    height: 0;
+    transition-delay: 0ms !important;
+    transition-duration: 0ms !important;
 }
 
 .section_content{
@@ -56,6 +66,7 @@
     font-size: 20px;
     background-color: #b352a1;
     border: #000000;
+    cursor: pointer;
 }
 
 .section_button:hover{

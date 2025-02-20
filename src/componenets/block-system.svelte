@@ -1,5 +1,6 @@
 <script lang="ts">
     import "../styles/block-system.css" // import styles
+    import { onMount } from "svelte";
 
     export let lesson_id: number; // pass in lesson id
 
@@ -32,6 +33,13 @@
             "data": "(link to download)"
         }
     ] // temporary json : replace with api call
+    onMount(() => {
+      const colours = ["red", "green", "blue", "pink", "yellow", "orange", "purpe"]
+      const elems = document.querySelectorAll(".block-container p");
+      elems.forEach(elem => {
+        elem.style.backgroundColor = colours[Math.floor(Math.random() * colours.length)];
+      })
+    });
 </script>
 
 <div id="blocks-{lesson_id}" class="block-container"> <!-- flex box that stores the blocks -->
