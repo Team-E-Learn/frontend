@@ -6,5 +6,5 @@
 </script>
 
 <div class="section_content">
-    <button>{info.section_name}</button>
+    <button class="section_button">{info.section_name}</button>
 </div>
