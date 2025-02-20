@@ -5,9 +5,8 @@
     import LandingPageDashboard from './landingPageDashboard.svelte';
 
     let { data } = $props();
-
 </script>
 
- <LandingPageDashboard/>
+<LandingPageDashboard/>
 
 <Contents id="{data.module_id}"/>
