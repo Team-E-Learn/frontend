@@ -18,6 +18,8 @@
                     section.classList.add("hidden");
                 })
                 event.target.parentElement.parentElement.querySelector(".lesson-section")?.classList.remove("hidden");
+                // top scroll
+                document.querySelector(".block-container p")[0].scrollIntoView({ behavior: "smooth" });
             })
         }
     });
