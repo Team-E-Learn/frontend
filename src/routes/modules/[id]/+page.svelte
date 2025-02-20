@@ -46,63 +46,9 @@
     });
 </script>
 
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-<a>Hello</a>
-
 <div style="position: relative;">
     <div class="content-stick">
-        <Contents id={data.module_id}/>
+        <Contents />
     </div>
 
     <div id="loaded-lesson">
