@@ -1,5 +1,8 @@
 <script lang="ts">
-    import "../styles/block-system.css"
+    import "../styles/block-system.css" // import styles
+
+    export let lesson_id: number; // pass in lesson id
+
     let blockData = [
         {
             "block_type": "1",
@@ -28,12 +31,11 @@
             "order": "3",
             "data": "(link to download)"
         }
-    ]
-    export let lesson_id: number;
+    ] // temporary json : replace with api call
 </script>
 
-<div id="blocks-{lesson_id}" class="block-container">
-    {#each blockData as block}
-        <p>{lesson_id}</p>
+<div id="blocks-{lesson_id}" class="block-container"> <!-- flex box that stores the blocks -->
+    {#each blockData as block} <!-- running through the block json -->
+        <p>{lesson_id}</p> <!-- temporary data -->
     {/each}
 </div>

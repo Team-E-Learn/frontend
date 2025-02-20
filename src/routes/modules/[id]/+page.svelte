@@ -1,28 +1,20 @@
 <script lang="ts">
     import '../../../styles/global.css'; // Import global styles
     import '../../../styles/moduleLandingPage.css'; // Import styles
-    import Contents from './contentsBar.svelte'
-    import Blocks from '../../../componenets/block-system.svelte'
+    import Contents from './contentsBar.svelte' // Import contents component
+    import Blocks from '../../../componenets/block-system.svelte' // Import contents component
     import {mount, onMount} from "svelte"; // Import contents bar
 
-    let { data } = $props();
+    let { data } = $props(); // Get  the module_id passed in from the home page
 
     let loadedLessons: number[] = $state([]);
-    //let Blocks = Blocks;
 
     onMount(() => {
         let lessonButtons: NodeListOf<HTMLElement> = document.querySelectorAll(".lesson-button");
         for (const btn: HTMLElement of lessonButtons) {
             btn.addEventListener("click", (event: Event) => {
-                //if(document.getElementById("loaded-lesson")){
-                    // document.getElementById("loaded-lesson").innerHTML = "";
-                //}
-                //console.log("clicked")
                 const target = event.target as HTMLButtonElement;
-                ///console.log(loadedLessons[target.dataset.lesson_id]);
-                // check if its already created
                 if (!loadedLessons.includes(target.dataset.lesson_id as number)) {
-                    // if it's not created, create it
                     loadedLessons = [...loadedLessons, target.dataset.lesson_id as number];
                 }
                 for(let id of loadedLessons) {
@@ -40,7 +32,6 @@
         let sectionButtons: NodeListOf<HTMLElement> = document.querySelectorAll(".section_button");
         for (const btn: HTMLElement of sectionButtons) {
             btn.addEventListener("click", (event: Event) => {
-
             })
         }
     });

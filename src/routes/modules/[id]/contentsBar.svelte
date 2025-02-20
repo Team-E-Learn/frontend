@@ -72,7 +72,7 @@
                 }
             ]
         }
-    ]
+    ] //temporary data : Replace with api call
 </script>
 
 <div class="contents small">
