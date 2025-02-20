@@ -36,6 +36,6 @@
 
 <div id="blocks-{lesson_id}" class="block-container"> <!-- flex box that stores the blocks -->
     {#each blockData as block} <!-- running through the block json -->
-        <p>{lesson_id}</p> <!-- temporary data -->
+        <p>{block.block_id}</p> <!-- temporary data -->
     {/each}
 </div>
