@@ -38,4 +38,5 @@
     {#each blockData as block} <!-- running through the block json -->
         <p>{block.block_id}</p> <!-- temporary data -->
     {/each}
+    <p>{lesson_id}</p> <!-- temporary data -->
 </div>

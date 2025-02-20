@@ -75,7 +75,7 @@
     ] //temporary data : Replace with api call
 </script>
 
-<div class="contents small">
+<div class="contents">
     {#each lessons as lesson}
         <Lesson info={lesson}/>
     {/each}
