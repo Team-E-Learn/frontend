@@ -1,5 +1,7 @@
 <script lang="ts">
 
+    import "../../styles/block-styles/text-block.css"
+
     let data = [{
         "data": {
             "title": "Burger King Foot Lettuce",
@@ -15,7 +17,7 @@
 
 </script>
 
-<div class="textBlock">
+<div class="text-block">
     <h3>{data[0]["data"]["title"]}</h3>
     <p>{data[0]["data"]["text"]}</p>
 </div>

@@ -1,4 +1,7 @@
 <script lang="ts">
+
+    import "../../styles/block-styles/image-block.css"
+
     let data = [{
 
         "data": {
@@ -8,6 +11,6 @@
     }]
 </script>
 
-<div class="imageBlock">
+<div class="image-block">
     <img src={data[0]["data"]["image"]} alt={data[0]["data"]["altText"]}>
 </div>

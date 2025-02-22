@@ -1,5 +1,7 @@
 <script lang="ts">
 
+    import "../../styles/block-styles/text-image-block.css"
+
     let data = [{
         "data": {
             "title": "Burger King Foot Lettuce",
@@ -16,7 +18,7 @@
     }]
 </script>
 
-<div class = "textImageBlock">
+<div class = "text-image-block">
     <h3>{data[0]["data"]["title"]}</h3>
     <p>{data[0]["data"]["text"]}</p>
     <img src={data[0]["data"]["image"]} alt={data[0]["data"]["altText"]}>
