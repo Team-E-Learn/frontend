@@ -7,8 +7,8 @@
     import ImageBlock from "../../componenets/blocks/imageBlock.svelte";
 </script>
 
-<TextBlock/>
-<ImageBlock/>
-<TextImageBlock/>
-<DownloadBlock/>
-<QuizBlock/>
+<TextBlock />
+<ImageBlock />
+<TextImageBlock />
+<DownloadBlock />
+<QuizBlock />
