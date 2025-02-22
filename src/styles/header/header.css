@@ -1,0 +1,10 @@
+.divider{
+    background-image: linear-gradient(to right, #000000 , #ffffff);;
+    padding: 0.5rem;
+    margin: 0;
+}
+
+.organisation h2{
+    color: #000000;
+    margin: 0;
+}

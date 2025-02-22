@@ -1,5 +1,5 @@
 <script lang="ts">
-    import '../../../styles/moduleLandingPage.css'; // Import styles
+    import '../../../styles/module-lnding/lessons.css'; // Import styles
     import Section from "./sections.svelte";
     import {onMount} from "svelte";
 
@@ -19,7 +19,7 @@
                 })
                 event.target.parentElement.parentElement.querySelector(".lesson-section")?.classList.remove("hidden");
                 // top scroll
-                document.querySelector(".block-container p")[0].scrollIntoView({ behavior: "smooth" });
+                document.querySelectorAll(".block-container p")[0].scrollIntoView({ behavior: "smooth" });
             })
         }
     });

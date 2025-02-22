@@ -62,5 +62,5 @@
 </div>
 
 <style>
-  @import '../../../styles/modal.css';
+  @import '../../../styles/login/modal.css';
 </style>

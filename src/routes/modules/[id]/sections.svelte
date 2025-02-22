@@ -1,5 +1,5 @@
 <script lang="ts">
-    import '../../../styles/moduleLandingPage.css'; // Import styles
+    import '../../../styles/module-lnding/sections.css'; // Import styles
     export let info: {
         section_name: string;
     }; // pass through lesson details from json

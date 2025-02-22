@@ -1,8 +1,8 @@
 <script lang="ts">
     import '../../../styles/global.css'; // Import global styles
-    import '../../../styles/moduleLandingPage.css'; // Import styles
+    import '../../../styles/module-lnding/moduleLandingPage.css'; // Import styles
     import Contents from './contentsBar.svelte' // Import contents component
-    import Blocks from '../../../componenets/block-system.svelte' // Import contents component
+    import Blocks from './block-system.svelte' // Import contents component
     import Dashboard from './landingPageDashboard.svelte' // Import dashboard
     import {mount, onMount} from "svelte"; // Import contents bar
 
@@ -47,14 +47,9 @@
     });
 </script>
 
-
 <Dashboard/>
-
 <div style="position: relative;">
-    <div class="content-stick">
-        <Contents />
-    </div>
-
+    <Contents />
     <div id="loaded-lesson">
         {#each loadedLessons as lesson}
             <Blocks lesson_id={lesson}/>
@@ -62,5 +57,4 @@
     </div>
 </div>
 <div id="cached-lesson">
-
 </div>
