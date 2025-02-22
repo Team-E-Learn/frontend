@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Header from "../../../componenets/header.svelte"
   let gradeCentreInfo = [
     {
       grade: [
@@ -90,10 +91,7 @@
   ];
 </script>
 
-<div class="dashboardHeader">
-  <h1>Dashboard</h1>
-  <p class="divider"></p>
-</div>
+<Header title="Dashboard"/>
 
 <div id="dashboard" class="dashboard">
   <div class="announcements">
@@ -127,10 +125,6 @@
 </div>
 
 <style>
-  /*
-  .dashboard-header {
-  }
-  */
 
   .dashboard {
     display: grid;

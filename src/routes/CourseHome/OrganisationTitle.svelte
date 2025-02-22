@@ -1,7 +1,8 @@
 <script lang="ts">
-    import "../../styles/homePage.css"; //import styles
+    import "../../styles/home-page/Organisation.css"; //import styles
     import Modules from "./moduleSelector.svelte" //imports modules element
     import Bundles from "./bundleTitle.svelte" //imports bundle element
+    import Header from "../../componenets/header.svelte"
     export let org: {
         org_name: string;
         org_id: number;
@@ -11,9 +12,7 @@
 </script>
 
 <div class="organisation">
-    <h2>{org.org_name}</h2>
-    <p class="divider"></p>
-
+    <Header title={org.org_name}/>
     <!-- Render standalone modules -->
     {#if org.modules}
         <Modules mod={{ modules: org.modules }} />

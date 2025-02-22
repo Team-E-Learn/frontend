@@ -1,5 +1,5 @@
 <script lang="ts">
-    import "../../styles/homePage.css"//import styles
+    import "../../styles/home-page/modules.css"//import styles
     export let mod: {
         modules: { name: string; module_id: number }[];
     };//pass through modules data from json

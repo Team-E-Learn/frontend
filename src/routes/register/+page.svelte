@@ -1,6 +1,6 @@
 <script lang="ts">
   import { validateEmail, handleContinue } from './register'; 
-  import '../../styles/register.css'; 
+  import '../../styles/registration/register.css';
 
   let email: string = "";
   let isValidEmail: boolean = true; 

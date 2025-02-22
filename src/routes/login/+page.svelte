@@ -1,7 +1,7 @@
 <script lang="ts">
   import { handleLogin } from './login'; // Import login logic
   import TwoFAModal from '$lib/components/TwoFA/+page.svelte'; // Import 2FA Modal component
-  import '../../styles/login.css'; // Import styles
+  import '../../styles/login/login.css'; // Import styles
 
   let email: string = '';
   let password: string = '';

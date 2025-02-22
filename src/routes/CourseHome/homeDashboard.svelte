@@ -71,10 +71,7 @@
   ];
 </script>
 
-<div class="dashboard-header">
-  <h1>Dashboard</h1>
-  <p class="divider"></p>
-</div>
+
 
 <div id="dashboard" class="dashboard">
   <div class="announcements">
@@ -95,10 +92,6 @@
 </div>
 
 <style>
-  /*
-  .dashboard-header {
-  }
-  */
 
   .dashboard {
     display: grid;

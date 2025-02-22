@@ -1,0 +1,9 @@
+.organisation{
+    left: 0;
+    margin-top: 6vh;
+}
+
+.organisation.bundle{
+    margin-left: 2vw;
+    margin-top: 0;
+}
