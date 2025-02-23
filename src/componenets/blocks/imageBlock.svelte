@@ -1,16 +1,17 @@
 <script lang="ts">
 
     import "../../styles/block-styles/image-block.css"
+    import image from "../../assets/Bliss_location,_Sonoma_Valley_in_2006.jpg"
 
     let data = [{
-
         "data": {
-            "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fsillycattvseries.fandom.com%2Fwiki%2FBig_Poo&psig=AOvVaw2p48Vdi8o33dYzsITLi7Xa&ust=1740067636205000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCOD-uq-P0IsDFQAAAAAdAAAAABAE",
-            "altText": "Big Poo The Cat"
+            "image": image,
+            "alt-text": "Bliss location, Sonoma Valley in 2006"
         }
     }]
 </script>
 
 <div class="image-block">
-    <img src={data[0]["data"]["image"]} alt={data[0]["data"]["altText"]}>
+    <img src={data[0]["data"]["image"]} alt={data[0]["data"]["alt-text"]}>
 </div>
+
