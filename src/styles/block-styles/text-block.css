@@ -1,4 +1,6 @@
 .text-block {
     background-color: pink;
     padding: 1rem;
+    border-radius: 1rem;
+    border-color: rebeccapurple;
 }

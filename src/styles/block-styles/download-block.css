@@ -1,5 +1,7 @@
 .download-block {
     background-color: pink;
     padding: 5rem;
+    border-radius: 1rem;
+    border-color: rebeccapurple;
 }
 
