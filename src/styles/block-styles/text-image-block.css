@@ -1,5 +1,6 @@
 .text-image-block {
     display: flex;
+    flex-direction: column;
     background-color: pink;
     padding: 1rem;
     border-radius: 1rem;
@@ -10,6 +11,6 @@
 
 .image-block img{
     flex: 1 1 auto;
-    width: 100%;
+    width: 50%;
     height: auto;
 }
