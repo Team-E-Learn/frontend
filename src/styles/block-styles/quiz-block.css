@@ -3,4 +3,6 @@
     padding: 5rem;
     border-radius: 1rem;
     border-color: rebeccapurple;
+    border-width: 1rem;
+    gap: 2%;
 }

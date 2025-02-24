@@ -1,6 +1,15 @@
 .text-image-block {
+    display: flex;
     background-color: pink;
     padding: 1rem;
     border-radius: 1rem;
     border-color: rebeccapurple;
+    border-width: 1rem;
+    flex: 1 1 auto;
+}
+
+.image-block img{
+    flex: 1 1 auto;
+    width: 100%;
+    height: auto;
 }
