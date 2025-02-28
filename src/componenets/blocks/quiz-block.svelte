@@ -37,7 +37,7 @@
 </script>
 
 <div class="quiz-block">
-    <h3>{data[0]["data"]["question"]}</h3>
+    <h1>{data[0]["data"]["question"]}</h1>
     <div class="options">
         {#each Object.values(data[0]["data"]["options"]) as option}
             <button on:click={() => isAnswer(option.isCorrect)}>{option.text}</button>

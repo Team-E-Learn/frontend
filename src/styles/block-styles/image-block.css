@@ -1,16 +1,17 @@
 .image-block{
     display: flex;
-    background-color: pink;
+    background-color: #227c9d;
     padding : 2rem;
     border-radius: 1rem;
-    border-color: rebeccapurple;
-    border-width: 1rem;
+    border: 3px solid #16c3b2;
     justify-content: center;
     align-items: center;
 }
 
 .image-block img{
-     flex: 1 1 auto;
-     width: 100%;
-     height: auto;
+    flex: 1 1 auto;
+    width: 100%;
+    height: auto;
+    border: 3px solid #16c3b2;
+    border-radius: 1rem;
  }

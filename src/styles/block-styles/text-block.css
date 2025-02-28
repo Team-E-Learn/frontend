@@ -1,7 +1,11 @@
 .text-block {
-    background-color: pink;
+    background-color: #227c9d;
     padding: 1rem;
     border-radius: 1rem;
-    border-color: rebeccapurple;
-    border-width: 1rem;
+    border: 3px solid #16c3b2;
 }
+
+.text-block h3{
+    text-align: center;
+}
+
