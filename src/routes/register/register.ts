@@ -1,4 +1,5 @@
-import allowedDomains from '../../shared/allowedDomains.json' with { type: "json" };
+import allowedDomains from "../../shared/allowedDomains.json" with { type: "json" };
+import { apiBaseUrl } from "../../shared/constants";
 
 // Extract domain from email
 const extractDomain = (email: string): string => {
@@ -6,7 +7,9 @@ const extractDomain = (email: string): string => {
 };
 
 // Validates the email format using a regular expression and checks if the domain is allowed.
-export const validateEmail = (email: string): { isValid: boolean; message: string } => {
+export const validateEmail = (
+  email: string,
+): { isValid: boolean; message: string } => {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailPattern.test(email)) {
     return { isValid: false, message: "Invalid email format." };
@@ -21,7 +24,9 @@ export const validateEmail = (email: string): { isValid: boolean; message: strin
 };
 
 // Validates the username format and checks if it is already taken.
-export const validateUsername = async (username: string): Promise<{ isValid: boolean; message: string }> => {
+export const validateUsername = async (
+  username: string,
+): Promise<{ isValid: boolean; message: string }> => {
   const usernamePattern = /^[a-zA-Z0-9_]{5,15}$/;
   if (username.length < 5) {
     return {
@@ -38,7 +43,8 @@ export const validateUsername = async (username: string): Promise<{ isValid: boo
   if (!usernamePattern.test(username)) {
     return {
       isValid: false,
-      message: "Invalid username. Only alphanumeric characters and underscores are allowed.",
+      message:
+        "Invalid username. Only alphanumeric characters and underscores are allowed.",
     };
   }
 
@@ -57,12 +63,16 @@ export const validateUsername = async (username: string): Promise<{ isValid: boo
 };
 
 // Validates the password format and checks if the password and confirm password match.
-export const validatePassword = (password: string, confirmPassword: string): { isValid: boolean; message: string } => {
+export const validatePassword = (
+  password: string,
+  confirmPassword: string,
+): { isValid: boolean; message: string } => {
   const passwordPattern = /^(?=.*[@$!%*?&])[^\s]{8,}$/;
   if (!passwordPattern.test(password)) {
     return {
       isValid: false,
-      message: "Password must be at least 8 characters, contain one special character, and have no spaces.",
+      message:
+        "Password must be at least 8 characters, contain one special character, and have no spaces.",
     };
   }
   if (password !== confirmPassword) {
@@ -80,16 +90,61 @@ export const validatePassword = (password: string, confirmPassword: string): { i
 
 // Simulate a database check for the username
 const checkUsernameInDatabase = async (username: string): Promise<boolean> => {
-  // Simulate a delay for the database check
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  const url = new URL(`${apiBaseUrl}/v1/auth/username`);
+  url.searchParams.append("username", username);
 
-  // Simulate checking the username in the database
-  const takenUsernames = ["user12345"];
-  return takenUsernames.includes(username);
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`http error! status: ${response.status}`);
+  }
+
+  const data = await response.json();
+  return data.message !== "Valid username";
+};
+
+export const register = async (
+  email: string,
+  username: string,
+  password: string,
+): Promise<{
+  ok: boolean;
+  message?: string;
+  token?: string;
+}> => {
+  const url = new URL(`${apiBaseUrl}/v1/auth/register`);
+  const formData = new FormData();
+  formData.append("email", email);
+  formData.append("username", username);
+  formData.append("password", password);
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`http error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    return {
+      ok: true,
+      token: data.token,
+    };
+  } catch (error) {
+    return {
+      ok: false,
+      message: error instanceof Error ? error.message : "An error occurered",
+    };
+  }
 };
 
 // Handles the continue action for email validation
-export const handleContinue = (email: string): { isValid: boolean; message: string } => {
+export const handleContinue = (
+  email: string,
+): { isValid: boolean; message: string } => {
   const isValid = validateEmail(email).isValid;
   return {
     isValid,
