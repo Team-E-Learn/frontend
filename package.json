@@ -1,5 +1,5 @@
 {
-	"name": "reg-page",
+	"name": "frontend",
 	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
@@ -15,8 +15,8 @@
 		"speakeasy": "^2.0.0"
 	},
 	"devDependencies": {
-"@sveltejs/adapter-node": "^5.2.9",
-"@sveltejs/kit": "^2.10.1",
+    "@sveltejs/adapter-node": "^5.2.9",
+    "@sveltejs/kit": "^2.10.1",
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
