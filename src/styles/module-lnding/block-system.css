@@ -1,0 +1,10 @@
+.block-container{
+    display: flex;
+    margin-left: 20%;
+    flex-direction: column;
+}
+
+.block-container p{
+    padding-bottom: 50vh ;
+    background-color: #58585c;
+}
