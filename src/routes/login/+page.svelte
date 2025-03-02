@@ -2,7 +2,7 @@
     import { handleLogin } from "./login"; // Import login logic
     import TwoFAModal from "$lib/components/TwoFA/+page.svelte"; // Import 2FA Modal component
     import { fly } from "svelte/transition";
-    import "../../styles/login.css"; // Import styles
+    import "../../styles/login/login.css"
     import { goto } from "$app/navigation";
 
     let email: string = "";
