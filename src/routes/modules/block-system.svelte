@@ -1,5 +1,5 @@
 <script lang="ts">
-    import "../../../styles/module-lnding/block-system.css" // import styles
+    import "../../styles/module-landing/block-system.css" // import styles
     import { onMount } from "svelte";
 
     export let lesson_id: number; // pass in lesson id

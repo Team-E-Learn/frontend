@@ -1,5 +1,5 @@
 <script lang="ts">
-    import '../../../styles/module-lnding/lessons.css'; // Import styles
+    import '../../styles/module-landing/lessons.css'; // Import styles
     import Section from "./sections.svelte";
     import {onMount} from "svelte";
 
@@ -7,7 +7,7 @@
         lesson_name: string;
         lesson_id: number;
         url: string;
-        sections: {section_name: string;}
+        sections: {section_name: string;}[]
     }; // pass through lesson details from json
 
     onMount(() => {

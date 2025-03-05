@@ -1,6 +1,6 @@
 <script lang="ts">
-    import '../../../styles/module-lnding/contents.css'; // Import styles
-    import Lesson from "./lessons.svelte"; //Import lessons
+    import '../../../styles/module-landing/contents.css'; // Import styles
+    import Lesson from "../lessons.svelte"; //Import lessons
 
     let lessons = [
         {
@@ -76,8 +76,10 @@
 </script>
 <div class="content-stick">
     <div class="contents ">
-        {#each lessons as lesson}
-            <Lesson info={lesson}/>
-        {/each}
+        <div class="lessons" id="lesson">
+            {#each lessons as lesson}
+                <Lesson info={lesson}/>
+            {/each}
+        </div>
     </div>
 </div>

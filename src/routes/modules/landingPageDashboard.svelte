@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Header from "../../../componenets/header.svelte"
+  import Header from "../../componenets/header.svelte"
   let gradeCentreInfo = [
     {
       grade: [

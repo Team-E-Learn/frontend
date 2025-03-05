@@ -1,0 +1,71 @@
+.content-stick{ /* make the content bar sticky */
+    position: sticky;
+    top: 0;
+}
+
+.contents{/* contents bar style */
+    position: absolute;
+    top: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: 100vw;
+    height: 100vh;
+    background-color: #e2b9f1;
+    transition: width 0.5s;
+}
+
+.contents.small{ /* contents bar side panel */
+    width: 20vw;
+}
+
+/* lessons layout */
+.lessons{
+    display: flex;
+    flex-direction: column;
+}
+.lessons.hidden{
+    display: none;
+}
+.creation-tools{
+    height: 2rem;
+    width: 100%;
+    background-color: #58585c;
+}
+.add-lesson{
+    height: 100%;
+    width: 2rem;
+}
+.remove-lesson{
+    height: 100%;
+    width: 2rem;
+}
+
+/* selection buttons */
+.selection{
+    display: flex;
+    flex-wrap: nowrap;
+    height: 2rem;
+    width: 100%;
+}
+.selection.hidden{
+    display: none;
+}
+.selection-button{
+    flex-grow: 1;
+}
+
+/* block preview section*/
+.blocks{
+    display: flex;
+}
+.blocks.hidden{
+    display: none;
+}
+
+/* block editor section */
+.block-editor{
+    display: flex;
+}
+.block-editor.hidden{
+    display: none;
+}
