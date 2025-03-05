@@ -1,12 +1,14 @@
 <script lang="ts">
     import{onMount} from "svelte";
     import '../../styles/global.css'; // Import global styles
-    import '../../styles/homePage.css'; // Import styles
-    import Corses from "./coursesSection.svelte"//import corses element
-    import Dashboard from "./homeDashboard.svelte";
+    import Courses from "./coursesSection.svelte"//import courses element
+    import Dashboard from "./homeDashboard.svelte";//import Dashboard element
+    import Header from "../../componenets/header.svelte"//import Header element
 </script>
 
+<!-- calls header element -->
+<Header title="Home Page"/>
 <!-- calls dashboard element -->
 <Dashboard/>
 <!-- calls corses element -->
-<Corses />
+<Courses />

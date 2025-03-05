@@ -1,5 +1,5 @@
-import {error} from "@sveltejs/kit";
-import type {PageLoad} from "./$types";
+import {error} from "@sveltejs/kit"; // import error
+import type {PageLoad} from "./$types"; // import the page load data
 
 export const load: PageLoad = ({ params }) => {
     if (params.id){

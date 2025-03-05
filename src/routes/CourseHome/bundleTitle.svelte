@@ -1,6 +1,7 @@
 <script lang="ts">
-    import "../../styles/homePage.css";//import styles
+    import "../../styles/home-page/Organisation.css"//import styles
     import Modules from "./moduleSelector.svelte"//imports modules element
+    import Header from "../../componenets/header.svelte"
     export let bundle: {
         name: string;
         modules: { name: string; module_id: number }[];
@@ -8,8 +9,7 @@
 </script>
 
 <div class="organisation bundle">
-    <h3>{bundle.name}</h3>
-    <p class="divider bundle"></p>
+    <Header title={bundle.name}/>
 
     <!-- Render bundle modules -->
     {#if bundle.modules !== undefined}
