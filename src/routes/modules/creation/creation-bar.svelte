@@ -3,32 +3,83 @@
     import Lesson from "../lessons.svelte"
     import {onMount} from "svelte";
     import lessons from "../lessons.svelte";
+    import {text} from "@sveltejs/kit";
     interface Lessons {
             lesson_name: string;
             lesson_id: number;
-            url: string;
             sections: { section_name: string; }[];
-        }[]//create lessons json
+        }//create lessons json
     // Initialize as an empty array
-    let lessonsData: Lessons = [];
+    let lessonsData: Lessons[] = [];
 
     onMount(() => {
         let count = 0;
+        let addLesson = document.querySelector(".add-lesson")
+        let removeLesson = document.querySelector(".remove-lesson")
+        let textEntry = document.querySelector(".entry")
+        let textBox = document.querySelector(".text")
+        if(!addLesson || !textEntry || !textBox || !removeLesson) return;
+
         // Create a new lesson entry
-        document.querySelector(".add-lesson").addEventListener("click", (event: Event) => {
-            const newLesson: Lessons = {
-                lesson_name: "testing",
-                lesson_id: count += 1,
-                url: "temp",
-                sections: [
-                    { section_name: "intro" },
-                    { section_name: "work" }
-                ]
-            };
-            // Add the new lesson to the array
-            lessonsData = [...lessonsData, newLesson];
-            console.log(lessonsData)
+        addLesson.addEventListener("click", (event: Event) => {
+            textEntry.classList.remove("hidden")
+            textBox.focus();
         })
+
+        //TODO: fix remove lesson button
+        removeLesson.addEventListener("click", (event: Event) => {
+            document.querySelectorAll(".lesson-section").forEach(section => {
+                // Get lesson ID from the section's dataset
+                const lessonId = section.dataset.lessonId;
+
+                // Remove the lesson from lessonsData
+                lessonsData = lessonsData.filter((lesson: Lessons) => lesson.lesson_id !== lessonId);
+            });
+        })
+
+        document.addEventListener("keydown", (event) => {
+            // If the enter text element is on screen
+            if (event.key === "Escape") {
+                textEntry.classList.add("hidden")
+            }
+        })
+        // check if enter is pressed
+        document.addEventListener("keydown", (event) => {
+            // If the enter text element is on screen
+            if(event.key === "Enter") {
+                if (!textEntry.classList.contains("hidden")) {
+                    console.log("Enter pressed")
+                    let input_name = textBox.value
+                    const newLesson: Lessons = {
+                        lesson_name: input_name,
+                        lesson_id: count += 1,
+                        sections: [{section_name: "yes"}]
+                    };
+                    textBox.value = ""
+                    // Add the new lesson to the array
+                    lessonsData = [...lessonsData, newLesson];
+                    textEntry.classList.add("hidden")
+                }
+            }
+        });
+
+        let lessons = document.querySelector(".lessons");
+        let blocks = document.querySelector(".blocks");
+        let editor = document.querySelector(".block-editor");
+        if(!lessons || !blocks || !editor) return;
+
+        // Switching between the different bar sections
+        let selectionButtons: NodeListOf<HTMLElement> = document.querySelectorAll(".selection-button");
+        for (const btn: HTMLElement of selectionButtons) {
+            btn.addEventListener("click", (event: Event) => {
+                const target = event.target as HTMLButtonElement;
+                blocks.classList.toggle("hidden", blocks.id !== target.id);
+                editor.classList.toggle("hidden", editor.id !== target.id);
+                lessons.classList.toggle("hidden", lessons.id !== target.id);
+            })
+        }
+
+
     });
 </script>
 
@@ -40,6 +91,7 @@
             <button class="selection-button" id="editor">Block Editor</button>
         </div>
         <div class="blocks hidden" id="block">
+            <>
         </div>
         <div class="block-editor hidden" id="editor">
         </div>

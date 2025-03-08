@@ -57,10 +57,13 @@
 /* block preview section*/
 .blocks{
     display: flex;
+    flex-direction: column;
 }
 .blocks.hidden{
     display: none;
 }
+
+
 
 /* block editor section */
 .block-editor{

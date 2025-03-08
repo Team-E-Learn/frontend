@@ -1,8 +1,9 @@
 <script lang="ts">
     import '../../../styles/global.css'; // Import global styles
-    import Creation from "./creation-bar.svelte"; // Import creation bar
+    import Creation from './creation-bar.svelte'; // Import creation bar
     import Blocks from '../block-system.svelte' // Import contents component
     import Dashboard from '../landingPageDashboard.svelte' // Import dashboard
+    import TextEntry from './text-entry.svelte'
     import {mount, onMount} from "svelte"; // Import contents bar
 
     let { data } = $props(); // Get the module_id passed in from the home page
@@ -26,34 +27,27 @@
             // If the button is active, make the contents element small or large if it's already small
             if (target.classList.contains("active")) {
                 contents.classList.toggle("small");
-                return;
-            }
 
-            // Define objects
-            let selection = document.querySelector(".selection");
-            let blocks = document.querySelector(".blocks");
-            let editor = document.querySelector(".block-editor");
-            if(!selection || !blocks || !editor) return;
+                // Define objects
+                let selection = document.querySelector(".selection");
+                let blocks = document.querySelector(".blocks");
+                let editor = document.querySelector(".block-editor");
+                if(!selection || !blocks || !editor) return;
 
-            // Activates selection tools when bar is smalls
-            if(contents.classList.contains("small")){
-                selection.classList.remove("hidden")
-                // Switching between the different bar sections
-                let selectionButtons: NodeListOf<HTMLElement> = document.querySelectorAll(".selection-button");
-                for (const btn: HTMLElement of selectionButtons) {
-                    btn.addEventListener("click", (event: Event) => {
-                        const target = event.target as HTMLButtonElement;
-                        blocks.classList.toggle("hidden", blocks.id !== target.id);
-                        editor.classList.toggle("hidden", editor.id !== target.id);
-                        parent.classList.toggle("hidden", parent.id !== target.id);
-                    })
+                // Activates selection tools when bar is smalls
+                if (contents.classList.contains("small")) {
+                    selection.classList.remove("hidden")
                 }
-            }
-            // Removes all the tools other than the lessons section when bar is large
-            else{
-                selection.classList.add("hidden")
-                blocks.classList.add("hidden")
-                editor.classList.add("hidden")
+                // Removes all the tools other than the lessons section when bar is large
+                else {
+                    selection.classList.add("hidden")
+                    blocks.classList.add("hidden")
+                    editor.classList.add("hidden")
+                    parent.classList.remove("hidden")
+                }
+
+                // Returns out of loop
+                return;
             }
 
             // Remove the active tag from every button and add active to the pressed button
@@ -84,6 +78,7 @@
     });
 </script>
 
+<TextEntry/>
 <Dashboard/>
 <div style="position: relative;">
     <Creation />
