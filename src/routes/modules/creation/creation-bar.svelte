@@ -1,14 +1,14 @@
 <script lang="ts">
     import '../../../styles/module-creation/creation.css'; // Import styles
     import Lesson from "../lessons.svelte"
+    import Header from "../../../componenets/header.svelte"
     import {onMount} from "svelte";
-    import lessons from "../lessons.svelte";
-    import {text} from "@sveltejs/kit";
     interface Lessons {
             lesson_name: string;
             lesson_id: number;
             sections: { section_name: string; }[];
         }//create lessons json
+
     // Initialize as an empty array
     let lessonsData: Lessons[] = [];
 
@@ -26,14 +26,14 @@
             textBox.focus();
         })
 
-        //TODO: fix remove lesson button
         removeLesson.addEventListener("click", (event: Event) => {
             document.querySelectorAll(".lesson-section").forEach(section => {
-                // Get lesson ID from the section's dataset
-                const lessonId = section.dataset.lessonId;
-
-                // Remove the lesson from lessonsData
-                lessonsData = lessonsData.filter((lesson: Lessons) => lesson.lesson_id !== lessonId);
+                if (!section.classList.contains("hidden")) {
+                    // Get lesson ID from the section's dataset
+                    const lessonId: number = Number(section.dataset.lessonId);
+                    // Remove the lesson from lessonsData
+                    lessonsData = lessonsData.filter((lesson: Lessons) => lesson.lesson_id !== lessonId);
+                }
             });
         })
 
@@ -46,7 +46,7 @@
         // check if enter is pressed
         document.addEventListener("keydown", (event) => {
             // If the enter text element is on screen
-            if(event.key === "Enter") {
+            if (event.key === "Enter") {
                 if (!textEntry.classList.contains("hidden")) {
                     console.log("Enter pressed")
                     let input_name = textBox.value
@@ -66,7 +66,7 @@
         let lessons = document.querySelector(".lessons");
         let blocks = document.querySelector(".blocks");
         let editor = document.querySelector(".block-editor");
-        if(!lessons || !blocks || !editor) return;
+        if (!lessons || !blocks || !editor) return;
 
         // Switching between the different bar sections
         let selectionButtons: NodeListOf<HTMLElement> = document.querySelectorAll(".selection-button");
@@ -78,6 +78,8 @@
                 lessons.classList.toggle("hidden", lessons.id !== target.id);
             })
         }
+
+        // adding blocks
 
 
     });
@@ -91,7 +93,8 @@
             <button class="selection-button" id="editor">Block Editor</button>
         </div>
         <div class="blocks hidden" id="block">
-            <>
+            <Header title="Text Blocks"/>
+            <button class="block-preview text1"> Text block type 1 </button>
         </div>
         <div class="block-editor hidden" id="editor">
         </div>

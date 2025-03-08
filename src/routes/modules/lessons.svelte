@@ -30,7 +30,7 @@
         <button class="lesson-button" data-lesson_id="{info.lesson_id}">{info.lesson_name}</button>
     </div>
 
-    <div class="lesson-section hidden">
+git     <div class="lesson-section hidden" data-lesson-id={info.lesson_id}>
         {#each info.sections as section}
             <Section info={section}/>
         {/each}
