@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import "../../styles/block-styles/quiz-block.css"
+    import "../../styles/blocks/quiz-block.css"
     interface quizBlock {
         question: string,
         options: {

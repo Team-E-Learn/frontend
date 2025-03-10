@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import "../../styles/block-styles/text-block.css"
+    import "../../styles/blocks/text-block.css"
 
     interface textBlock {
         data: {
@@ -9,7 +9,7 @@
         }
     }
 
-    export let blockData: textBlock
+    //export let blockData: textBlock
 
     let data: textBlock = {
         "data": {
@@ -21,6 +21,10 @@
 </script>
 
 <div class="text-block">
+    <!--
     <h3>{blockData["data"]["title"]}</h3>
     <p>{blockData["data"]["text"]}</p>
+    -->
+    <input type="text" placeholder="Enter Title here">
+    <input type="text" placeholder="Enter Body text here">
 </div>

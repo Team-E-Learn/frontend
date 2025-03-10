@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import "../../styles/block-styles/quiz-block.css"
+    import "../../styles/blocks/quiz-block.css"
 
     interface quizBlock {
         data: {
@@ -26,7 +26,7 @@
         }
     }
 
-    export let blockData: quizBlock;
+    //export let blockData: quizBlock;
 
     let data = {
         "data": {

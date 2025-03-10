@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import "../../styles/block-styles/text-block.css"
+    import "../../styles/blocks/text-block.css"
 
     interface textBlock {
         title: string

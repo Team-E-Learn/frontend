@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import "../../styles/block-styles/text-image-block.css"
+    import "../../styles/blocks/text-image-block.css"
     import image from "../../assets/Bliss_location,_Sonoma_Valley_in_2006.jpg"
 
     interface textImageBlock {
@@ -12,7 +12,7 @@
         }
     }
 
-    export let blockData: textImageBlock;
+    //export let blockData: textImageBlock;
 
     let data: textImageBlock = {
         "data": {

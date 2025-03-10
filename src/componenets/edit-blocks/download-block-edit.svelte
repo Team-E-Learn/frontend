@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import "../../styles/block-styles/download-block.css"
+    import "../../styles/blocks/download-block.css"
 
     interface downloadBlock {
         data: {
@@ -9,7 +9,7 @@
         }
     }
 
-    export let blockData: downloadBlock;
+    //export let blockData: downloadBlock;
 
     let data : downloadBlock = {
         "data": {

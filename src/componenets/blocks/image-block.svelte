@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import "../../styles/block-styles/image-block.css"
+    import "../../styles/blocks/image-block.css"
     import image from "../../assets/Bliss_location,_Sonoma_Valley_in_2006.jpg"
 
     interface imageBlock {

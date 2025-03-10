@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import "../../styles/block-styles/download-block.css"
+    import "../../styles/blocks/download-block.css"
 
 
     interface downloadBlock {
