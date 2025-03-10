@@ -95,12 +95,6 @@
     let count: number = 0;
 
     onMount(() => {
-        /*const colours = ["red", "green", "blue", "pink", "yellow", "orange", "purpe"]
-        const elems = document.querySelectorAll(".block-container p");
-        elems.forEach(elem => {
-            elem.style.backgroundColor = colours[Math.floor(Math.random() * colours.length)];
-        })
-
         let text1 = document.querySelector(".text1")
         if (!text1) return;
 
@@ -114,7 +108,7 @@
             }
 
             blockData = [...blockData, newBlock];
-        });*/
+        });
     });
 
 </script>
@@ -124,13 +118,13 @@
         {#if block.block_type === 1}
             <TextBlock blockData={block.data}/>
         {:else if block.block_type === 2}
-            <ImageBlock blockData={block.data}/>
+
         {:else if block.block_type === 3}
-            <TextImageBlock blockData={block.data}/>
+
         {:else if block.block_type === 4}
-            <DownloadBlock blockData={block.data}/>
+
         {:else if block.block_type === 5}
-            <QuizBlock blockData={block.data}/>
+
         {/if}
     {/each}
 </div>
