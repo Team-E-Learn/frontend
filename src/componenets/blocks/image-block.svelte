@@ -8,17 +8,15 @@
         "alt-text": string
     }
 
-    export let blockData: imageBlock;
+    export let blockData: imageBlock[];
 
     let data : imageBlock = {
-        "data": {
             "image": image,
             "alt-text": "Bliss location, Sonoma Valley in 2006"
-        }
     }
 </script>
 
 <div class="image-block">
-    <img src={blockData["data"]["image"]} alt={blockData["data"]["alt-text"]}>
+    <img src={blockData[0]["image"]} alt={blockData[0]["alt-text"]}>
 </div>
 

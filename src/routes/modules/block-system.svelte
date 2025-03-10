@@ -118,13 +118,13 @@
         {#if block.block_type === 1}
             <TextBlock blockData={block.data}/>
         {:else if block.block_type === 2}
-
+            <ImageBlock blockData={block.data}/>
         {:else if block.block_type === 3}
-
+            <TextImageBlock blockData={block.data}/>
         {:else if block.block_type === 4}
-
+            <DownloadBlock blockData={block.data}/>
         {:else if block.block_type === 5}
-
+            <QuizBlock blockData={block.data}/>
         {/if}
     {/each}
 </div>
