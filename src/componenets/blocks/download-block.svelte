@@ -4,11 +4,12 @@
 
 
     interface downloadBlock {
-        data: {
-            downloadLink: string,
-            fileName: string
-        }
+        downloadLink: string,
+        fileName: string
+
     }
+
+    export let blockData: downloadBlock;
 
     let data : downloadBlock = {
         "data": {
@@ -20,5 +21,5 @@
 </script>
 
 <div class="download-block">
-    <a href={data["data"]["downloadLink"]}>{data["data"]["fileName"]}</a>
+    <a href={blockData["data"]["downloadLink"]}>{blockData["data"]["fileName"]}</a>
 </div>

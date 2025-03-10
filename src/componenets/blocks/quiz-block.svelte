@@ -2,28 +2,28 @@
 
     import "../../styles/block-styles/quiz-block.css"
     interface quizBlock {
-        data: {
-            question: string,
-            options: {
-                A: {
-                    text: string,
-                    isCorrect: boolean
-                },
-                B: {
-                    text: string,
-                    isCorrect: boolean
-                },
-                C: {
-                    text: string,
-                    isCorrect: boolean
-                },
-                D: {
-                    text: string,
-                    isCorrect: boolean
-                }
+        question: string,
+        options: {
+            A: {
+                text: string,
+                isCorrect: boolean
+            },
+            B: {
+                text: string,
+                isCorrect: boolean
+            },
+            C: {
+                text: string,
+                isCorrect: boolean
+            },
+            D: {
+                text: string,
+                isCorrect: boolean
             }
         }
     }
+
+    export let blockData: quizBlock;
 
     let data = {
         "data": {
@@ -59,9 +59,9 @@
 </script>
 
 <div class="quiz-block">
-    <h1>{data["data"]["question"]}</h1>
+    <h1>{blockData["data"]["question"]}</h1>
     <div class="options">
-        {#each Object.values(data["data"]["options"]) as option}
+        {#each Object.values(blockData["data"]["options"]) as option}
             <button on:click={() => isAnswer(option.isCorrect)}>{option.text}</button>
         {/each}
     </div>

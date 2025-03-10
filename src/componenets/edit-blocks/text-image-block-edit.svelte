@@ -12,6 +12,8 @@
         }
     }
 
+    export let blockData: textImageBlock;
+
     let data: textImageBlock = {
         "data": {
             "title": "Lorem Ipsum",
@@ -23,7 +25,7 @@
 </script>
 
 <div class = "text-image-block">
-    <h3>{data["data"]["title"]}</h3>
-    <p>{data["data"]["text"]}</p>
-    <img src={data["data"]["image"]} alt={data["data"]["altText"]}>
+    <h3>{blockData["data"]["title"]}</h3>
+    <p>{blockData["data"]["text"]}</p>
+    <img src={blockData["data"]["image"]} alt={blockData["data"]["altText"]}>
 </div>

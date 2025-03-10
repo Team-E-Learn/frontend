@@ -26,6 +26,8 @@
         }
     }
 
+    export let blockData: quizBlock;
+
     let data = {
         "data": {
             "question": "press option A",
@@ -61,9 +63,9 @@
 </script>
 
 <div class="quiz-block">
-    <h1>{data["data"]["question"]}</h1>
+    <h1>{blockData["data"]["question"]}</h1>
     <div class="options">
-        {#each Object.values(data["data"]["options"]) as option}
+        {#each Object.values(blockData["data"]["options"]) as option}
             <button on:click={() => isAnswer(option.isCorrect)}>{option.text}</button>
         {/each}
     </div>

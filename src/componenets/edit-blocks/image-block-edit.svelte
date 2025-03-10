@@ -6,19 +6,21 @@
     interface imageBlock {
         data: {
             image: string,
-            "alt-text": string
+            "altText": string
         }
     }
+
+    export let blockData: imageBlock;
 
     let data : imageBlock = {
         "data": {
             "image": image,
-            "alt-text": "Bliss location, Sonoma Valley in 2006"
+            "altText": "Bliss location, Sonoma Valley in 2006"
         }
     }
 </script>
 
 <div class="image-block">
-    <img src={data["data"]["image"]} alt={data["data"]["alt-text"]}>
+    <img src={blockData["data"]["image"]} alt={blockData["data"]["altText"]}>
 </div>
 

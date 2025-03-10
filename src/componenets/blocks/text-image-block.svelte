@@ -4,14 +4,14 @@
     import image from "../../assets/Bliss_location,_Sonoma_Valley_in_2006.jpg"
 
     interface textImageBlock {
-        data: {
-            title: string
-            text: string
-            image: string
-            altText: string
-        }
+        title: string
+        text: string
+        image: string
+        altText: string
     }
 
+    export let blockData: textImageBlock;
+/*
     let data: textImageBlock = {
         "data": {
             "title": "Lorem Ipsum",
@@ -20,10 +20,11 @@
             "altText": "Bliss location, Sonoma Valley in 2006"
         }
     }
+ */
 </script>
 
 <div class = "text-image-block">
-    <h3>{data["data"]["title"]}</h3>
-    <p>{data["data"]["text"]}</p>
-    <img src={data["data"]["image"]} alt={data["data"]["altText"]}>
+    <h3>{blockData[0]["data"]["title"]}</h3>
+    <p>{blockData[0]["data"]["text"]}</p>
+    <img src={blockData[0]["data"]["image"]} alt={blockData["data"]["altText"]}>
 </div>

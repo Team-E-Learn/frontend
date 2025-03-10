@@ -9,6 +9,8 @@
         }
     }
 
+    export let blockData: textBlock
+
     let data: textBlock = {
         "data": {
             "title": "Lorem Ipsum",
@@ -19,6 +21,6 @@
 </script>
 
 <div class="text-block">
-    <h3>{data["data"]["title"]}</h3>
-    <p>{data["data"]["text"]}</p>
+    <h3>{blockData["data"]["title"]}</h3>
+    <p>{blockData["data"]["text"]}</p>
 </div>

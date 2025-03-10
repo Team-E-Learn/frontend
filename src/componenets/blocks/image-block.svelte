@@ -4,11 +4,11 @@
     import image from "../../assets/Bliss_location,_Sonoma_Valley_in_2006.jpg"
 
     interface imageBlock {
-        data: {
-            image: string,
-            "alt-text": string
-        }
+        image: string,
+        "alt-text": string
     }
+
+    export let blockData: imageBlock;
 
     let data : imageBlock = {
         "data": {
@@ -19,6 +19,6 @@
 </script>
 
 <div class="image-block">
-    <img src={data["data"]["image"]} alt={data["data"]["alt-text"]}>
+    <img src={blockData["data"]["image"]} alt={blockData["data"]["alt-text"]}>
 </div>
 
