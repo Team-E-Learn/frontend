@@ -19,7 +19,7 @@
                 })
                 event.target.parentElement.parentElement.querySelector(".lesson-section")?.classList.remove("hidden");
                 // top scroll
-                document.querySelectorAll(".block-container p")[0].scrollIntoView({ behavior: "smooth" });
+                document.querySelectorAll(".block-container > *")[0].scrollIntoView({ behavior: "smooth" });
             })
         }
     });

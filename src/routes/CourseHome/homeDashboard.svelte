@@ -108,7 +108,7 @@
     width: 100%;
     height: 100%;
     border-radius: 8px;
-    background-color: pink;
+    background-color: var(--secondary);
     padding: 0.5rem;
   }
 

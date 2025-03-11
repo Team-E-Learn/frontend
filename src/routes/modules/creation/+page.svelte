@@ -21,9 +21,9 @@
 
             // Return if the pressed button isn't the lesson button
             if (!target.classList.contains("lesson-button")) return;
-
             let contents = document.querySelector(".contents");
             if (!contents) return;
+
             // If the button is active, make the contents element small or large if it's already small
             if (target.classList.contains("active")) {
                 contents.classList.toggle("small");
