@@ -7,6 +7,6 @@
 <div class="entry hidden">
     <div class="center">
         <h2>Enter lesson name:</h2>
-        <input class="text" value="input">
+        <input class="text" value="">
     </div>
 </div>
