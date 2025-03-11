@@ -48,7 +48,6 @@
             // If the enter text element is on screen
             if (event.key === "Enter") {
                 if (!textEntry.classList.contains("hidden")) {
-                    console.log("Enter pressed")
                     let input_name = textBox.value
                     const newLesson: Lessons = {
                         lesson_name: input_name,
@@ -78,9 +77,6 @@
                 lessons.classList.toggle("hidden", lessons.id !== target.id);
             })
         }
-
-        // adding blocks
-
     });
 </script>
 

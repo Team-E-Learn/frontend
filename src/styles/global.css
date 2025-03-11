@@ -1,4 +1,25 @@
+/* 60%: F6F8D5
+   30%: 205781
+   10%: 4F959D
+ */
+:root {
+    --primary: #f5f6eb;
+    --secondary: #205781;
+    --accent: #4F959D;
+    --text: #98D2C0;
+}
+
 * {
     margin: 0;
     padding: 0;
 }
+
+body {
+    background-color: var(--primary);
+    color: var(--text);
+}
+
+a, h2, h1, h3, h4, h5 {
+    color: var(--text);
+}
+
