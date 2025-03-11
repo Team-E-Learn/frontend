@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import "../../styles/blocks/text-block.css"
+    import "../../styles/edit-blocks/text-block.css"
 
     interface textBlock {
         data: {
@@ -18,6 +18,9 @@
         }
     }
 
+    let title = document.getElementById("text-block")?.querySelector("title");
+    let body = document.getElementById("text-block")?.querySelectorAll("body");
+
 </script>
 
 <div class="text-block">
@@ -25,6 +28,12 @@
     <h3>{blockData["data"]["title"]}</h3>
     <p>{blockData["data"]["text"]}</p>
     -->
-    <input type="text" placeholder="Enter Title here">
-    <input type="text" placeholder="Enter Body text here">
+    <input type="text" class="title" placeholder="Enter Title here">
+    <input type="text" class="body" placeholder="Enter Body text here">
+    <input type="submit" class="button" value="Save Changes">
+    <div class="buttons">
+        <button class="up">Move Up</button>
+        <button class="down">Move Down</button>
+    </div>
+
 </div>

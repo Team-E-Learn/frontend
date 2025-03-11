@@ -1,0 +1,34 @@
+.text-image-block {
+    display: flex;
+    flex-direction: column;
+    background-color: #227c9d;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 3px solid #16c3b2;
+    flex: 1 1 auto;
+    justify-content: center;
+}
+
+.text-image-block img{
+    flex: 1 1 auto;
+    width: 50%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 1rem;
+    border: 3px solid #16c3b2;
+    display: flex;
+    flex-direction: column;
+}
+
+.text-image-block h3{
+    text-align: center;
+}
+
+.title {
+
+}
+
+.body {
+
+}

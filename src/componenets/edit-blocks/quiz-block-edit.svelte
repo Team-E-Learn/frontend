@@ -63,10 +63,13 @@
 </script>
 
 <div class="quiz-block">
+    <!--
     <h1>{blockData["data"]["question"]}</h1>
     <div class="options">
         {#each Object.values(blockData["data"]["options"]) as option}
             <button on:click={() => isAnswer(option.isCorrect)}>{option.text}</button>
         {/each}
     </div>
+    -->
+
 </div>
