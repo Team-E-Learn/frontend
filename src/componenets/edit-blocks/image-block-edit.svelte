@@ -11,15 +11,8 @@
         }
     }
 
-    //export let blockData: imageBlock;
-    /*
-    let data : imageBlock = {
-        "data": {
-            "image": image,
-            "altText": "Bliss location, Sonoma Valley in 2006"
-        }
-    }
-    */
+    export let blockData: imageBlock;
+
     onMount(() => {
         let image = document.getElementById("image-block")?.querySelector("image");
     });

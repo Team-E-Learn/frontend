@@ -9,16 +9,7 @@
 
     }
 
-    //export let blockData: textBlock
-    /*
-    let data: textBlock = {
-        "data": {
-            "title": "Lorem Ipsum",
-            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        }
-    }
-    */
-
+    export let blockData: textBlock
 
     function saveChanges() {
         let title = Array.from(document.getElementById("text-block")?.querySelectorAll("title") ?? []).map(el => el.textContent ?? "").join(" ");
@@ -48,8 +39,8 @@
     <h3>{blockData["data"]["title"]}</h3>
     <p>{blockData["data"]["text"]}</p>
     -->
-    <input type="text" class="title" name="title" placeholder="Enter Title here">
-    <input type="text" class="text" name="body" placeholder="Enter Body text here">
+    <input type="text" class="title" name="title" placeholder="Enter Title here" value="{blockData['title']}" >
+    <textarea class="title" name="title" placeholder="Enter Title here">{blockData["text"]}</textarea>
     <input type="submit" class="button" value="Save Changes" on:click={saveChanges}>
     <div class="buttons">
         <button class="up" on:click={moveUp}>Move Up</button>

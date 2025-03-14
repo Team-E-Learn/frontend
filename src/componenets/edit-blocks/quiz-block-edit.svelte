@@ -26,7 +26,7 @@
         }
     }
 
-    //export let blockData: quizBlock;
+    export let blockData: quizBlock;
 
     let data = {
         "data": {
