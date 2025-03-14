@@ -2,6 +2,7 @@
 
     import "../../styles/blocks/text-image-block.css"
     //import image from "../../assets/Bliss_location,_Sonoma_Valley_in_2006.jpg"
+    import {onMount} from "svelte";
 
     interface textImageBlock {
         data: {
@@ -26,13 +27,16 @@
  */
 
 
-    function exportChanges(){
+    onMount(() => {
+
         let title = document.getElementById("text-image-block")?.querySelector("title");
         let body = document.getElementById("text-image-block")?.querySelectorAll("body");
         let image = document.getElementById("text-image-block")?.querySelector("image");
 
+    });
 
-    }
+
+
 
 
 </script>
@@ -45,9 +49,9 @@
     -->
 
     <input type="text" class="title" placeholder="Enter Title here">
-    <input type="text" class="body" placeholder="Enter Body text here">
+    <input type="text" class="text" placeholder="Enter Body text here">
     <input type="file" name="image" accept="image/*" alt="input image">
-    <input type="submit" class="button" onclick=exportChanges() value="Save Changes">
+    <input type="submit" class="button" value="Save Changes">
     <div class="buttons">
         <button class="up">Move Up</button>
         <button class="down">Move Down</button>
