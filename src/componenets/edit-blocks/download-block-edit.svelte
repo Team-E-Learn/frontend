@@ -9,7 +9,7 @@
         }
     }
 
-    export let blockData: downloadBlock;
+    export let blockData: downloadBlock[];
 
 </script>
 

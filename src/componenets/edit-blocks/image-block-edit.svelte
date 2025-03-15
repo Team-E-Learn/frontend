@@ -11,7 +11,7 @@
         }
     }
 
-    export let blockData: imageBlock;
+    export let blockData: imageBlock[];
 
     onMount(() => {
         let image = document.getElementById("image-block")?.querySelector("image");

@@ -13,7 +13,7 @@
         }
     }
 
-    export let blockData: textImageBlock;
+    export let blockData: textImageBlock[];
 
     onMount(() => {
 

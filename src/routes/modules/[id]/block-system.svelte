@@ -1,13 +1,13 @@
 <script lang="ts">
-    import "../../styles/module-landing/block-system.css" // import styles
+    import "../../../styles/module-landing/block-system.css" // import styles
     import { onMount } from "svelte";
-    import image from "../../assets/Bliss_location,_Sonoma_Valley_in_2006.jpg";
-    import "../../styles/block-system.css";
-    import DownloadBlock from "../../componenets/blocks/download-block.svelte";
-    import QuizBlock from "../../componenets/blocks/quiz-block.svelte";
-    import TextBlock from "../../componenets/blocks/text-block.svelte";
-    import TextImageBlock from "../../componenets/blocks/text-image-block.svelte";
-    import ImageBlock from "../../componenets/blocks/image-block.svelte";
+    import image from "../../../assets/Bliss_location,_Sonoma_Valley_in_2006.jpg";
+    import "../../../styles/block-system.css";
+    import DownloadBlock from "../../../componenets/blocks/download-block.svelte";
+    import QuizBlock from "../../../componenets/blocks/quiz-block.svelte";
+    import TextBlock from "../../../componenets/blocks/text-block.svelte";
+    import TextImageBlock from "../../../componenets/blocks/text-image-block.svelte";
+    import ImageBlock from "../../../componenets/blocks/image-block.svelte";
 
     export let lesson_id: number; // pass in lesson id
 
