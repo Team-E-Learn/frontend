@@ -98,17 +98,6 @@
         let text1 = document.querySelector(".text1")
         if (!text1) return;
 
-        text1.addEventListener("click", (event: Event) => {
-            //TODO: change data from temporary data
-            const newBlock: Blocks = {
-                block_type: 1,
-                block_id: count += 1,
-                order: count,
-                data: [{text: "temporary text"}],
-            }
-
-            blockData = [...blockData, newBlock];
-        });
     });
 
 </script>

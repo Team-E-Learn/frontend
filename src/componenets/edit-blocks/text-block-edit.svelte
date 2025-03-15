@@ -9,7 +9,7 @@
 
     }
 
-    export let blockData: textBlock
+    export let blockData: textBlock[]
 
     function saveChanges() {
         let title = Array.from(document.getElementById("text-block")?.querySelectorAll("title") ?? []).map(el => el.textContent ?? "").join(" ");
@@ -39,8 +39,8 @@
     <h3>{blockData["data"]["title"]}</h3>
     <p>{blockData["data"]["text"]}</p>
     -->
-    <input type="text" class="title" name="title" placeholder="Enter Title here" value="{blockData['title']}" >
-    <textarea class="title" name="title" placeholder="Enter Title here">{blockData["text"]}</textarea>
+    <input type="text" class="title" name="title" placeholder="Enter Title here" value="{blockData[0]['title']}" >
+    <textarea class="title" name="title" placeholder="Enter Title here">{blockData[0]["text"]}</textarea>
     <input type="submit" class="button" value="Save Changes" on:click={saveChanges}>
     <div class="buttons">
         <button class="up" on:click={moveUp}>Move Up</button>
