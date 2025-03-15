@@ -1,7 +1,8 @@
 <script lang="ts">
 
     import "../../styles/edit-blocks/text-block.css"
-    import {onMount} from "svelte";
+    import moveBlockUp from "../../routes/modules/creation/block-system-creation.svelte";
+    import moveBlockDown from "../../routes/modules/creation/block-system-creation.svelte";
 
     interface textBlock {
         title: string
@@ -9,6 +10,7 @@
 
     }
 
+    export let block_id: number
     export let blockData: textBlock[]
 
     function saveChanges() {
@@ -20,11 +22,11 @@
         }
     }
     function moveUp() {
-
+        moveBlockUp(block_id)
     }
 
     function moveDown() {
-
+        moveBlockDown(block_id)
     }
     /*
     let data: textBlock = {

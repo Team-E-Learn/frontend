@@ -94,6 +94,25 @@
     ];
     let count: number = 0;
 
+    export function moveBlockDown(block_id: number) {
+        for (let i in blockData) {
+            if (blockData[i]["block_id"] === block_id) {
+                blockData[i].order += 1;
+            }
+        }
+    }
+
+    export function moveBlockUp(block_id: number) {
+        for (let i in blockData) {
+            if (blockData[i]["block_id"] === block_id) {
+                blockData[i].order -= 1;
+            }
+        }
+    }
+
+
+
+
     onMount(() => {
         let text1 = document.querySelector(".text1")
         if (!text1) return;
@@ -116,7 +135,7 @@
 <div id="blocks-{lesson_id}" class="block-container"> <!-- flex box that stores the blocks -->
     {#each blockData as block} <!-- running through the block json -->
         {#if block.block_type === 1}
-            <TextBlock blockData={block.data}/>
+            <TextBlock blockData={block.data}/>s
         {:else if block.block_type === 2}
             <ImageBlock blockData={block.data}/>
         {:else if block.block_type === 3}
