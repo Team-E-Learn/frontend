@@ -1,15 +1,13 @@
 <script lang="ts">
     import {
-        validateEmail,
         handleContinue,
         validateUsername,
         validatePassword,
-        register,
     } from "./register";
     import "../../styles/register.css";
     import { fly } from "svelte/transition";
-    import { createEventDispatcher } from "svelte";
     import { goto } from "$app/navigation";
+    import authService from "../../services/authService";
 
     let email: string = "";
     let isValidEmail: boolean = true;
@@ -27,8 +25,6 @@
     let securityCode: string = ""; // Track the security code input value
     let showPassword: boolean = false; // Track the visibility of the password input
     let showConfirmPassword: boolean = false; // Track the visibility of the confirm password input
-
-    const dispatch = createEventDispatcher();
 
     // Handle form submission for registration
     const onContinueClick = (): void => {
@@ -106,16 +102,19 @@
             // showPasswordSection = false; // Transition to the 2FA section
             // show2FASection = true;
 
-            const response = await register(email, username, password);
-            if (!response.ok) {
-                errorMessage =
-                    response.message || "Signup failed. Please try again.";
+            try {
+                const response = await authService.register(
+                    email,
+                    username,
+                    password,
+                );
+                localStorage.setItem("token", response.token);
+                alert("Registration successful!");
+                goto("/CourseHome");
+            } catch (error) {
+                errorMessage = (error as Error).message;
                 return;
             }
-
-            localStorage.setItem("token", response.token || "");
-            alert("Registration successful!");
-            goto("/CourseHome");
         }
     };
 
@@ -251,12 +250,7 @@
                         type={showPassword ? "text" : "password"}
                         id="password"
                         bind:value={password}
-                        class:invalid={errorMessage &&
-                            errorMessage !== "Passwords do not match."}
-                        placeholder={errorMessage &&
-                        errorMessage !== "Passwords do not match."
-                            ? errorMessage
-                            : "Enter your password"}
+                        placeholder="Enter your password"
                     />
                     <button
                         type="button"
@@ -309,11 +303,7 @@
                         type={showConfirmPassword ? "text" : "password"}
                         id="confirmPassword"
                         bind:value={confirmPassword}
-                        class:invalid={errorMessage ===
-                            "Passwords do not match."}
-                        placeholder={errorMessage === "Passwords do not match."
-                            ? errorMessage
-                            : "Confirm your password"}
+                        placeholder="Confirm your password"
                     />
                     <button
                         type="button"
@@ -356,6 +346,9 @@
                     </button>
                 </div>
             </div>
+            {#if errorMessage}
+                <p class="error-message">{errorMessage}</p>
+            {/if}
             <button
                 class="button"
                 on:click={onPasswordContinueClick}

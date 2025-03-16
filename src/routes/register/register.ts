@@ -1,5 +1,5 @@
+import authService from "../../services/authService";
 import allowedDomains from "../../shared/allowedDomains.json" with { type: "json" };
-import { apiBaseUrl } from "../../shared/constants";
 
 // Extract domain from email
 const extractDomain = (email: string): string => {
@@ -31,13 +31,15 @@ export const validateUsername = async (
     if (username.length < 5) {
         return {
             isValid: false,
-            message: "Username length too short. Must be at least 5 characters.",
+            message:
+                "Username length too short. Must be at least 5 characters.",
         };
     }
     if (username.length > 15) {
         return {
             isValid: false,
-            message: "Username length too long. Must be no more than 15 characters.",
+            message:
+                "Username length too long. Must be no more than 15 characters.",
         };
     }
     if (!usernamePattern.test(username)) {
@@ -48,11 +50,18 @@ export const validateUsername = async (
         };
     }
 
-    const isTaken = await checkUsernameInDatabase(username);
-    if (isTaken) {
+    try {
+        const isTaken = await authService.checkUsernameExists(username);
+        if (isTaken) {
+            return {
+                isValid: false,
+                message: "Username already taken. Please choose another one.",
+            };
+        }
+    } catch (error) {
         return {
             isValid: false,
-            message: "Username already taken. Please choose another one.",
+            message: (error as Error).message,
         };
     }
 
@@ -86,59 +95,6 @@ export const validatePassword = (
         isValid: true,
         message: "",
     };
-};
-
-// Simulate a database check for the username
-const checkUsernameInDatabase = async (username: string): Promise<boolean> => {
-    const url = new URL(`${apiBaseUrl}/v1/auth/username`);
-    url.searchParams.append("username", username);
-
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error(`http error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    return data.message !== "Valid username";
-};
-
-export const register = async (
-    email: string,
-    username: string,
-    password: string,
-): Promise<{
-    ok: boolean;
-    message?: string;
-    token?: string;
-}> => {
-    const url = new URL(`${apiBaseUrl}/v1/auth/register`);
-    const formData = new FormData();
-    formData.append("email", email);
-    formData.append("username", username);
-    formData.append("password", password);
-
-    try {
-        const response = await fetch(url, {
-            method: "POST",
-            body: formData,
-        });
-
-        if (!response.ok) {
-            throw new Error(`http error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        return {
-            ok: true,
-            token: data.token,
-        };
-    } catch (error) {
-        return {
-            ok: false,
-            message: error instanceof Error ? error.message : "An error occurered",
-        };
-    }
 };
 
 // Handles the continue action for email validation

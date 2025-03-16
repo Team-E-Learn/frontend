@@ -1,9 +1,10 @@
 <script lang="ts">
-    import { handleLogin } from "./login"; // Import login logic
     import TwoFAModal from "$lib/components/TwoFA/+page.svelte"; // Import 2FA Modal component
     import { fly } from "svelte/transition";
-    import "../../styles/login/login.css"
+    import "../../styles/login/login.css";
     import { goto } from "$app/navigation";
+    import authService from "../../services/authService";
+    import { validateLogin } from "./login";
 
     let email: string = "";
     let password: string = "";
@@ -21,18 +22,15 @@
 
     // Handle form submission for login
     const onSubmit = async () => {
+        const { ok, message } = validateLogin(email, password);
+        if (!ok) {
+            errorMessage = message;
+            return;
+        }
+
         try {
-            errorMessage = "";
-            const response = await handleLogin(email, password);
-
-            if (!response.ok) {
-                errorMessage =
-                    response.message || "Login failed. Please try again.";
-                return;
-            }
-
-            // If login is successful
-            localStorage.setItem("token", response.token || "");
+            const response = await authService.login(email, password);
+            localStorage.setItem("token", response.token);
             alert("Login successful!");
             goto("/CourseHome");
 
@@ -41,8 +39,8 @@
             //   showModal = true; // Show the 2FA modal
             // }
         } catch (error) {
-            errorMessage = "An error occurred. Please try again later.";
-            console.error(error);
+            errorMessage = (error as Error).message;
+            return;
         }
     };
 
