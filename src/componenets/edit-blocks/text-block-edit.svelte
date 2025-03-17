@@ -1,8 +1,6 @@
 <script lang="ts">
 
-    import "../../styles/edit-blocks/text-block.css"
-    import moveBlockUp from "../../routes/modules/creation/block-system-creation.svelte";
-    import moveBlockDown from "../../routes/modules/creation/block-system-creation.svelte";
+    import "../../styles/edit-blocks/text-block.css";
 
     interface textBlock {
         title: string
@@ -11,7 +9,9 @@
     }
 
     export let block_id: number
+    export let order: number
     export let blockData: textBlock[]
+    export let moveBlock;
 
     function saveChanges() {
         let title = Array.from(document.getElementById("text-block")?.querySelectorAll("title") ?? []).map(el => el.textContent ?? "").join(" ");
@@ -21,32 +21,23 @@
             text: text
         }
     }
-    function moveUp() {
-        moveBlockUp(block_id)
-    }
 
-    function moveDown() {
-        moveBlockDown(block_id)
-    }
-    /*
-    let data: textBlock = {
-        title: title,
-        text: text
-    }
-    */
 </script>
 
-<div class="text-block">
-    <!--
-    <h3>{blockData["data"]["title"]}</h3>
-    <p>{blockData["data"]["text"]}</p>
-    -->
+<style>
+    :root {
+        --blockOrder: 0; /* Default value */
+    }
+</style>
+
+<div class="text-block" style="--blockOrder: {order}">
     <input type="text" class="title" name="title" placeholder="Enter Title here" value="{blockData[0]['title']}" >
     <textarea class="title" name="title" placeholder="Enter Title here">{blockData[0]["text"]}</textarea>
     <input type="submit" class="button" value="Save Changes" on:click={saveChanges}>
     <div class="buttons">
-        <button class="up" on:click={moveUp}>Move Up</button>
-        <button class="down"  on:click={moveDown} >Move Down</button>
+        <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
+        <button class="down"  on:click={moveBlock({block_id}, true)} >Move Down</button>
     </div>
 
 </div>
+

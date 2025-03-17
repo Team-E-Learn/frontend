@@ -94,24 +94,47 @@
     ];
     let count: number = 0;
 
-    export function moveBlockDown(block_id: number) {
-        for (let i in blockData) {
-            if (blockData[i]["block_id"] === block_id) {
-                blockData[i].order += 1;
+    export let moveBlock = (block_id: number, up: boolean) => {
+        if (up) {
+            let prevOrder;
+            for (let i in blockData) {
+                if (blockData[i]["block_id"] === block_id) {
+                    if (blockData[i].order === 1) {
+                        window.alert('data is already at top');
+                        return;
+                    }
+                    prevOrder = blockData[i].order;
+                    blockData[i].order += 1;
+                    for (let j in blockData) {
+                        if (blockData[j].order <= blockData[i].order && blockData[j].block_id !== block_id && blockData[j].order >= prevOrder) {
+                            blockData[j].order -= 1;
+                        }
+                    }
+                }
+            }
+        } else {
+            let prevOrder;
+            for (let i in blockData) {
+                if (blockData[i]["block_id"] === block_id) {
+                    if (blockData[i].order === blockData.length) {
+                        window.alert('data is already at bottom');
+                        return;
+                    }
+                    prevOrder = blockData[i].order;
+                    blockData[i].order -= 1;
+                    for (let j in blockData) {
+                        if (blockData[j].order >= blockData[i].order && blockData[j].block_id !== block_id && blockData[j].order <= prevOrder) {
+                            blockData[j].order += 1;
+                        }
+                    }
+                }
             }
         }
     }
 
-    export function moveBlockUp(block_id: number) {
-        for (let i in blockData) {
-            if (blockData[i]["block_id"] === block_id) {
-                blockData[i].order -= 1;
-            }
-        }
+    function reOrder() {
+        blockData.sort((a, b) => a.order - b.order);
     }
-
-
-
 
     onMount(() => {
         let text1 = document.querySelector(".text1")
@@ -135,7 +158,7 @@
 <div id="blocks-{lesson_id}" class="block-container"> <!-- flex box that stores the blocks -->
     {#each blockData as block} <!-- running through the block json -->
         {#if block.block_type === 1}
-            <TextBlock blockData={block.data}/>s
+            <TextBlock order={block.order} block_id={block.block_id} blockData={block.data} moveBlock={moveBlock}/>s
         {:else if block.block_type === 2}
             <ImageBlock blockData={block.data}/>
         {:else if block.block_type === 3}
