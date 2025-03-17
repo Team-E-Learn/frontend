@@ -5,14 +5,18 @@ import type {
     Verify2faResponse,
 } from "./types";
 
-const verify2fa = async (code: string) => {
+const verify2fa = async (limitedJWT: string, code: string) => {
     const url = `${apiBaseUrl}/v1/auth/2fa`;
-    const formdata = new FormData();
-    formdata.append("code", code);
 
     const response = await fetch(url, {
         method: "POST",
-        body: formdata,
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+            "Limited JWT": limitedJWT,
+            code: code,
+        }),
     });
     if (!response.ok) {
         throw new Error(`an error occurred`);
@@ -27,12 +31,15 @@ const verify2fa = async (code: string) => {
 
 const requestEmailVerificationCode = async (email: string) => {
     const url = `${apiBaseUrl}/v1/auth/email`;
-    const formdata = new FormData();
-    formdata.append("email", email);
 
     const response = await fetch(url, {
         method: "POST",
-        body: formdata,
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+            email,
+        }),
     });
     if (!response.ok) {
         const body = await response.json();
@@ -42,13 +49,16 @@ const requestEmailVerificationCode = async (email: string) => {
 
 const login = async (email: string, password: string) => {
     const url = `${apiBaseUrl}/v1/auth/login`;
-    const formdata = new FormData();
-    formdata.append("email", email);
-    formdata.append("password", password);
 
     const response = await fetch(url, {
         method: "POST",
-        body: formdata,
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+            email,
+            password,
+        }),
     });
     if (!response.ok) {
         throw new Error("invalid credentials");
@@ -59,14 +69,17 @@ const login = async (email: string, password: string) => {
 
 const register = async (email: string, username: string, password: string) => {
     const url = `${apiBaseUrl}/v1/auth/register`;
-    const formdata = new FormData();
-    formdata.append("email", email);
-    formdata.append("username", username);
-    formdata.append("password", password);
 
     const response = await fetch(url, {
         method: "POST",
-        body: formdata,
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+            email,
+            username,
+            password,
+        }),
     });
     if (!response.ok) {
         const body = await response.json();
@@ -94,13 +107,16 @@ const checkUsernameExists = async (username: string) => {
 
 const verifyEmail = async (email: string, token: string) => {
     const url = `${apiBaseUrl}/v1/auth/verify-email`;
-    const formdata = new FormData();
-    formdata.append("email", email);
-    formdata.append("token", token);
 
     const response = await fetch(url, {
         method: "POST",
-        body: formdata,
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+            email,
+            token,
+        }),
     });
     if (!response.ok) {
         const body = await response.json();

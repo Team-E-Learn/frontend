@@ -22,6 +22,7 @@ export interface RegisterResponse {
         id: number;
         email: string;
         username: string;
+        secret: string;
     };
     token: string;
 }
