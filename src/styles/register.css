@@ -251,3 +251,8 @@ html, body {
 .error-message {
     color: red;
 }
+
+.qr-code > svg {
+    height: 24rem;
+    width: 24rem;
+}
