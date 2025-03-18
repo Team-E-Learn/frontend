@@ -8,9 +8,9 @@
 
     }
 
-    export let block_id: number
-    export let order: number
-    export let blockData: textBlock[]
+    export let block_id: number;
+    export let order: number;
+    export let blockData: textBlock[];
     export let moveBlock;
 
     function saveChanges() {
@@ -23,12 +23,6 @@
     }
 
 </script>
-
-<style>
-    :root {
-        --blockOrder: 0; /* Default value */
-    }
-</style>
 
 <div class="text-block" style="--blockOrder: {order}">
     <input type="text" class="title" name="title" placeholder="Enter Title here" value="{blockData[0]['title']}" >

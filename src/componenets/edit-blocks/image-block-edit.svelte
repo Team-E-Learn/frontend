@@ -5,28 +5,34 @@
     //import image from "../../assets/Bliss_location,_Sonoma_Valley_in_2006.jpg"
 
     interface imageBlock {
-        data: {
-            image: string,
-            "altText": string
-        }
+        image: string,
+        "altText": string
     }
 
     export let blockData: imageBlock[];
+    export let block_id: number;
+    export let order: number;
+    export let moveBlock;
 
-    onMount(() => {
-        let image = document.getElementById("image-block")?.querySelector("image");
-    });
+    function saveChanges() {
+        let image = (document.getElementById("image-block")?.querySelector("[name='image']") as HTMLInputElement)?.value ?? "";
+        let altText = (document.getElementById("image-block")?.querySelector("[name='altText']") as HTMLInputElement)?.value ?? "";
+
+        let data: imageBlock = {
+            image: image,
+            altText: altText
+        }
+    }
+
 </script>
 
-<div class="image-block">
-    <!--
-    <img src={blockData["data"]["image"]} alt={blockData["data"]["altText"]}>
-    -->
-    <input type="file" name="image" accept="image/*" placeholder="input image">
+<div class="image-block" style="--blockOrder: {order}">
+    <input type="text" name="image" placeholder="input image link" value={blockData[0]["image"]}>
+    <input type="text" class="altText" name="altText" placeholder="input alt text" value={blockData[0]["altText"]}>
     <input type="submit" class="button" value="Save Changes">
     <div class="buttons">
-        <button class="up">Move Up</button>
-        <button class="down">Move Down></button>
+        <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
+        <button class="down"  on:click={moveBlock({block_id}, true)}>Move Down</button>
     </div>
 </div>
 

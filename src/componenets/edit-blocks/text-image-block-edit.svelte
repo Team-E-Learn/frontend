@@ -5,43 +5,45 @@
     import {onMount} from "svelte";
 
     interface textImageBlock {
-        data: {
-            title: string
-            text: string
-            image: string
-            altText: string
+        title: string,
+        text: string,
+        image: string,
+        altText: string
+
+    }
+
+    export let block_id: number;
+    export let blockData: textImageBlock[];
+    export let order: number;
+    export let moveBlock;
+
+
+
+    function saveChanges() {
+        let title = (document.getElementById("text-image-block")?.querySelector(".title") as HTMLInputElement)?.value ?? "";
+        let body = (document.getElementById("text-image-block")?.querySelector(".body") as HTMLTextAreaElement)?.value ?? "";
+        let image = (document.getElementById("text-image-block")?.querySelector("[name='image']") as HTMLInputElement)?.value ?? "";
+        let altText = (document.getElementById("text-image-block")?.querySelector(".altText") as HTMLInputElement)?.value ?? "";
+
+        let data: textImageBlock = {
+            title: title,
+            text: body,
+            image: image,
+            altText: altText
         }
     }
 
-    export let blockData: textImageBlock[];
-
-    onMount(() => {
-
-        let title = document.getElementById("text-image-block")?.querySelector("title");
-        let body = document.getElementById("text-image-block")?.querySelectorAll("body");
-        let image = document.getElementById("text-image-block")?.querySelector("image");
-
-    });
-
-
-
-
-
 </script>
 
-<div class = "text-image-block">
-    <!--
-    <h3>{blockData["data"]["title"]}</h3>
-    <p>{blockData["data"]["text"]}</p>
-    <img src={blockData["data"]["image"]} alt={blockData["data"]["altText"]}>
-    -->
+<div class = "text-image-block" style="--blockOrder: {order}">
+    <input type="text" name="title" class="title" placeholder="Enter Title here" value={blockData[0]["title"]}>
+    <textarea class="body" name="body" placeholder="Enter Body text here">{blockData[0]["text"]}</textarea>
+    <input type="text" name="image" placeholder="input image link" value={blockData[0]["image"]}>
+    <input type="text" class="altText" name="altText" placeholder="input alt text" value={blockData[0]["altText"]}>
+    <input type="submit" class="button" value="Save Changes" on:click={saveChanges}>
 
-    <input type="text" class="title" placeholder="Enter Title here">
-    <input type="text" class="text" placeholder="Enter Body text here">
-    <input type="file" name="image" accept="image/*" alt="input image">
-    <input type="submit" class="button" value="Save Changes">
     <div class="buttons">
-        <button class="up">Move Up</button>
-        <button class="down">Move Down</button>
+        <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
+        <button class="down"  on:click={moveBlock({block_id}, true)} >Move Down</button>
     </div>
 </div>

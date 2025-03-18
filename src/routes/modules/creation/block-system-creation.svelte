@@ -1,8 +1,8 @@
 <script lang="ts">
-    import "../../styles/module-landing/block-system.css" // import styles
+    import "../../../styles/module-landing/block-system.css" // import styles
     import { onMount } from "svelte";
-    import image from "../../assets/Bliss_location,_Sonoma_Valley_in_2006.jpg";
-    import "../../styles/block-system.css";
+    import image from "../../../assets/Bliss_location,_Sonoma_Valley_in_2006.jpg";
+    import "../../../styles/block-system.css";
     import DownloadBlock from "../../../componenets/edit-blocks/download-block-edit.svelte";
     import QuizBlock from "../../../componenets/edit-blocks/quiz-block-edit.svelte";
     import TextBlock from "../../../componenets/edit-blocks/text-block-edit.svelte";
@@ -92,10 +92,13 @@
             }],
         }
     ];
+
     let count: number = 0;
 
     export let moveBlock = (block_id: number, up: boolean) => {
+        console.log('move button pressed for block_id:', block_id, 'up:', up);
         if (up) {
+            console.log('moving up');
             let prevOrder;
             for (let i in blockData) {
                 if (blockData[i]["block_id"] === block_id) {
@@ -108,23 +111,29 @@
                     for (let j in blockData) {
                         if (blockData[j].order <= blockData[i].order && blockData[j].block_id !== block_id && blockData[j].order >= prevOrder) {
                             blockData[j].order -= 1;
+                            blockData = blockData;
+                            console.log('block moved up');
                         }
                     }
                 }
             }
         } else {
+            console.log('moving down');
             let prevOrder;
             for (let i in blockData) {
                 if (blockData[i]["block_id"] === block_id) {
-                    if (blockData[i].order === blockData.length) {
+                    if (blockData[i].order === (blockData.length + 1)) {
                         window.alert('data is already at bottom');
                         return;
                     }
                     prevOrder = blockData[i].order;
                     blockData[i].order -= 1;
+                    condo
                     for (let j in blockData) {
                         if (blockData[j].order >= blockData[i].order && blockData[j].block_id !== block_id && blockData[j].order <= prevOrder) {
                             blockData[j].order += 1;
+                            blockData = blockData;
+                            console.log('block moved down');
                         }
                     }
                 }
@@ -132,9 +141,6 @@
         }
     }
 
-    function reOrder() {
-        blockData.sort((a, b) => a.order - b.order);
-    }
 
     onMount(() => {
         let text1 = document.querySelector(".text1")
@@ -158,13 +164,13 @@
 <div id="blocks-{lesson_id}" class="block-container"> <!-- flex box that stores the blocks -->
     {#each blockData as block} <!-- running through the block json -->
         {#if block.block_type === 1}
-            <TextBlock order={block.order} block_id={block.block_id} blockData={block.data} moveBlock={moveBlock}/>s
+            <TextBlock order={block.order} block_id={block.block_id} blockData={block.data} moveBlock={moveBlock}/>
         {:else if block.block_type === 2}
-            <ImageBlock blockData={block.data}/>
+            <ImageBlock block_id={block.block_id} order={block.order} blockData={block.data} moveBlock={moveBlock}/>
         {:else if block.block_type === 3}
-            <TextImageBlock blockData={block.data}/>
+            <TextImageBlock order={block.order} block_id={block.block_id} blockData={block.data} moveBlock={moveBlock}/>
         {:else if block.block_type === 4}
-            <DownloadBlock blockData={block.data}/>
+            <DownloadBlock order={block.order} block_id={block.block_id} blockData={block.data} moveBlock={moveBlock}/>
         {:else if block.block_type === 5}
             <QuizBlock blockData={block.data}/>
         {/if}
