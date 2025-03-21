@@ -43,6 +43,9 @@ const requestEmailVerificationCode = async (email: string) => {
     });
     if (!response.ok) {
         const body = await response.json();
+        if (body.message === "Bad Request") {
+            body.message = "email is already in use"
+        }
         throw new Error(body.message);
     }
 };
@@ -120,7 +123,9 @@ const verifyEmail = async (email: string, token: string) => {
     });
     if (!response.ok) {
         const body = await response.json();
-        throw new Error(body.message);
+        if (body.message == "Bad Request") {
+            throw new Error("invalid code");
+        }
     }
 };
 

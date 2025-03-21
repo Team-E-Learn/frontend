@@ -261,6 +261,9 @@
                     placeholder="123456"
                 />
             </div>
+            {#if errorMessage}
+                <p class="error-message">{errorMessage}</p>
+            {/if}
             <button
                 class="button"
                 on:click={onEmailConfirmationClick}
