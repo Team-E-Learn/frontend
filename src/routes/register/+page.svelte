@@ -1,19 +1,20 @@
 <script lang="ts">
     import {
-        validateEmail,
         handleContinue,
         validateUsername,
         validatePassword,
-        register,
     } from "./register";
     import "../../styles/register.css";
     import { fly } from "svelte/transition";
-    import { createEventDispatcher } from "svelte";
     import { goto } from "$app/navigation";
+    import { qr } from "@svelte-put/qr/svg";
+    import authService from "../../services/authService";
 
     let email: string = "";
     let isValidEmail: boolean = true;
     let showEmailSection: boolean = true;
+    let confirmationCode: string = "";
+    let showEmailConfirmationSection: boolean = true;
     let showUsernameSection: boolean = false;
     let showPasswordSection: boolean = false;
     let show2FASection: boolean = false;
@@ -27,11 +28,12 @@
     let securityCode: string = ""; // Track the security code input value
     let showPassword: boolean = false; // Track the visibility of the password input
     let showConfirmPassword: boolean = false; // Track the visibility of the confirm password input
-
-    const dispatch = createEventDispatcher();
+    let limitedJWT: string = "";
+    let totpSecret: string = "";
+    let otpauthURL: string = "";
 
     // Handle form submission for registration
-    const onContinueClick = (): void => {
+    const onContinueClick = async (): Promise<void> => {
         const { isValid, message } = handleContinue(email);
         isValidEmail = isValid;
         errorMessage = message;
@@ -48,8 +50,24 @@
                 "email",
             ) as HTMLInputElement;
             emailInput.classList.remove("invalid");
-            showEmailSection = false; // Transition to the username section
+            try {
+                await authService.requestEmailVerificationCode(email);
+                showEmailSection = false;
+                showEmailConfirmationSection = true;
+            } catch (error) {
+                errorMessage = (error as Error).message;
+            }
+        }
+    };
+
+    // handle form submission for email confirmation
+    const onEmailConfirmationClick = async () => {
+        try {
+            await authService.verifyEmail(email, confirmationCode);
+            showEmailConfirmationSection = false;
             showUsernameSection = true;
+        } catch (error) {
+            errorMessage = (error as Error).message;
         }
     };
 
@@ -100,30 +118,38 @@
                 passwordInput.classList.add("invalid");
                 passwordInput.focus();
             }
-        } else {
-            // skip 2fa for now
-
-            // showPasswordSection = false; // Transition to the 2FA section
-            // show2FASection = true;
-
-            const response = await register(email, username, password);
-            if (!response.ok) {
-                errorMessage =
-                    response.message || "Signup failed. Please try again.";
-                return;
-            }
-
-            localStorage.setItem("token", response.token || "");
-            alert("Registration successful!");
-            goto("/CourseHome");
+            return;
         }
+
+        try {
+            const response = await authService.register(
+                email,
+                username,
+                password,
+            );
+            limitedJWT = response.token;
+            totpSecret = response.user.secret;
+            const encodedIssuer = encodeURIComponent("elearn");
+            const encodedAccountName = encodeURIComponent(email);
+            otpauthURL = `otpauth://totp/${encodedIssuer}:${encodedAccountName}?secret=${totpSecret}&issuer=${encodedIssuer}`;
+        } catch (error) {
+            errorMessage = (error as Error).message;
+            return;
+        }
+
+        showPasswordSection = false; // Transition to the 2FA section
+        show2FASection = true;
     };
 
     // Handle back button click
     const onBackClick = (): void => {
+        if (showEmailConfirmationSection) {
+            showEmailConfirmationSection = false;
+            showEmailSection = true;
+        }
         if (showUsernameSection) {
             showUsernameSection = false;
-            showEmailSection = true; // Go back to the email section
+            showEmailConfirmationSection = true; // Go back to the email section
         } else if (showPasswordSection) {
             showPasswordSection = false;
             showUsernameSection = true; // Go back to the username section
@@ -154,10 +180,19 @@
     };
 
     // Handle code verification
-    const verifyCode = (): void => {
-        // Add verification logic here
-        console.log("Security code entered:", securityCode);
-        closeCodeInput();
+    const verifyCode = async (): Promise<void> => {
+        try {
+            const response = await authService.verify2fa(
+                limitedJWT,
+                securityCode,
+            );
+            localStorage.setItem("token", response.full_access_jwt);
+            alert("Registration successful!");
+            goto("/CourseHome");
+            closeCodeInput();
+        } catch (error) {
+            errorMessage = "invalid code";
+        }
     };
 
     // Truncate username if it exceeds 8 characters
@@ -199,9 +234,39 @@
                         : errorMessage}
                 />
             </div>
+            {#if errorMessage}
+                <p class="error-message">{errorMessage}</p>
+            {/if}
             <button
                 class="button"
                 on:click={onContinueClick}
+                in:fly={{ x: 300, duration: 500 }}>Continue</button
+            >
+        {:else if showEmailConfirmationSection}
+            <button
+                class="back-button"
+                on:click={onBackClick}
+                in:fly={{ x: 300, duration: 500 }}>🡰 Back</button
+            >
+            <div class="title">Confirm your email</div>
+            <div class="subtitle" in:fly={{ x: 300, duration: 500 }}>
+                Please enter the confirmation code sent to {email}
+            </div>
+            <div class="input-container" in:fly={{ x: 300, duration: 500 }}>
+                <label for="confirmation-code">Enter confirmation code</label>
+                <input
+                    type="text"
+                    id="confirmation-code"
+                    bind:value={confirmationCode}
+                    placeholder="123456"
+                />
+            </div>
+            {#if errorMessage}
+                <p class="error-message">{errorMessage}</p>
+            {/if}
+            <button
+                class="button"
+                on:click={onEmailConfirmationClick}
                 in:fly={{ x: 300, duration: 500 }}>Continue</button
             >
         {:else if showUsernameSection}
@@ -251,12 +316,7 @@
                         type={showPassword ? "text" : "password"}
                         id="password"
                         bind:value={password}
-                        class:invalid={errorMessage &&
-                            errorMessage !== "Passwords do not match."}
-                        placeholder={errorMessage &&
-                        errorMessage !== "Passwords do not match."
-                            ? errorMessage
-                            : "Enter your password"}
+                        placeholder="Enter your password"
                     />
                     <button
                         type="button"
@@ -309,11 +369,7 @@
                         type={showConfirmPassword ? "text" : "password"}
                         id="confirmPassword"
                         bind:value={confirmPassword}
-                        class:invalid={errorMessage ===
-                            "Passwords do not match."}
-                        placeholder={errorMessage === "Passwords do not match."
-                            ? errorMessage
-                            : "Confirm your password"}
+                        placeholder="Confirm your password"
                     />
                     <button
                         type="button"
@@ -356,6 +412,9 @@
                     </button>
                 </div>
             </div>
+            {#if errorMessage}
+                <p class="error-message">{errorMessage}</p>
+            {/if}
             <button
                 class="button"
                 on:click={onPasswordContinueClick}
@@ -409,27 +468,36 @@
     </div>
 </div>
 
-<!-- {#if showQRCode} -->
-<!--   <div class="overlay" on:click={closeQRCode}></div> -->
-<!--   <div class="qr-code-popup"> -->
-<!--     <button class="close-button" on:click={closeQRCode}>&times;</button> -->
-<!--     <div class="qr-code">[QR Code Image]</div> -->
-<!--   </div> -->
-<!-- {/if} -->
-<!---->
-<!-- {#if showCodeInput} -->
-<!--   <div class="overlay" on:click={closeCodeInput}></div> -->
-<!--   <div class="code-input-popup"> -->
-<!--     <button class="close-button" on:click={closeCodeInput}>&times;</button> -->
-<!--     <div class="input-container"> -->
-<!--       <label for="securityCode">Enter Security Code</label> -->
-<!--       <input -->
-<!--         type="text" -->
-<!--         id="securityCode" -->
-<!--         bind:value={securityCode} -->
-<!--         placeholder="Enter your security code" -->
-<!--       /> -->
-<!--     </div> -->
-<!--     <button class="button" on:click={verifyCode}>Verify</button> -->
-<!--   </div> -->
-<!-- {/if} -->
+{#if showQRCode}
+    <div class="overlay" on:click={closeQRCode}></div>
+    <div class="qr-code-popup">
+        <button class="close-button" on:click={closeQRCode}>&times;</button>
+        <div class="qr-code">
+            <svg
+                use:qr={{
+                    data: otpauthURL,
+                }}
+            />
+        </div>
+    </div>
+{/if}
+
+{#if showCodeInput}
+    <div class="overlay" on:click={closeCodeInput}></div>
+    <div class="code-input-popup">
+        <button class="close-button" on:click={closeCodeInput}>&times;</button>
+        <div class="input-container">
+            <label for="securityCode">Enter Security Code</label>
+            <input
+                type="text"
+                id="securityCode"
+                bind:value={securityCode}
+                placeholder="Enter your security code"
+            />
+        </div>
+        {#if errorMessage}
+            <p class="error-message">{errorMessage}</p>
+        {/if}
+        <button class="button" on:click={verifyCode}>Verify</button>
+    </div>
+{/if}

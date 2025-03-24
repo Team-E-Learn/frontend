@@ -247,3 +247,12 @@ html, body {
     opacity: 0.5;
   }
 }
+
+.error-message {
+    color: red;
+}
+
+.qr-code > svg {
+    height: 24rem;
+    width: 24rem;
+}
