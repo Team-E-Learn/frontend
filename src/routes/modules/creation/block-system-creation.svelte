@@ -96,23 +96,28 @@
     let count: number = 0;
 
     export let moveBlock = (block_id: number, up: boolean) => {
-        console.log('move button pressed for block_id:', block_id, 'up:', up);
+        console.log('move button pressed for block_id:', block_id['block_id'], 'up:', up);
         if (up) {
             console.log('moving up');
             let prevOrder;
             for (let i in blockData) {
-                if (blockData[i]["block_id"] === block_id) {
+                console.log('blockData[i]["block_id"]:', blockData[i]["block_id"]);
+                console.log(block_id['block_id']);
+                if (blockData[i]["block_id"] === block_id['block_id']) {
+                    console.log('prevOrder:', prevOrder);
                     if (blockData[i].order === 1) {
                         window.alert('data is already at top');
                         return;
                     }
                     prevOrder = blockData[i].order;
-                    blockData[i].order += 1;
+                    blockData[i].order -= 1;
+                    console.log('prevOrder:', prevOrder, 'blockData[i].order:', blockData[i].order, 'block_id:', block_id['block_id']);
                     for (let j in blockData) {
-                        if (blockData[j].order <= blockData[i].order && blockData[j].block_id !== block_id && blockData[j].order >= prevOrder) {
-                            blockData[j].order -= 1;
+                        if (blockData[j].order == blockData[i].order && blockData[j].block_id !== block_id['block_id']) {
+                            blockData[j].order += 1;
                             blockData = blockData;
-                            console.log('block moved up');
+                            console.log('other block moved down');
+                            console.log('prevOrder:', prevOrder, 'blockdataj', blockData[j], 'blockData[i].order:', blockData[i].order, 'block_id:', block_id['block_id']);
                         }
                     }
                 }
@@ -121,19 +126,21 @@
             console.log('moving down');
             let prevOrder;
             for (let i in blockData) {
-                if (blockData[i]["block_id"] === block_id) {
-                    if (blockData[i].order === (blockData.length + 1)) {
+                if (blockData[i]["block_id"] === block_id['block_id']) {
+                    if (blockData[i].order === (blockData.length) + 1) {
                         window.alert('data is already at bottom');
                         return;
                     }
                     prevOrder = blockData[i].order;
-                    blockData[i].order -= 1;
-                    condo
+                    blockData[i].order += 1;
+                    console.log('prevOrder:', prevOrder, 'blockData[i].order:', blockData[i].order, 'block_id:', block_id['block_id']);
                     for (let j in blockData) {
-                        if (blockData[j].order >= blockData[i].order && blockData[j].block_id !== block_id && blockData[j].order <= prevOrder) {
-                            blockData[j].order += 1;
+                        console.log('blockData[j].order:', blockData[j].order);
+                        if (blockData[j].order == blockData[i].order && blockData[j].block_id !== block_id['block_id']) {
+                            blockData[j].order -= 1;
                             blockData = blockData;
-                            console.log('block moved down');
+                            console.log('prevOrder:', prevOrder, 'blockdataj', blockData[j], 'blockData[i].order:', blockData[i].order, 'block_id:', block_id['block_id']);
+                            console.log('other block moved up');
                         }
                     }
                 }
@@ -172,7 +179,7 @@
         {:else if block.block_type === 4}
             <DownloadBlock order={block.order} block_id={block.block_id} blockData={block.data} moveBlock={moveBlock}/>
         {:else if block.block_type === 5}
-            <QuizBlock blockData={block.data}/>
+            <QuizBlock order={block.order} block_id={block.block_id} blockData={block.data} moveBlock={moveBlock}/>
         {/if}
     {/each}
 </div>

@@ -30,7 +30,7 @@
     <input type="submit" class="button" value="Save Changes" on:click={saveChanges}>
     <div class="buttons">
         <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
-        <button class="down"  on:click={moveBlock({block_id}, true)} >Move Down</button>
+        <button class="down"  on:click={moveBlock({block_id}, false)} >Move Down</button>
     </div>
 
 </div>

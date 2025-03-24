@@ -26,7 +26,10 @@
         }
     }
 
+    export let block_id: number;
     export let blockData: quizBlock[];
+    export let order: number;
+    export let moveBlock;
 
     let data = {
         "data": {
@@ -62,14 +65,9 @@
 
 </script>
 
-<div class="quiz-block">
-    <!--
-    <h1>{blockData["data"]["question"]}</h1>
-    <div class="options">
-        {#each Object.values(blockData["data"]["options"]) as option}
-            <button on:click={() => isAnswer(option.isCorrect)}>{option.text}</button>
-        {/each}
+<div class="quiz-block" style="--blockOrder: {order}">
+    <div class= "buttons" >
+        <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
+        <button class="down"  on:click={moveBlock({block_id}, false)} >Move Down</button>
     </div>
-    -->
-
 </div>

@@ -9,17 +9,19 @@
     border: 3px solid #16c3b2;
 }
 
-.quiz-block button {
-    background-color: #16c3b2;
-    color: black;
-    padding: 1rem;
-    border-radius: 1rem;
-    cursor: pointer;
-    border: 3px solid #16c3b2;
-    margin: 0.5rem;
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
 }
 
-.quiz-block button:hover {
+.buttons button {
+    background-color: transparent;
+    border: 3px solid #16c3b2;
+    border-radius: 1rem;
+}
+
+.buttons button:hover {
     background-color: #6cd57e;
     color: black;
 }
