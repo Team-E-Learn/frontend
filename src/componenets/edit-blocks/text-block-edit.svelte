@@ -11,7 +11,8 @@
     export let block_id: number;
     export let order: number;
     export let blockData: textBlock[];
-    export let moveBlock;
+    export let moveBlock: any;
+    export let deleteBlock: any;
 
     function saveChanges() {
         let title = Array.from(document.getElementById("text-block")?.querySelectorAll("title") ?? []).map(el => el.textContent ?? "").join(" ");
@@ -31,6 +32,7 @@
     <div class="buttons">
         <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
         <button class="down"  on:click={moveBlock({block_id}, false)} >Move Down</button>
+        <button class="delete" on:click={deleteBlock({block_id})}>Delete</button>
     </div>
 
 </div>

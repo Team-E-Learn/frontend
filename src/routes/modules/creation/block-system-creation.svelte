@@ -95,56 +95,55 @@
 
     let count: number = 0;
 
-    export let moveBlock = (block_id: number, up: boolean) => {
+    export let moveBlock = (block_id: any, up: boolean) => {
         console.log('move button pressed for block_id:', block_id['block_id'], 'up:', up);
         if (up) {
-            console.log('moving up');
-            let prevOrder;
-            for (let i in blockData) {
-                console.log('blockData[i]["block_id"]:', blockData[i]["block_id"]);
-                console.log(block_id['block_id']);
-                if (blockData[i]["block_id"] === block_id['block_id']) {
-                    console.log('prevOrder:', prevOrder);
-                    if (blockData[i].order === 1) {
-                        window.alert('data is already at top');
-                        return;
-                    }
-                    prevOrder = blockData[i].order;
-                    blockData[i].order -= 1;
-                    console.log('prevOrder:', prevOrder, 'blockData[i].order:', blockData[i].order, 'block_id:', block_id['block_id']);
-                    for (let j in blockData) {
-                        if (blockData[j].order == blockData[i].order && blockData[j].block_id !== block_id['block_id']) {
-                            blockData[j].order += 1;
-                            blockData = blockData;
-                            console.log('other block moved down');
-                            console.log('prevOrder:', prevOrder, 'blockdataj', blockData[j], 'blockData[i].order:', blockData[i].order, 'block_id:', block_id['block_id']);
-                        }
-                    }
-                }
+            let moveBlock: any = blockData.find(block => block.block_id === block_id['block_id']);
+            if (moveBlock.order === 1) {
+                window.alert('data is already at top');
+            } else {
+                let otherMoveBlock: any = blockData.find(block => block.order === moveBlock.order - 1);
+                console.log(moveBlock ,otherMoveBlock);
+                moveBlock.order -= 1;
+                otherMoveBlock.order += 1;
+                console.log('moved up');
             }
+            update()
         } else {
-            console.log('moving down');
-            let prevOrder;
-            for (let i in blockData) {
-                if (blockData[i]["block_id"] === block_id['block_id']) {
-                    if (blockData[i].order === (blockData.length) + 1) {
-                        window.alert('data is already at bottom');
-                        return;
-                    }
-                    prevOrder = blockData[i].order;
-                    blockData[i].order += 1;
-                    console.log('prevOrder:', prevOrder, 'blockData[i].order:', blockData[i].order, 'block_id:', block_id['block_id']);
-                    for (let j in blockData) {
-                        console.log('blockData[j].order:', blockData[j].order);
-                        if (blockData[j].order == blockData[i].order && blockData[j].block_id !== block_id['block_id']) {
-                            blockData[j].order -= 1;
-                            blockData = blockData;
-                            console.log('prevOrder:', prevOrder, 'blockdataj', blockData[j], 'blockData[i].order:', blockData[i].order, 'block_id:', block_id['block_id']);
-                            console.log('other block moved up');
-                        }
-                    }
-                }
+            let moveBlock: any = blockData.find(block => block.block_id === block_id['block_id']);
+            if (moveBlock.order === blockData.length) {
+                window.alert('data is already at bottom');
+            } else {
+                let otherMoveBlock: any = blockData.find(block => block.order === moveBlock.order + 1);
+                console.log(moveBlock ,otherMoveBlock);
+                moveBlock.order += 1;
+                otherMoveBlock.order -= 1;
+                console.log('moved down')
             }
+            update()
+        }
+    }
+
+    export let deleteBlock = (block_id: any) => {
+        let indexToRemove = blockData.findIndex(block => block.block_id === block_id['block_id']);
+        console.log('index to remove ', indexToRemove);
+        let deletedBlock = blockData.splice(indexToRemove, 1)[0];
+        console.log('deleted block ', deletedBlock);
+        blockData = blockData.filter(block => block["block_id"] !== block_id['block_id']);
+        for (let i in blockData) {
+            if (blockData[i]['order'] > deletedBlock.order) {
+                blockData[i]['order'] -= 1;
+                console.log('moved ' + blockData[i]['block_id'] + blockData[i]['order']);
+            }
+        }
+        update()
+    }
+
+
+    function update() {
+        blockData = [...blockData.sort((a, b) => a.order - b.order)];
+        for (let i in blockData) {
+            console.log(blockData[i]);
         }
     }
 
@@ -171,15 +170,15 @@
 <div id="blocks-{lesson_id}" class="block-container"> <!-- flex box that stores the blocks -->
     {#each blockData as block} <!-- running through the block json -->
         {#if block.block_type === 1}
-            <TextBlock order={block.order} block_id={block.block_id} blockData={block.data} moveBlock={moveBlock}/>
+            <TextBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock}/>
         {:else if block.block_type === 2}
-            <ImageBlock block_id={block.block_id} order={block.order} blockData={block.data} moveBlock={moveBlock}/>
+            <ImageBlock block_id={block.block_id} order={block.order} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock}/>
         {:else if block.block_type === 3}
-            <TextImageBlock order={block.order} block_id={block.block_id} blockData={block.data} moveBlock={moveBlock}/>
+            <TextImageBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock}/>
         {:else if block.block_type === 4}
-            <DownloadBlock order={block.order} block_id={block.block_id} blockData={block.data} moveBlock={moveBlock}/>
+            <DownloadBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock}/>
         {:else if block.block_type === 5}
-            <QuizBlock order={block.order} block_id={block.block_id} blockData={block.data} moveBlock={moveBlock}/>
+            <QuizBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock}/>
         {/if}
     {/each}
 </div>

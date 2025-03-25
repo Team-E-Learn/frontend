@@ -11,6 +11,7 @@
     export let block_id: number;
     export let order: number;
     export let moveBlock;
+    export let deleteBlock: any;
 
     function saveChanges() {
         let downloadLink = (document.getElementById("download-block")?.querySelector("[name='file']") as HTMLInputElement)?.value ?? "";
@@ -32,5 +33,6 @@
     <div class="buttons">
         <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
         <button class="down"  on:click={moveBlock({block_id}, false)} >Move Down</button>
+        <button class="delete" on:click={deleteBlock({block_id})}>Delete</button>
     </div>
 </div>

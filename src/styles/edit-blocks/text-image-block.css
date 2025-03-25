@@ -25,6 +25,16 @@
     text-align: center;
 }
 
+.textarea {
+    background-color: transparent;
+    border: 3px solid #16c3b2;
+    flex-grow: 1;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    resize: vertical;
+}
+
 .title {
 
 }

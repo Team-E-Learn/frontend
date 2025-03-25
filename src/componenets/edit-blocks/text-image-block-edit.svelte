@@ -16,7 +16,7 @@
     export let blockData: textImageBlock[];
     export let order: number;
     export let moveBlock;
-
+    export let deleteBlock: any;
 
 
     function saveChanges() {
@@ -45,5 +45,6 @@
     <div class="buttons">
         <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
         <button class="down"  on:click={moveBlock({block_id}, false)} >Move Down</button>
+        <button class="delete" on:click={deleteBlock({block_id})}>Delete</button>
     </div>
 </div>
