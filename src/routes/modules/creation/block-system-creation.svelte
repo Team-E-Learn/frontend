@@ -96,50 +96,28 @@
     let count: number = 0;
 
     export let moveBlock = (block_id: any, up: boolean) => {
-        console.log('move button pressed for block_id:', block_id['block_id'], 'up:', up);
-        if (up) {
-            let moveBlock: any = blockData.find(block => block.block_id === block_id['block_id']);
-            if (moveBlock.order === 1) {
-                window.alert('data is already at top');
-            } else {
-                let otherMoveBlock: any = blockData.find(block => block.order === moveBlock.order - 1);
-                console.log(moveBlock ,otherMoveBlock);
-                moveBlock.order -= 1;
-                otherMoveBlock.order += 1;
-                console.log('moved up');
-            }
-            update()
-        } else {
-            let moveBlock: any = blockData.find(block => block.block_id === block_id['block_id']);
-            if (moveBlock.order === blockData.length) {
-                window.alert('data is already at bottom');
-            } else {
-                let otherMoveBlock: any = blockData.find(block => block.order === moveBlock.order + 1);
-                console.log(moveBlock ,otherMoveBlock);
-                moveBlock.order += 1;
-                otherMoveBlock.order -= 1;
-                console.log('moved down')
-            }
-            update()
-        }
+        let moveBlock: any = blockData.find(block => block.block_id === block_id['block_id']);
+        // Returns out of the function if the block is at the top or bottom
+        if ((moveBlock.order === 1 && up) || (moveBlock.order === blockData.length && !up)) return;
+        let direction = up ? -1: 1
+        let otherMoveBlock: any = blockData.find(block => block.order === moveBlock.order + direction);
+        moveBlock.order += direction;
+        otherMoveBlock.order -= direction;
+        update()
+
     }
 
     export let deleteBlock = (block_id: any) => {
-        let indexToRemove = blockData.findIndex(block => block.block_id === block_id['block_id']);
-        console.log('index to remove ', indexToRemove);
-        let deletedBlock = blockData.splice(indexToRemove, 1)[0];
-        console.log('deleted block ', deletedBlock);
-        blockData = blockData.filter(block => block["block_id"] !== block_id['block_id']);
+        let indexToRemove: any = blockData.findIndex(block => block.block_id === block_id['block_id']);
+        let deletedBlock: any = blockData.splice(indexToRemove, 1)[0];
+        // corrects the order of the blocks below the deleted block
         for (let i in blockData) {
-            if (blockData[i]['order'] > deletedBlock.order) {
-                blockData[i]['order'] -= 1;
-                console.log('moved ' + blockData[i]['block_id'] + blockData[i]['order']);
-            }
+            if (blockData[i]['order'] > deletedBlock.order) blockData[i]['order'] -= 1;
         }
         update()
     }
 
-
+    // this function makes sure the JSON is updated so svelte's reactive states can work properly
     function update() {
         blockData = [...blockData.sort((a, b) => a.order - b.order)];
         for (let i in blockData) {
