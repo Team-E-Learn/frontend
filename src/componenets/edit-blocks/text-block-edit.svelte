@@ -7,10 +7,12 @@
         text: string
 
     }
-
+    // parameters this block takes
     export let block_id: number;
+    // the current order of the block, this is as a variable in the styles for the block
     export let order: number;
     export let blockData: textBlock[];
+    // functions for moving and deleting the block
     export let moveBlock: any;
     export let deleteBlock: any;
 

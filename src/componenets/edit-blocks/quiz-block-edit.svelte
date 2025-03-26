@@ -26,9 +26,12 @@
         }
     }
 
+    // parameters this block takes
     export let block_id: number;
     export let blockData: quizBlock[];
+    // the current order of the block, this is as a variable in the styles for the block
     export let order: number;
+    // functions for moving and deleting the block
     export let moveBlock;
     export let deleteBlock: any;
 

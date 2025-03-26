@@ -10,14 +10,18 @@
 
     }
 
+    // parameters this block takes
     export let block_id: number;
     export let blockData: textImageBlock[];
+    // the current order of the block, this is as a variable in the styles for the block
     export let order: number;
-    export let moveBlock;
+    // functions for moving and deleting the block
+    export let moveBlock: any;
     export let deleteBlock: any;
 
 
     function saveChanges() {
+        // gets the data from the inputs and puts them into the format of the interface
         let title = (document.getElementById("text-image-block")?.querySelector(".title") as HTMLInputElement)?.value ?? "";
         let body = (document.getElementById("text-image-block")?.querySelector(".body") as HTMLTextAreaElement)?.value ?? "";
         let image = (document.getElementById("text-image-block")?.querySelector("[name='image']") as HTMLInputElement)?.value ?? "";
