@@ -26,6 +26,7 @@
             textBox.focus();
         })
 
+
         removeLesson.addEventListener("click", (event: Event) => {
             document.querySelectorAll(".lesson-section").forEach(section => {
                 if (!section.classList.contains("hidden")) {
@@ -33,6 +34,29 @@
                     const lessonId: number = Number(section.dataset.lessonId);
                     // Remove the lesson from lessonsData
                     lessonsData = lessonsData.filter((lesson: Lessons) => lesson.lesson_id !== lessonId);
+                    //TODO: (maybe) make the lesson bellow removed lesson active (stops there being a chance of a lesson not being active)
+                    document.querySelectorAll(".lesson-button").forEach(btn => btn.classList.remove("active"));
+                    document.querySelectorAll(".lesson-section").forEach(section => section.classList.add("hidden"));
+
+                    // removes corresponding blocks
+                    const blockDiv = document.getElementById(`blocks-${lessonId}`);
+                    if (blockDiv) blockDiv.remove()
+
+                    // Makes contents bar big if there are no lessons
+                    let contents = document.querySelector(".contents");
+                    if (contents && lessonsData.length === 0) {
+                        contents.classList.remove("small")
+
+                        // Define objects
+                        let selection = document.querySelector(".selection");
+                        let blocks = document.querySelector(".blocks");
+                        let editor = document.querySelector(".block-editor");
+                        if(!selection || !blocks || !editor) return;
+
+                        selection.classList.add("hidden")
+                        blocks.classList.add("hidden")
+                        editor.classList.add("hidden")
+                    }
                 }
             });
         })
@@ -48,7 +72,6 @@
             // If the enter text element is on screen
             if (event.key === "Enter") {
                 if (!textEntry.classList.contains("hidden")) {
-                    console.log("Enter pressed")
                     let input_name = textBox.value
                     const newLesson: Lessons = {
                         lesson_name: input_name,
@@ -78,9 +101,6 @@
                 lessons.classList.toggle("hidden", lessons.id !== target.id);
             })
         }
-
-        // adding blocks
-
     });
 </script>
 

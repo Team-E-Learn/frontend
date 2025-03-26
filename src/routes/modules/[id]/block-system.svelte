@@ -96,8 +96,9 @@
 
     onMount(() => {
         let text1 = document.querySelector(".text1")
-        if (!text1) return;
+        let blocks =  document.getElementById(`blocks-${lesson_id}`);
 
+        if (!text1 && !blocks) return;
     });
 
 </script>

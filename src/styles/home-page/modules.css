@@ -10,7 +10,7 @@
 
 .mod-buttons{
     border-radius: 25px;
-    background-color: #58585c;
+    background-color: var(--secondary);
     text-align: center;
     min-width: 10%;
     padding: 1%;

@@ -23,6 +23,7 @@
 
         // Run through each button and check for a press
         parent.addEventListener("click", (event) => handleLessonButtonClick(event, loadedLessons, true, updateLessons))
+
     });
 </script>
 

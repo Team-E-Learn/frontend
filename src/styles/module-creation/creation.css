@@ -10,7 +10,7 @@
     overflow-x: hidden;
     width: 100vw;
     height: 100vh;
-    background-color: #e2b9f1;
+    background-color: var(--accent);
     transition: width 0.5s;
 }
 
