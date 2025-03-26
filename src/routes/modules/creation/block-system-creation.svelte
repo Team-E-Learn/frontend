@@ -96,20 +96,22 @@
     let count: number = 0;
 
     export let moveBlock = (block_id: any, up: boolean) => {
-        let moveBlock: any = blockData.find(block => block.block_id === block_id['block_id']);
-        // Returns out of the function if the block is at the top or bottom
-        if ((moveBlock.order === 1 && up) || (moveBlock.order === blockData.length && !up)) return;
         let direction = up ? -1: 1
-        let otherMoveBlock: any = blockData.find(block => block.order === moveBlock.order + direction);
-        moveBlock.order += direction;
-        otherMoveBlock.order -= direction;
-        update()
+        let moveBlock: Blocks = blockData.find(block => block.block_id === block_id['block_id']);
+        // Returns out of the function if the block is at the top or bottom
+        if (!moveBlock || (moveBlock.order === 1 && up) || (moveBlock.order === blockData.length && !up)) return;
+        let otherMoveBlock: Blocks = blockData.find(block => block.order === moveBlock.order + direction);
+        if (otherMoveBlock) {
+            moveBlock.order += direction;
+            otherMoveBlock.order -= direction;
+            update()
+        }
 
     }
 
     export let deleteBlock = (block_id: any) => {
-        let indexToRemove: any = blockData.findIndex(block => block.block_id === block_id['block_id']);
-        let deletedBlock: any = blockData.splice(indexToRemove, 1)[0];
+        let indexToRemove: number = blockData.findIndex(block => block.block_id === block_id['block_id']);
+        let deletedBlock: Blocks = blockData.splice(indexToRemove, 1)[0];
         // corrects the order of the blocks below the deleted block
         for (let i in blockData) {
             if (blockData[i]['order'] > deletedBlock.order) blockData[i]['order'] -= 1;
