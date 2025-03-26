@@ -8,12 +8,9 @@
         "alt-text": string
     }
 
+    // takes the block data as a parameter using the above interface as the data type
     export let blockData: imageBlock[];
 
-    let data : imageBlock = {
-            "image": image,
-            "alt-text": "Bliss location, Sonoma Valley in 2006"
-    }
 </script>
 
 <div class="image-block">

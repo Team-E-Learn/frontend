@@ -26,43 +26,14 @@
         }
     }
 
+    // parameters this block takes
     export let block_id: number;
     export let blockData: quizBlock[];
+    // the current order of the block, this is as a variable in the styles for the block
     export let order: number;
+    // functions for moving and deleting the block
     export let moveBlock;
     export let deleteBlock: any;
-
-    let data = {
-        "data": {
-            "question": "press option A",
-            "options" : {
-                "A": {
-                    "text": "Option A",
-                    "isCorrect": true
-                },
-                "B": {
-                    "text": "Option B",
-                    "isCorrect": false
-                },
-                "C": {
-                    "text": "Option C",
-                    "isCorrect": false
-                },
-                "D": {
-                    "text": "Option D",
-                    "isCorrect": false
-                }
-            }
-        }
-    }
-
-    function isAnswer(answer: boolean) {
-        if (answer == true) {
-            alert("correct")
-        } else {
-            alert("incorrect")
-        }
-    }
 
 </script>
 
