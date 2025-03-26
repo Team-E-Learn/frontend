@@ -7,11 +7,12 @@
         text: string
     }
 
+    // takes the block data as a parameter using the above interface as the data type
     export let blockData: textBlock[];
 
 </script>
 
-<di class="text-block">
+<div class="text-block">
     <h3>{blockData[0]["title"]}</h3>
     <p>{blockData[0]["text"]}</p>
-</di>
+</div>

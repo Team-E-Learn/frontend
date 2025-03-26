@@ -120,9 +120,6 @@
     // this function makes sure the JSON is updated so svelte's reactive states can work properly
     function update() {
         blockData = [...blockData.sort((a, b) => a.order - b.order)];
-        for (let i in blockData) {
-            console.log(blockData[i]);
-        }
     }
 
 

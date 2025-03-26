@@ -23,31 +23,9 @@
         }
     }
 
+    // takes the block data as a parameter using the above interface as the data type
     export let blockData: quizBlock[];
 
-    let data = {
-        "data": {
-            "question": "press option A",
-            "options" : {
-                "A": {
-                    "text": "Option A",
-                    "isCorrect": true
-                },
-                "B": {
-                    "text": "Option B",
-                    "isCorrect": false
-                },
-                "C": {
-                    "text": "Option C",
-                    "isCorrect": false
-                },
-                "D": {
-                    "text": "Option D",
-                    "isCorrect": false
-                }
-            }
-        }
-    }
     function isAnswer(answer: boolean) {
         if (answer == true) {
             alert("correct")

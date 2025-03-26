@@ -2,7 +2,6 @@
 
     import "../../styles/blocks/image-block.css"
     import {onMount} from "svelte";
-    //import image from "../../assets/Bliss_location,_Sonoma_Valley_in_2006.jpg"
 
     interface imageBlock {
         image: string,

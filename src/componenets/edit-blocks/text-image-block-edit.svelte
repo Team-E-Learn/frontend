@@ -1,8 +1,6 @@
 <script lang="ts">
 
     import "../../styles/blocks/text-image-block.css"
-    //import image from "../../assets/Bliss_location,_Sonoma_Valley_in_2006.jpg"
-    import {onMount} from "svelte";
 
     interface textImageBlock {
         title: string,
