@@ -125,7 +125,9 @@
 
     onMount(() => {
         let text1 = document.querySelector(".text1")
-        if (!text1) return;
+        let blocks =  document.getElementById(`blocks-${lesson_id}`);
+
+        if (!text1 && !blocks) return;
 
         text1.addEventListener("click", (event: Event) => {
             //TODO: change data from temporary data
@@ -135,8 +137,11 @@
                 order: count,
                 data: [{text: "temporary text"}],
             }
-
-            blockData = [...blockData, newBlock];
+            let parent = blocks.parentElement;
+            let loaded = document.getElementById("loaded-lesson")
+            if(loaded === parent) {
+                blockData = [...blockData, newBlock];
+            }
         });
     });
 

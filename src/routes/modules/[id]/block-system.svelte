@@ -95,10 +95,7 @@
     let count: number = 0;
 
     onMount(() => {
-        let text1 = document.querySelector(".text1")
-        let blocks =  document.getElementById(`blocks-${lesson_id}`);
 
-        if (!text1 && !blocks) return;
     });
 
 </script>
