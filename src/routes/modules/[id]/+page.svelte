@@ -4,7 +4,7 @@
     import Blocks from './block-system.svelte' // Import contents component
     import Dashboard from '../landingPageDashboard.svelte' // Import dashboard
     import {mount, onMount} from "svelte"; // Import contents bar
-    import { handleLessonButtonClick } from '../contentsBarFunctions'
+    import { handleLessonButtonClick } from '../contents-bar-functions'
 
     let { data } = $props(); // Get the module_id passed in from the home page
 
