@@ -100,7 +100,7 @@
 
 </script>
 
-<div id="blocks-{lesson_id}" class="block-container"> <!-- flex box that stores the blocks -->
+<div id="blocks-{lesson_id}" class="block-container" data-block-data={JSON.stringify(blockData)}> <!-- flex box that stores the blocks -->
     {#each blockData as block} <!-- running through the block json -->
         {#if block.block_type === 1}
             <TextBlock blockData={block.data}/>
