@@ -3,7 +3,7 @@
     import Creation from './creation-bar.svelte'; // Import creation bar
     import Blocks from './block-system-creation.svelte' // Import contents component
     import Dashboard from '../landingPageDashboard.svelte' // Import dashboard
-    import TextEntry from './text-entry.svelte'
+    import TextEntry from '../../../componenets/text-entry.svelte'
     import {mount, onMount} from "svelte"; // Import contents bar
     import { handleLessonButtonClick } from '../contents-bar-functions'
 
@@ -27,7 +27,7 @@
     });
 </script>
 
-<TextEntry/>
+<TextEntry text="Enter lesson name:"/>
 <Dashboard/>
 <div style="position: relative;">
     <Creation />

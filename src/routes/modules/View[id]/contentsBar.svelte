@@ -5,7 +5,7 @@
     interface Lessons {
         lesson_name: string;
         lesson_id: number;
-        sections: { section_name: string; }[];
+        sections: { section_name: string; }[]
     }//create lessons json
 
     let lessons: Lessons = [
