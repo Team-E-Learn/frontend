@@ -3,11 +3,11 @@
     import { onMount } from "svelte";
     import image from "../../../assets/Bliss_location,_Sonoma_Valley_in_2006.jpg";
     import "../../../styles/block-system.css";
-    import DownloadBlock from "../../../componenets/edit-blocks/download-block-edit.svelte";
-    import QuizBlock from "../../../componenets/edit-blocks/quiz-block-edit.svelte";
-    import TextBlock from "../../../componenets/edit-blocks/text-block-edit.svelte";
-    import TextImageBlock from "../../../componenets/edit-blocks/text-image-block-edit.svelte";
-    import ImageBlock from "../../../componenets/edit-blocks/image-block-edit.svelte";
+    import DownloadBlock from "../../../componenets/blocks/download-block.svelte";
+    import QuizBlock from "../../../componenets/blocks/quiz-block.svelte";
+    import TextBlock from "../../../componenets/blocks/text-block.svelte";
+    import TextImageBlock from "../../../componenets/blocks/text-image-block.svelte";
+    import ImageBlock from "../../../componenets/blocks/image-block.svelte";
 
     export let lesson_id: number; // pass in lesson id
 
@@ -152,15 +152,15 @@
 <div id="blocks-{lesson_id}" class="block-container"> <!-- flex box that stores the blocks -->
     {#each blockData as block} <!-- running through the block json -->
         {#if block.block_type === 1}
-            <TextBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock}/>
+            <TextBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} editMode={true}/>
         {:else if block.block_type === 2}
-            <ImageBlock block_id={block.block_id} order={block.order} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock}/>
+            <ImageBlock block_id={block.block_id} order={block.order} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} editMode={true}/>
         {:else if block.block_type === 3}
-            <TextImageBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock}/>
+            <TextImageBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} editMode={true}/>
         {:else if block.block_type === 4}
-            <DownloadBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock}/>
+            <DownloadBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} editMode={true}/>
         {:else if block.block_type === 5}
-            <QuizBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock}/>
+            <QuizBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} editMode={true}/>
         {/if}
     {/each}
 </div>

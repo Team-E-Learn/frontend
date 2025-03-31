@@ -103,15 +103,15 @@
 <div id="blocks-{lesson_id}" class="block-container"> <!-- flex box that stores the blocks -->
     {#each blockData as block} <!-- running through the block json -->
         {#if block.block_type === 1}
-            <TextBlock blockData={block.data}/>
+            <TextBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={null} moveBlock={null} editMode={false}/>
         {:else if block.block_type === 2}
-            <ImageBlock blockData={block.data}/>
+            <ImageBlock block_id={block.block_id} order={block.order} blockData={block.data} deleteBlock={null} moveBlock={null} editMode={false}/>
         {:else if block.block_type === 3}
-            <TextImageBlock blockData={block.data}/>
+            <TextImageBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={null} moveBlock={null} editMode={false}/>
         {:else if block.block_type === 4}
-            <DownloadBlock blockData={block.data}/>
+            <DownloadBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={null} moveBlock={null} editMode={false}/>
         {:else if block.block_type === 5}
-            <QuizBlock blockData={block.data}/>
+            <QuizBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={null} moveBlock={null} editMode={false}/>
         {/if}
     {/each}
 </div>
