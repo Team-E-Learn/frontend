@@ -15,7 +15,7 @@
         let lessonButtons: NodeListOf<HTMLElement> = document.querySelectorAll(".lesson-button");
         for (const btn: HTMLElement of lessonButtons) {
             btn.addEventListener("click", (event: Event) => {
-                //TODO: fix this code for adding sections
+                //TODO: make the code change the text 
                 const blockContainer = document.getElementById(`blocks-${info.lesson_id}`);
                 if (blockContainer) {
                     const data = blockContainer.getAttribute("data-block-data");
