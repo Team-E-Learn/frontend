@@ -10,8 +10,6 @@
         modules: { name: string; module_id: number }[];
     }; // pass through organisation details from json
 
-    export let
-
     function newModule() {
         let newMod = {
             name: "mod1",
