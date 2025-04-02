@@ -21,11 +21,10 @@
                     const data = blockContainer.getAttribute("data-block-data");
                     blockData = JSON.parse(data);
                 }
-                let temp = [];
-                for (let i in length(blockData)) {
-                    temp = [...sections, "Introduction"];
-                }
-                sections = temp;
+                sections = [];
+                blockData.forEach(() => {
+                    sections = [...sections, "Introduction"];
+                });
 
                 document.querySelectorAll(".lesson-section").forEach((section) => {
                     section.classList.add("hidden");
