@@ -11,10 +11,12 @@
     import authService from "../../services/authService";
 
     let email: string = "";
+    let showAccountTypeSection: boolean = true;
+    let accountType: string;
     let isValidEmail: boolean = true;
-    let showEmailSection: boolean = true;
+    let showEmailSection: boolean = false;
     let confirmationCode: string = "";
-    let showEmailConfirmationSection: boolean = true;
+    let showEmailConfirmationSection: boolean = false;
     let showUsernameSection: boolean = false;
     let showPasswordSection: boolean = false;
     let show2FASection: boolean = false;
@@ -31,6 +33,15 @@
     let limitedJWT: string = "";
     let totpSecret: string = "";
     let otpauthURL: string = "";
+
+    const onAccountSelectionContinueClick = () => {
+        if (!accountType) {
+            errorMessage = "Please make a selection";
+        } else {
+            showAccountTypeSection = false;
+            showEmailSection = true;
+        }
+    };
 
     // Handle form submission for registration
     const onContinueClick = async (): Promise<void> => {
@@ -143,11 +154,13 @@
 
     // Handle back button click
     const onBackClick = (): void => {
-        if (showEmailConfirmationSection) {
+        if (showEmailSection) {
+            showEmailSection = false;
+            showAccountTypeSection = true;
+        } else if (showEmailConfirmationSection) {
             showEmailConfirmationSection = false;
             showEmailSection = true;
-        }
-        if (showUsernameSection) {
+        } else if (showUsernameSection) {
             showUsernameSection = false;
             showEmailConfirmationSection = true; // Go back to the email section
         } else if (showPasswordSection) {
@@ -217,8 +230,54 @@
     <div class="left-container"></div>
     <div class="middle-divider"></div>
     <div class="right-container">
-        {#if showEmailSection}
-            <div class="title">Welcome, User!</div>
+        {#if showAccountTypeSection}
+            <div class="title">Welcome!</div>
+            <div class="subtitle" in:fly={{ x: 300, duration: 500 }}>
+                Are you a student or a teacher?
+            </div>
+            <div class="input-container" in:fly={{ x: 300, duration: 500 }}>
+                <div>
+                    <input
+                        type="radio"
+                        name="account-type"
+                        id="student-account"
+                        value="student"
+                        bind:group={accountType}
+                        class="account-type-input"
+                    />
+                    <label for="student-account" class="account-type-label"
+                        >Student</label
+                    >
+                </div>
+                <div>
+                    <input
+                        type="radio"
+                        name="account-type"
+                        id="teacher-account"
+                        value="teacher"
+                        class="account-type-input"
+                        bind:group={accountType}
+                    />
+                    <label for="teacher-account" class="account-type-label"
+                        >Teacher</label
+                    >
+                </div>
+            </div>
+            {#if errorMessage}
+                <p class="error-message">{errorMessage}</p>
+            {/if}
+            <button
+                class="button"
+                on:click={onAccountSelectionContinueClick}
+                in:fly={{ x: 300, duration: 500 }}>Continue</button
+            >
+        {:else if showEmailSection}
+            <button
+                class="back-button"
+                on:click={onBackClick}
+                in:fly={{ x: 300, duration: 500 }}>🡰 Back</button
+            >
+            <div class="title">Enter your email</div>
             <div class="subtitle" in:fly={{ x: 300, duration: 500 }}>
                 Please enter your email to get started.
             </div>
@@ -501,3 +560,19 @@
         <button class="button" on:click={verifyCode}>Verify</button>
     </div>
 {/if}
+
+<style>
+    .account-type-input {
+        display: none;
+    }
+    .account-type-input:checked + label {
+        background-color: #b0adff;
+    }
+    .account-type-label {
+        cursor: pointer;
+        border: 2px solid #b0adff;
+        border-radius: 20px;
+        text-align: center;
+        padding: 1rem 0;
+    }
+</style>
