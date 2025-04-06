@@ -32,18 +32,22 @@
 
 </script>
 
-<div class="image-block" style="--blockOrder: {order}">
+
     {#if editMode}
-        <input type="text" name="image" placeholder="input image link" value={blockData[0]["image"]}>
-        <input type="text" class="altText" name="altText" placeholder="input alt text" value={blockData[0]["altText"]}>
-        <input type="submit" class="button" value="Save Changes" on:click={saveChanges}>
-        <div class="buttons">
-            <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
-            <button class="down"  on:click={moveBlock({block_id}, false)}>Move Down</button>
-            <button class="delete" on:click={deleteBlock({block_id})}>Delete</button>
+        <div class="image-block-edit" style="--blockOrder: {order}">
+            <input type="text" class="image" name="image" placeholder="input image link" value={blockData[0]["image"]}>
+            <input type="text" class="altText" name="altText" placeholder="input alt text" value={blockData[0]["altText"]}>
+            <input type="submit" class="submit" value="Save Changes" on:click={saveChanges}>
+            <div class="buttons">
+                <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
+                <button class="down"  on:click={moveBlock({block_id}, false)}>Move Down</button>
+                <button class="delete" on:click={deleteBlock({block_id})}>Delete</button>
+            </div>
         </div>
     {:else}
-    <img src={blockData[0]["image"]} alt={blockData[0]["altText"]}>
+    <div class="image-block" style="--blockOrder: {order}">
+        <img src={blockData[0]["image"]} alt={blockData[0]["altText"]}>
+    </div>
     {/if}
-</div>
+
 

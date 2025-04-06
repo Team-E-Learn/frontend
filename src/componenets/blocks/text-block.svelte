@@ -33,7 +33,7 @@
     {#if editMode}
         <input type="text" class="title" name="title" placeholder="Enter Title here" value="{blockData[0]['title']}" >
         <textarea class="title" name="title" placeholder="Enter Title here">{blockData[0]["text"]}</textarea>
-        <input type="submit" class="button" value="Save Changes" on:click={saveChanges}>
+        <input type="submit" class="submit" value="Save Changes" on:click={saveChanges}>
         <div class="buttons">
             <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
             <button class="down"  on:click={moveBlock({block_id}, false)} >Move Down</button>

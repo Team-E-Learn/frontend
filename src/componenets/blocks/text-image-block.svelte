@@ -43,9 +43,9 @@
     {#if editMode}
         <input type="text" name="title" class="title" placeholder="Enter Title here" value={blockData[0]["title"]}>
         <textarea class="body" name="body" placeholder="Enter Body text here">{blockData[0]["text"]}</textarea>
-        <input type="text" name="image" placeholder="input image link" value={blockData[0]["image"]}>
+        <input type="text" name="image" class="image" placeholder="input image link" value={blockData[0]["image"]}>
         <input type="text" class="altText" name="altText" placeholder="input alt text" value={blockData[0]["altText"]}>
-        <input type="submit" class="button" value="Save Changes" on:click={saveChanges}>
+        <input type="submit" class="submit" value="Save Changes" on:click={saveChanges}>
 
         <div class="buttons">
             <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>

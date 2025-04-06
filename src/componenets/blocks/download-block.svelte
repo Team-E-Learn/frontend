@@ -33,9 +33,9 @@
 
 <div class="download-block" style="--blockOrder: {order}">
     {#if editMode}
-        <input type="text" name="file" alt="input file link" value={blockData[0]["downloadLink"]}>
+        <input type="text" class="file" name="file" alt="input file link" value={blockData[0]["downloadLink"]}>
         <input type="text" class="altText" name="altText" value={blockData[0]["fileName"]}>
-        <input type="submit" class="button" value="Save Changes" on:click={saveChanges}>
+        <input type="submit" class="submit" value="Save Changes" on:click={saveChanges}>
 
         <div class="buttons">
             <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
