@@ -1,11 +1,59 @@
 .text-block {
-    background-color: #227c9d;
+    background-color: var(--secondary);
     padding: 1rem;
     border-radius: 1rem;
-    border: 3px solid #16c3b2;
+    border: 3px solid var(--accent);
+    display: flex;
+    flex-direction: column;
+    column-gap: 2rem;
 }
 
 .text-block h3{
     text-align: center;
 }
 
+.title {
+    background-color: transparent;
+    border: 3px solid var(--accent);
+}
+
+.text {
+    background-color: transparent;
+    border: 3px solid var(--accent);
+    flex-grow: 1;
+}
+
+.body {
+    background-color: transparent;
+    border: 3px solid var(--accent);
+    flex-grow: 1;
+    resize: vertical;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+.buttons button {
+    background-color: transparent;
+    border: 3px solid var(--accent);
+    border-radius: 1rem;
+}
+
+.buttons button:hover {
+    background-color: var(--hover);
+    color: black;
+}
+
+.submit {
+    background-color: transparent;
+    border: 3px solid var(--accent);
+    flex-grow: 1;
+}
+
+.submit:hover {
+    background-color: var(--hover);
+    color: black;
+}

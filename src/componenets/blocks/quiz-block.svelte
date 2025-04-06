@@ -23,9 +23,6 @@
         }
     }
 
-    // takes the block data as a parameter using the above interface as the data type
-    export let blockData: quizBlock[];
-
     function isAnswer(answer: boolean) {
         if (answer == true) {
             alert("correct")
@@ -34,13 +31,32 @@
         }
     }
 
+    // parameters this block takes
+    export let block_id: number;
+    export let blockData: quizBlock[];
+    // the current order of the block, this is as a variable in the styles for the block
+    export let order: number;
+    // functions for moving and deleting the block
+    export let moveBlock;
+    export let deleteBlock: any;
+    export let editMode: boolean;
+    export let name: string;
+
 </script>
 
-<div class="quiz-block">
+<div class="quiz-block" style="--blockOrder: {order}">
+    {#if editMode}
+        <div class= "buttons" >
+            <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
+            <button class="down"  on:click={moveBlock({block_id}, false)} >Move Down</button>
+            <button class="delete" on:click={deleteBlock({block_id})}>Delete</button>
+        </div>
+    {:else}
     <h1>{blockData[0]["question"]}</h1>
     <div class="options">
         {#each Object.values(blockData[0]["options"]) as option}
             <button on:click={() => isAnswer(option.isCorrect)}>{option.text}</button>
         {/each}
     </div>
+    {/if}
 </div>
