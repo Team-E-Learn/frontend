@@ -23,6 +23,13 @@
     flex-grow: 1;
 }
 
+.body {
+    background-color: transparent;
+    border: 3px solid var(--accent);
+    flex-grow: 1;
+    resize: vertical;
+}
+
 .buttons {
     display: flex;
     flex-direction: row;
