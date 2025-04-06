@@ -5,6 +5,7 @@
     border: 3px solid var(--accent);
     display: flex;
     flex-direction: column;
+    margin: 0 0.2rem 0.5rem 0.2rem;
 }
 
 .download-block a {
