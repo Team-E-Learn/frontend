@@ -40,7 +40,7 @@
     export let moveBlock;
     export let deleteBlock: any;
     export let editMode: boolean;
-
+    export let name: string;
 
 </script>
 

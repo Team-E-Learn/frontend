@@ -20,6 +20,7 @@
     export let moveBlock: any;
     export let deleteBlock: any;
     export let editMode: boolean;
+    export let name: string;
 
 
     function saveChanges() {

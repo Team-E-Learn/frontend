@@ -17,6 +17,7 @@
     export let moveBlock: any;
     export let deleteBlock: any;
     export let editMode: boolean;
+    export let name: string;
 
     function saveChanges() {
         let title = Array.from(document.getElementById("text-block")?.querySelectorAll("title") ?? []).map(el => el.textContent ?? "").join(" ");
