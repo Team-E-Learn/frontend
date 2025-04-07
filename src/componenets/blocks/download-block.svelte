@@ -1,16 +1,49 @@
 <script lang="ts">
 
-    import "../../styles/block-styles/download-block.css"
+    import "../../styles/blocks/download-block.css"
 
-    let data = [{
-        "data": {
-            "downloadLink": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fsillycattvseries.fandom.com%2Fwiki%2FBig_Poo&psig=AOvVaw2p48Vdi8o33dYzsITLi7Xa&ust=1740067636205000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCOD-uq-P0IsDFQAAAAAdAAAAABAE",
-            "fileName": "document.docx"
+
+    interface downloadBlock {
+        downloadLink: string,
+        fileName: string
+
+    }
+
+    // parameters this block takes
+    export let blockData: downloadBlock[];
+    export let block_id: number;
+    // the current order of the block, this is as a variable in the styles for the block
+    export let order: number;
+    // functions for moving and deleting the block
+    export let moveBlock: any;
+    export let deleteBlock: any;
+    export let editMode: boolean;
+    export let name: string;
+
+    function saveChanges() {
+        // gets the data from the inputs and puts them into the format of the interface
+        let downloadLink = (document.getElementById("download-block")?.querySelector("[name='file']") as HTMLInputElement)?.value ?? "";
+        let altText = (document.getElementById("download-block")?.querySelector("[name='altText']") as HTMLInputElement)?.value ?? "";
+
+        let data: downloadBlock = {
+            downloadLink: downloadLink,
+            fileName: altText
         }
-    }]
-
+    }
 </script>
 
-<div class="download-block">
-    <a href={data[0]["data"]["downloadLink"]}>{data[0]["data"]["fileName"]}</a>
+<div class="download-block" style="--blockOrder: {order}">
+    {#if editMode}
+        <input type="text" class="file" name="file" alt="input file link" value={blockData[0]["downloadLink"]}>
+        <input type="text" class="altText" name="altText" value={blockData[0]["fileName"]}>
+        <input type="submit" class="submit" value="Save Changes" on:click={saveChanges}>
+
+        <div class="buttons">
+            <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
+            <button class="down"  on:click={moveBlock({block_id}, false)} >Move Down</button>
+            <button class="delete" on:click={deleteBlock({block_id})}>Delete</button>
+        </div>
+    {:else}
+        <a href={blockData[0]["downloadLink"]}>{blockData[0]["fileName"]}</a>
+    {/if}
 </div>

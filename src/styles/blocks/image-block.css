@@ -1,0 +1,45 @@
+.image-block{
+    display: flex;
+    background-color: var(--secondary);
+    padding : 2rem;
+    border-radius: 1rem;
+    border: 3px solid var(--accent);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 0.2rem 0.5rem 0.2rem;
+}
+
+.image-block-edit{
+    display: flex;
+    background-color: var(--secondary);
+    padding : 2rem;
+    border-radius: 1rem;
+    border: 3px solid var(--accent);
+    flex-direction: column;
+}
+
+.image-block img{
+    flex: 1 1 auto;
+    width: 100%;
+    height: auto;
+    border: 3px solid var(--accent);
+    border-radius: 1rem;
+ }
+
+.image {
+    background-color: transparent;
+    border: 3px solid var(--accent);
+    flex-grow: 1;
+}
+
+.submit {
+    background-color: transparent;
+    border: 3px solid var(--accent);
+    flex-grow: 1;
+}
+
+.submit:hover {
+    background-color: var(--hover);
+    color: black;
+}
