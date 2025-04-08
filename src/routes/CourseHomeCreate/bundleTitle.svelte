@@ -14,7 +14,7 @@
     function newModule() {
         let newMod = {
             name: "mod1",
-            module_id: count + 1,
+            module_id: count += 1,
         }
 
         bundle.modules = [...bundle.modules, newMod];

@@ -27,7 +27,7 @@
     function newOrg(){
         let newOrg: Org = {
             org_name: "test",
-            org_id: count + 1,
+            org_id: count += 1,
             bundles: [],
             modules: [],
         }

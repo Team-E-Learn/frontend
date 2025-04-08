@@ -16,7 +16,7 @@
     function newModule() {
         let newMod = {
             name: "mod1",
-            module_id: countMod + 1,
+            module_id: countMod += 1,
         }
 
         org.modules = [...org.modules, newMod];
@@ -29,7 +29,7 @@
     function newBundle() {
         let newBundle = {
             name: "bundle",
-            id: countBundle + 1,
+            id: countBundle += 1,
             modules: []
         }
 
