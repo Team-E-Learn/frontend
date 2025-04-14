@@ -4,9 +4,8 @@
     import {onMount} from "svelte";
 
     export let info: {
-        lesson_name: string;
-        lesson_id: number;
-        url: string;
+        id: number,
+        title: string,
         sections: {section_name: string;}[]
     }; // pass through lesson details from json
 
@@ -27,10 +26,10 @@
 
 <div class="lesson">
     <div class="lesson-header">
-        <button class="lesson-button" data-lesson_id="{info.lesson_id}">{info.lesson_name}</button>
+        <button class="lesson-button" data-lesson_id="{info.id}">{info.title}</button>
     </div>
 
-    <div class="lesson-section hidden" data-lesson-id={info.lesson_id}>
+    <div class="lesson-section hidden" data-lesson-id={info.id}>
         {#each info.sections as section}
             <Section info={section}/>
         {/each}

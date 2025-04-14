@@ -1,6 +1,10 @@
 <script lang="ts">
     import '../../../styles/module-landing/contents.css'; // Import styles
     import Lesson from "../lessons.svelte"; //Import lessons
+    import lessonService from "../../../services/lessonService"
+    import {mount, onMount} from "svelte";
+
+    export let module_id;
 
     interface Lessons {
         lesson_name: string;
@@ -8,74 +12,22 @@
         sections: { section_name: string; }[];
     }//create lessons json
 
-    let lessons: Lessons = [
-        {
-            "lesson_name": "fundamentals",
-            "lesson_id": 1,
-            "sections":[
-                {
-                    "section_name": "intro"
-                },
-                {
-                    "section_name": "description"
-                },
-                {
-                    "section_name": "questions"
-                },
-                {
-                    "section_name": "questions"
-                },
-                {
-                    "section_name": "questions"
-                },
-                {
-                    "section_name": "questions"
-                },
-                {
-                    "section_name": "questions"
-                },
-                {
-                    "section_name": "docs"
-                }
-            ]
-        },
-        {
-            "lesson_name": "Osmosis",
-            "lesson_id": 2,
-            "sections":[
-                {
-                    "section_name": "intro"
-                },
-                {
-                    "section_name": "description"
-                },
-                {
-                    "section_name": "questions"
-                },
-                {
-                    "section_name": "docs"
-                }
-            ]
-        },
-        {
-            "lesson_name": "reproduction",
-            "lesson_id": 3,
-            "sections":[
-                {
-                    "section_name": "intro"
-                },
-                {
-                    "section_name": "description"
-                },
-                {
-                    "section_name": "questions"
-                },
-                {
-                    "section_name": "docs"
-                }
-            ]
+    let lessons = []
+
+    async function fetchLessons(moduleId: number) {
+        try {
+            const data = await lessonService.getLessons(moduleId);
+            lessons = data.lessons;
+        } catch (err) {
+            error = 'Failed to fetch lessons';
+            console.error(err);
         }
-    ] //temporary data : Replace with api call
+    }
+
+    onMount(() => {
+        fetchLessons(module_id)
+    });
+
 </script>
 <div class="content-stick">
     <div class="contents ">

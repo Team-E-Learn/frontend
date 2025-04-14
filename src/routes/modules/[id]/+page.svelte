@@ -26,7 +26,7 @@
 
 <Dashboard/>
 <div style="position: relative;">
-    <Contents />
+    <Contents module_id={data.module_id}/>
     <div id="loaded-lesson">
         {#each loadedLessons as lesson}
             <Blocks lesson_id={lesson}/>
