@@ -6,13 +6,26 @@
     export let info: {
         id: number,
         title: string,
-        sections: {section_name: string;}[]
     }; // pass through lesson details from json
+
+    let blockData = {};
+    let sections = [];
 
     onMount(() => {
         let lessonButtons: NodeListOf<HTMLElement> = document.querySelectorAll(".lesson-button");
         for (const btn: HTMLElement of lessonButtons) {
             btn.addEventListener("click", (event: Event) => {
+                //TODO: make the code change the text
+                const blockContainer = document.getElementById(`blocks-${info.id}`);
+                if (blockContainer) {
+                    const data = blockContainer.getAttribute("data-block-data");
+                    blockData = JSON.parse(data);
+                }
+                sections = [];
+                blockData.forEach(() => {
+                    sections = [...sections, "Introduction"];
+                });
+
                 document.querySelectorAll(".lesson-section").forEach((section) => {
                     section.classList.add("hidden");
                 })
@@ -30,7 +43,7 @@
     </div>
 
     <div class="lesson-section hidden" data-lesson-id={info.id}>
-        {#each info.sections as section}
+        {#each sections as section}
             <Section info={section}/>
         {/each}
     </div>

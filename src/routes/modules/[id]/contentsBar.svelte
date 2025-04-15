@@ -2,15 +2,15 @@
     import '../../../styles/module-landing/contents.css'; // Import styles
     import Lesson from "../lessons.svelte"; //Import lessons
     import lessonService from "../../../services/lessonService"
-    import {mount, onMount} from "svelte";
-
-    export let module_id;
+    import {onMount} from "svelte";
 
     interface Lessons {
         lesson_name: string;
         lesson_id: number;
         sections: { section_name: string; }[];
     }//create lessons json
+
+    export let module_id;
 
     let lessons = []
 
