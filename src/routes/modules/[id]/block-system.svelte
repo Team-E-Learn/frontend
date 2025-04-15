@@ -27,6 +27,8 @@
     block_type: 4 = download block
     block_type: 5 = quiz block
      */
+
+    //TODO: link to backend once data is changed
     let blockData: Blocks[] = [
         {
             block_type: 1,
