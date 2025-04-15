@@ -6,25 +6,9 @@
     import Header from "../../componenets/header.svelte"//import Header element
     import TextEntry from '../../componenets/text-entry.svelte'
 
-    onMount(() => {
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") {
-                textEntry.classList.add("hidden")
-            }
 
-            // If the enter text element is on screen
-            if (event.key === "Enter") {
-                if (!textEntry.classList.contains("hidden")) {
-                    let input_name = textBox.value
-                    // TODO: add value to list
-                    textBox.value = ""
-                }
-            }
-        });
-    })
 </script>
 
-<TextEntry text="Enter Organisation ID:"/>
 <!-- calls header element -->
 <Header title="Home Page"/>
 <!-- calls dashboard element -->
