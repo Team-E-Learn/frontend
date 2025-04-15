@@ -7,7 +7,6 @@
     interface Lessons {
         lesson_name: string;
         lesson_id: number;
-        sections: { section_name: string; }[];
     }//create lessons json
 
     export let module_id;
