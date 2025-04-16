@@ -1,5 +1,5 @@
 <script lang="ts">
-    import '../../../styles/module-lnding/lessons.css'; // Import styles
+    import '../../styles/module-landing/lessons.css'; // Import styles
     import Section from "./sections.svelte";
     import {onMount} from "svelte";
 
@@ -7,7 +7,7 @@
         lesson_name: string;
         lesson_id: number;
         url: string;
-        sections: {section_name: string;}
+        sections: {section_name: string;}[]
     }; // pass through lesson details from json
 
     onMount(() => {
@@ -19,7 +19,7 @@
                 })
                 event.target.parentElement.parentElement.querySelector(".lesson-section")?.classList.remove("hidden");
                 // top scroll
-                document.querySelectorAll(".block-container p")[0].scrollIntoView({ behavior: "smooth" });
+                document.querySelectorAll(".block-container > *")[0].scrollIntoView({ behavior: "smooth" });
             })
         }
     });
@@ -30,7 +30,7 @@
         <button class="lesson-button" data-lesson_id="{info.lesson_id}">{info.lesson_name}</button>
     </div>
 
-    <div class="lesson-section hidden">
+    <div class="lesson-section hidden" data-lesson-id={info.lesson_id}>
         {#each info.sections as section}
             <Section info={section}/>
         {/each}
