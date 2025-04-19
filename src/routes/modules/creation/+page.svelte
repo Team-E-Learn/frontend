@@ -30,7 +30,7 @@
 <TextEntry text="Enter lesson name:"/>
 <Dashboard/>
 <div style="position: relative;">
-    <Creation />
+    <Creation/>
     <div id="loaded-lesson">
         {#each loadedLessons as lesson}
             <Blocks lesson_id={lesson}/>

@@ -5,13 +5,13 @@
     import {onMount} from "svelte";
 
     interface Lessons {
-        lesson_name: string;
-        lesson_id: number;
+        title: string;
+        id: number;
     }//create lessons json
 
     export let module_id;
 
-    let lessons = []
+    let lessons: Lessons = []
 
     async function fetchLessons(moduleId: number) {
         try {
@@ -32,7 +32,7 @@
     <div class="contents ">
         <div class="lessons" id="lesson">
             {#each lessons as lesson}
-                <Lesson info={lesson}/>
+                <Lesson info={lesson} creation={false}/>
             {/each}
         </div>
     </div>

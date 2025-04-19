@@ -2,19 +2,43 @@
     import '../../../styles/module-creation/creation.css'; // Import styles
     import Lesson from "../lessons.svelte"
     import Header from "../../../componenets/header.svelte"
+    import lessonService from "../../../services/lessonService"
     import {onMount} from "svelte";
     interface Lessons {
-            lesson_name: string;
-            lesson_id: number;
-            sections: { section_name: string; }[];
-        }//create lessons json
+        title: string;
+        id: number;
+    }//create lessons json
+
+    let module_id = 1;
+    let count = 0;
 
     // Initialize as an empty array
-    let lessonsData: Lessons[] = [];
+    let lessonsData: Lessons = [];
+
+    async function fetchLessons(moduleId: number) {
+        try {
+            const data = await lessonService.getLessons(moduleId);
+            lessonsData = data.lessons;
+        } catch (err) {
+            error = 'Failed to fetch lessons';
+            console.error(err);
+        }
+    }
+
+    async function deleteLessons(lessonId: number) {
+        lessonService.deleteLesson(lessonId)
+            .then(() => {
+                console.log('Lesson deleted!');
+            })
+            .catch(err => {
+                console.error('Error deleting lesson:', err);
+            });
+    }
 
     onMount(() => {
+        fetchLessons(module_id)
 
-        let count = 0;
+
         let addLesson = document.querySelector(".add-lesson")
         let removeLesson = document.querySelector(".remove-lesson")
         let textEntry = document.querySelector(".entry")
@@ -34,8 +58,11 @@
                     // Get lesson ID from the section's dataset
                     const lessonId: number = Number(section.dataset.lessonId);
 
+
                     // Remove the lesson from lessonsData
-                    lessonsData = lessonsData.filter((lesson: Lessons) => lesson.lesson_id !== lessonId);
+                    lessonsData = lessonsData.filter((lesson: Lessons) => lesson.id !== lessonId);
+
+                    deleteLessons(lessonId)
 
                     //TODO: (maybe) make the lesson bellow removed lesson active (stops there being a chance of a lesson not being active)
                     document.querySelectorAll(".lesson-button").forEach(btn => btn.classList.remove("active"));
@@ -67,10 +94,12 @@
             if (event.key === "Enter") {
                 if (!textEntry.classList.contains("hidden")) {
                     let input_name = textBox.value
+                    while (lessonsData.filter(item => item.id === count).length > 0){
+                        count += 1;
+                    }
                     const newLesson: Lessons = {
-                        lesson_name: input_name,
-                        lesson_id: count += 1,
-                        sections: [{section_name: "yes"}]
+                        title: input_name,
+                        id: count,
                     };
                     textBox.value = ""
                     // Add the new lesson to the array
@@ -117,7 +146,7 @@
                 <button class="remove-lesson">-</button>
             </div>
             {#each lessonsData as lesson}
-                <Lesson info={lesson}/>
+                <Lesson info={lesson} creation={true}, module_id={module_id}/>
             {/each}
         </div>
     </div>
