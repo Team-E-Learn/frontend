@@ -12,7 +12,7 @@
 
     let email: string = "";
     let showAccountTypeSection: boolean = true;
-    let accountType: string;
+    let accountType: "user" | "teacher";
     let isValidEmail: boolean = true;
     let showEmailSection: boolean = false;
     let confirmationCode: string = "";
@@ -137,6 +137,7 @@
                 email,
                 username,
                 password,
+                accountType,
             );
             limitedJWT = response.token;
             totpSecret = response.user.secret;
@@ -241,7 +242,7 @@
                         type="radio"
                         name="account-type"
                         id="student-account"
-                        value="student"
+                        value="user"
                         bind:group={accountType}
                         class="account-type-input"
                     />

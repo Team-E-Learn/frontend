@@ -70,7 +70,7 @@ const login = async (email: string, password: string) => {
     return data;
 };
 
-const register = async (email: string, username: string, password: string) => {
+const register = async (email: string, username: string, password: string, accountType: "user" | "teacher") => {
     const url = `${apiBaseUrl}/v1/auth/register`;
 
     const response = await fetch(url, {
@@ -82,6 +82,7 @@ const register = async (email: string, username: string, password: string) => {
             email,
             username,
             password,
+            accountType,
         }),
     });
     if (!response.ok) {
