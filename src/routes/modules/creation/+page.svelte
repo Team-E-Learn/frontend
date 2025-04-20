@@ -1,10 +1,12 @@
 <script lang="ts">
     import '../../../styles/global.css'; // Import global styles
-    import Contents from './contentsBar.svelte' // Import contents component
-    import Blocks from './block-system.svelte' // Import contents component
+    import Creation from './creation-bar.svelte'; // Import creation bar
+    import Blocks from './block-system-creation.svelte' // Import contents component
     import Dashboard from '../landingPageDashboard.svelte' // Import dashboard
+    import TextEntry from './text-entry.svelte'
     import {mount, onMount} from "svelte"; // Import contents bar
     import { handleLessonButtonClick } from '../contents-bar-functions'
+
 
     let { data } = $props(); // Get the module_id passed in from the home page
 
@@ -20,13 +22,15 @@
         if (!parent) return;
 
         // Run through each button and check for a press
-        parent.addEventListener("click", (event) => handleLessonButtonClick(event, loadedLessons, false, updateLessons))
+        parent.addEventListener("click", (event) => handleLessonButtonClick(event, loadedLessons, true, updateLessons))
+
     });
 </script>
 
+<TextEntry/>
 <Dashboard/>
 <div style="position: relative;">
-    <Contents />
+    <Creation />
     <div id="loaded-lesson">
         {#each loadedLessons as lesson}
             <Blocks lesson_id={lesson}/>

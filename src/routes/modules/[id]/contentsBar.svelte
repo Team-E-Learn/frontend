@@ -1,12 +1,17 @@
 <script lang="ts">
-    import '../../../styles/module-lnding/contents.css'; // Import styles
-    import Lesson from "./lessons.svelte"; //Import lessons
+    import '../../../styles/module-landing/contents.css'; // Import styles
+    import Lesson from "../lessons.svelte"; //Import lessons
 
-    let lessons = [
+    interface Lessons {
+        lesson_name: string;
+        lesson_id: number;
+        sections: { section_name: string; }[];
+    }//create lessons json
+
+    let lessons: Lessons = [
         {
             "lesson_name": "fundamentals",
             "lesson_id": 1,
-            "url": "example",
             "sections":[
                 {
                     "section_name": "intro"
@@ -37,7 +42,6 @@
         {
             "lesson_name": "Osmosis",
             "lesson_id": 2,
-            "url": "example",
             "sections":[
                 {
                     "section_name": "intro"
@@ -56,7 +60,6 @@
         {
             "lesson_name": "reproduction",
             "lesson_id": 3,
-            "url": "example",
             "sections":[
                 {
                     "section_name": "intro"
@@ -76,8 +79,10 @@
 </script>
 <div class="content-stick">
     <div class="contents ">
-        {#each lessons as lesson}
-            <Lesson info={lesson}/>
-        {/each}
+        <div class="lessons" id="lesson">
+            {#each lessons as lesson}
+                <Lesson info={lesson}/>
+            {/each}
+        </div>
     </div>
 </div>

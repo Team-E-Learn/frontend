@@ -5,6 +5,10 @@ import type {
     Verify2faResponse,
 } from "./types";
 
+// makes a POST request to the endpoint at /v1/auth/2fa
+// passes the LimitedJWT and code as formdata
+// returns a message and the full access jwt if successful
+// throws an error otherwise
 const verify2fa = async (limitedJWT: string, code: string) => {
     const url = `${apiBaseUrl}/v1/auth/2fa`;
 
@@ -29,6 +33,9 @@ const verify2fa = async (limitedJWT: string, code: string) => {
     return body;
 };
 
+// make a POST request to the endpoint at /v1/auth/email
+// returns nothing if successful
+// throws an error containing the relevant message otherwise
 const requestEmailVerificationCode = async (email: string) => {
     const url = `${apiBaseUrl}/v1/auth/email`;
 
@@ -50,6 +57,10 @@ const requestEmailVerificationCode = async (email: string) => {
     }
 };
 
+
+// make a POST request to the endpoint at /v1/auth/login
+// returns a message and the limited jwt if successful
+// throws an error containing the relevant message otherwise
 const login = async (email: string, password: string) => {
     const url = `${apiBaseUrl}/v1/auth/login`;
 
@@ -70,6 +81,9 @@ const login = async (email: string, password: string) => {
     return data;
 };
 
+// make a POST request to the endpoint at /v1/auth/register
+// returns the user info and token if successful
+// throws an error containing the relevant message otherwise
 const register = async (email: string, username: string, password: string, accountType: "user" | "teacher") => {
     const url = `${apiBaseUrl}/v1/auth/register`;
 
@@ -94,6 +108,9 @@ const register = async (email: string, username: string, password: string, accou
     return data;
 };
 
+// makes a GET request to the endpoint at /v1/auth/username
+// returns true if the username exists, false otherwise
+// throws an error if the request fails
 const checkUsernameExists = async (username: string) => {
     const url = new URL(`${apiBaseUrl}/v1/auth/username`);
     url.searchParams.append("username", username);
@@ -109,6 +126,10 @@ const checkUsernameExists = async (username: string) => {
     return data.message === "Username exists";
 };
 
+// makes a POST request to the enpdoint at /v1/auth/verify-email
+// passes the email and token as formdata
+// returns nothing if the email is verified successfully
+// throws an error if the request fails
 const verifyEmail = async (email: string, token: string) => {
     const url = `${apiBaseUrl}/v1/auth/verify-email`;
 
