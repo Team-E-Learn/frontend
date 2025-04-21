@@ -19,16 +19,18 @@
     // functions for moving and deleting the block
     export let moveBlock: any;
     export let deleteBlock: any;
+    export let submitChanges: any;
     export let editMode: boolean;
     export let name: string;
 
+    let id: string = block_id.toString()
 
     function saveChanges() {
         // gets the data from the inputs and puts them into the format of the interface
-        let title = (document.getElementById("text-image-block")?.querySelector(".title") as HTMLInputElement)?.value ?? "";
-        let body = (document.getElementById("text-image-block")?.querySelector(".body") as HTMLTextAreaElement)?.value ?? "";
-        let image = (document.getElementById("text-image-block")?.querySelector("[name='image']") as HTMLInputElement)?.value ?? "";
-        let altText = (document.getElementById("text-image-block")?.querySelector(".altText") as HTMLInputElement)?.value ?? "";
+        let title = (document.getElementById("text-image-block")?.querySelector(".title &&[id=id]") as HTMLInputElement)?.value ?? "";
+        let body = (document.getElementById("text-image-block")?.querySelector(".body &&[id=id]") as HTMLTextAreaElement)?.value ?? "";
+        let image = (document.getElementById("text-image-block")?.querySelector("[name='image'] &&[id=id]") as HTMLInputElement)?.value ?? "";
+        let altText = (document.getElementById("text-image-block")?.querySelector(".altText &&[id=id]") as HTMLInputElement)?.value ?? "";
 
         let data: textImageBlock = {
             title: title,
@@ -36,17 +38,18 @@
             image: image,
             altText: altText
         }
+        submitChanges(block_id, data);
     }
 
 </script>
 
 <div class = "text-image-block" style="--blockOrder: {order}">
     {#if editMode}
-        <input type="text" name="title" class="title" placeholder="Enter Title here" value={blockData[0]["title"]}>
-        <textarea class="body" name="body" placeholder="Enter Body text here">{blockData[0]["text"]}</textarea>
-        <input type="text" name="image" class="image" placeholder="input image link" value={blockData[0]["image"]}>
-        <input type="text" class="altText" name="altText" placeholder="input alt text" value={blockData[0]["altText"]}>
-        <input type="submit" class="submit" value="Save Changes" on:click={saveChanges}>
+        <input type="text" name="title" id="{id}" class="title" placeholder="Enter Title here" value={blockData[0]["title"]}>
+        <textarea class="body" name="body" id="{id}" placeholder="Enter Body text here">{blockData[0]["text"]}</textarea>
+        <input type="text" name="image" id="{id}" class="image" placeholder="input image link" value={blockData[0]["image"]}>
+        <input type="text" class="altText" id="{id}" name="altText" placeholder="input alt text" value={blockData[0]["altText"]}>
+        <input type="submit" class="submit" id="{id}" value="Save Changes" on:click={saveChanges}>
 
         <div class="buttons">
             <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>

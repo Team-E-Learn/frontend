@@ -125,6 +125,11 @@
         update()
     }
 
+    export let submitChanges = (block_id: any, data: any) => {
+        let blockToSubmit: Blocks = blockData.find(block => block.block_id === block_id['block_id']);
+        blockToSubmit.data = data;
+    }
+
     // this function makes sure the JSON is updated so svelte's reactive states can work properly
     function update() {
         blockData = [...blockData.sort((a, b) => a.order - b.order)];
@@ -158,15 +163,15 @@
 <div id="blocks-{lesson_id}" class="block-container"> <!-- flex box that stores the blocks -->
     {#each blockData as block} <!-- running through the block json -->
         {#if block.block_type === 1}
-            <TextBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} name={block.name} editMode={true}/>
+            <TextBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} submitChanges={submitChanges} name={block.name} editMode={true}/>
         {:else if block.block_type === 2}
-            <ImageBlock block_id={block.block_id} order={block.order} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} name={block.name} editMode={true}/>
+            <ImageBlock block_id={block.block_id} order={block.order} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} submitChanges={submitChanges} name={block.name} editMode={true}/>
         {:else if block.block_type === 3}
-            <TextImageBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} name={block.name} editMode={true}/>
+            <TextImageBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} submitChanges={submitChanges} name={block.name} editMode={true}/>
         {:else if block.block_type === 4}
-            <DownloadBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} name={block.name} editMode={true}/>
+            <DownloadBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} submitChanges={submitChanges} name={block.name} editMode={true}/>
         {:else if block.block_type === 5}
-            <QuizBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} name={block.name} editMode={true}/>
+            <QuizBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} submitChanges={submitChanges} name={block.name} editMode={true}/>
         {/if}
     {/each}
 </div>

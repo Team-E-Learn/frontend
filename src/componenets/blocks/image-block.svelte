@@ -17,18 +17,22 @@
     export let moveBlock;
     export let deleteBlock: any;
     export let editMode: boolean;
+    export let submitChanges: any;
     export let name: string;
+
+    let id: string = block_id.toString()
 
     function saveChanges() {
         // gets the data from the inputs and puts them into the format of the interface
 
-        let image = (document.getElementById("image-block")?.querySelector("[name='image']") as HTMLInputElement)?.value ?? "";
-        let altText = (document.getElementById("image-block")?.querySelector("[name='altText']") as HTMLInputElement)?.value ?? "";
+        let image = (document.getElementById("image-block")?.querySelector("[name='image']&&[id=id]") as HTMLInputElement)?.value ?? "";
+        let altText = (document.getElementById("image-block")?.querySelector("[name='altText']&&[id=id]") as HTMLInputElement)?.value ?? "";
 
         let data: imageBlock = {
             image: image,
             altText: altText
         }
+        submitChanges(block_id, data);
     }
 
 </script>
@@ -36,9 +40,9 @@
 
     {#if editMode}
         <div class="image-block-edit" style="--blockOrder: {order}">
-            <input type="text" class="image" name="image" placeholder="input image link" value={blockData[0]["image"]}>
-            <input type="text" class="altText" name="altText" placeholder="input alt text" value={blockData[0]["altText"]}>
-            <input type="submit" class="submit" value="Save Changes" on:click={saveChanges}>
+            <input type="text" class="image" name="image" id="{id}" placeholder="input image link" value={blockData[0]["image"]}>
+            <input type="text" class="altText" name="altText" id="{id}" placeholder="input alt text" value={blockData[0]["altText"]}>
+            <input type="submit" class="submit" id="{id}" value="Save Changes" on:click={saveChanges}>
             <div class="buttons">
                 <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
                 <button class="down"  on:click={moveBlock({block_id}, false)}>Move Down</button>
