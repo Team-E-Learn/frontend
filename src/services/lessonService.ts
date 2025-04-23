@@ -15,14 +15,13 @@ const getLessons = async (moduleId: number) => {
 };
 
 // makes a POST request to the endpoint at /v1/module/lessons
-// passes the lesson_id, module_id, title, and sections as formdata
+// passes the lesson_id, module_id, and title as formdata
 // returns nothing if successful
 // throws an error containing the relevant message otherwise
 const addLesson = async (
     lessonId: number,
     moduleId: number,
     title: string,
-    sections: { [key: string]: any },
 ) => {
     const url = `${apiBaseUrl}/v1/module/lesson`;
 
@@ -35,7 +34,6 @@ const addLesson = async (
             lesson_id: lessonId.toString(),
             module_id: moduleId.toString(),
             title: title,
-            sections: JSON.stringify(sections),
         }),
     });
 
@@ -98,8 +96,10 @@ const addLessonBlock = async (lessonId: number, block: LessonBlock) => {
         },
         body: new URLSearchParams({
             lesson_id: lessonId.toString(),
+            block_id: block.block_id.toString(),
             block_type: block.block_type.toString(),
-            order: block.block_order.toString(),
+            order: block.order.toString(),
+            name: block.name,
             data: JSON.stringify(block.data)
         })
     });
@@ -110,10 +110,9 @@ const addLessonBlock = async (lessonId: number, block: LessonBlock) => {
 }
 
 // makes a DELETE request to the endpoint at /v1/module/lesson/{lessonId}/block
-// passes the lesson_id, block_type, and order as formdata
 // returns nothing if successful
 // throws an error containing the relevant message otherwise
-const deleteLessonBlock = async (lessonId: number, block_type: number, order: number) => {
+const deleteLessonBlock = async (lessonId: number, blockId: number) => {
     const url = `${apiBaseUrl}/v1/module/lesson/${lessonId}/block`;
 
     const response = await fetch(url, {
@@ -122,9 +121,7 @@ const deleteLessonBlock = async (lessonId: number, block_type: number, order: nu
             "Content-Type": "application/x-www-form-urlencoded"
         },
         body: new URLSearchParams({
-            lesson_id: lessonId.toString(),
-            block_type: block_type.toString(),
-            order: order.toString(),
+            block_id: blockId.toString()
         })
     });
     if (!response.ok) {

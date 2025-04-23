@@ -28,8 +28,10 @@ export interface RegisterResponse {
 }
 
 export interface LessonBlock {
+    block_id: number;
     block_type: number;
-    block_order: number;
+    order: number;
+    name: string;
     data: {
         [key: string]: string;
     };
@@ -67,7 +69,7 @@ export interface UserProfile {
     email: string;
     firstName: string;
     lastName: string;
-    accocuntType: "user" | "admin";
+    accocuntType: "user" | "admin" | "teacher";
 }
 
 interface Module {
@@ -84,4 +86,25 @@ export interface Subscription {
     org_id: number;
     bundles: Bundle[];
     modules: Module[];
+}
+
+export interface Module1 extends Module {
+    description: string;
+    org_id: number;
+}
+
+export interface Organisation {
+    name: string;
+    description: string;
+    modules: { name: string; description: string }[];
+    owner_id: number;
+}
+
+export interface CreateOrganisationResponse {
+    message: string;
+    Organisation: {
+        id: number,
+        name: string;
+    };
+    modules: { id: number; name: string; }[];
 }
