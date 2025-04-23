@@ -94,7 +94,7 @@
             if (event.key === "Enter") {
                 if (!textEntry.classList.contains("hidden")) {
                     let input_name = textBox.value
-                    while (lessonsData.filter(item => item.id === count).length > 0){
+                    while (lessonsData.some(item => item.id === count)){
                         count += 1;
                     }
                     const newLesson: Lessons = {

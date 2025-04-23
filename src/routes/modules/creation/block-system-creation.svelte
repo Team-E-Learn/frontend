@@ -112,7 +112,6 @@
             otherMoveBlock.order -= direction;
             update()
         }
-
     }
 
     export let deleteBlock = (block_id: any) => {

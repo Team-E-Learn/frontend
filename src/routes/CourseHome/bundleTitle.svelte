@@ -3,7 +3,7 @@
     import Modules from "./moduleSelector.svelte"//imports modules element
     import Header from "../../componenets/header.svelte"
     export let bundle: {
-        name: string;
+        bundle_name: string;
         id: number;
         modules: { name: string; module_id: number }[];
     }; // pass though bundle info from json
@@ -13,27 +13,30 @@
 
     let count: number = 0;
     function newModule() {
+        while (bundle.modules.some(item => item.module_id === count)){
+            count += 1;
+        }
         let newMod = {
             name: "mod1",
-            module_id: count += 1,
+            module_id: count,
         }
 
         bundle.modules = [...bundle.modules, newMod];
     }
-    function removeModule(id){
-        bundle.modules = bundle.modules.filter(module => module.module_id !== id);
-    }
+
 
 </script>
 
 <div class="organisation bundle">
-    <Header title={bundle.name}/>
     {#if create}
-        <button class="remove-org" onclick={removeBundle(bundle.id)}>Remove bundle</button>
-        <button class="add-org" onclick={newModule}>New module</button>
+        <button class="remove-bundle" onclick={removeBundle(bundle.id)}>Remove bundle</button>
     {/if}
+    <Header title={bundle.bundle_name}/>
     <!-- Render bundle modules -->
     {#if bundle.modules !== undefined}
-        <Modules mod={{ modules: bundle.modules }} removeModule={removeModule} create={create}/>
+        <Modules mod={{ modules: bundle.modules }} create={create}/>
+    {/if}
+    {#if create}
+        <button class="add-mod" onclick={newModule}>New module</button>
     {/if}
 </div>
