@@ -1,6 +1,6 @@
 <script lang="ts">
     import '../../../styles/global.css'; // Import global styles
-    import Creation from './creation-bar.svelte'; // Import creation bar
+    import Creation from './creation-bar.svelte'; // Import creation[id] bar
     import Blocks from './block-system-creation.svelte' // Import contents component
     import Dashboard from '../landingPageDashboard.svelte' // Import dashboard
     import TextEntry from '../../../componenets/text-entry.svelte'
@@ -30,7 +30,7 @@
 <TextEntry text="Enter lesson name:"/>
 <Dashboard/>
 <div style="position: relative;">
-    <Creation/>
+    <Creation module_id={data.id}/>
     <div id="loaded-lesson">
         {#each loadedLessons as lesson}
             <Blocks lesson_id={lesson}/>

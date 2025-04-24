@@ -9,7 +9,7 @@
         id: number;
     }//create lessons json
 
-    let module_id = 1;
+    export let module_id;
     let count = 0;
 
     // Initialize as an empty array

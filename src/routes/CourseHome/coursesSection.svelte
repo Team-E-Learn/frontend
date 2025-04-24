@@ -2,6 +2,7 @@
     import "../../styles/home-page/course.css" //import styles
     import Organisation from "./OrganisationTitle.svelte"
     import userService from "../../services/userService"
+    import orgService from "../../services/organisationService"
     import {onMount} from "svelte";
 
     interface Org {
@@ -22,6 +23,7 @@
     }
 
     export let create: boolean;
+    export let enableSubscribe;
 
     let courseInfo: Org[] = [];
 
@@ -61,12 +63,15 @@
     }
 
     onMount(() => {
-        fetchOrgs(3);
+        fetchOrgs(2);
     });
 
 </script>
 
 <div id="courses" class="courses">
+    {#if !create}
+        <button class="subscribe" onclick={enableSubscribe}>Subscribe to course</button>
+    {/if}
     <!-- Use an {#each} loop to render Organisation components -->
     {#each courseInfo as organisation}
         <Organisation org={organisation} removeOrg={deleteOrg} create={create}/>

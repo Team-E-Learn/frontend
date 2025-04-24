@@ -24,7 +24,7 @@
     })
 </script>
 
-<TextEntry text="Enter Organisation ID:"/>
+
 <!-- calls header element -->
 <Header title="Home Page"/>
 <!-- calls dashboard element -->
