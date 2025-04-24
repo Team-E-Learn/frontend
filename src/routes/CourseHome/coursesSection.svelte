@@ -56,6 +56,10 @@
         }
     }
 
+    async function postOrg() {
+
+    }
+
     onMount(() => {
         fetchOrgs(3);
     });
