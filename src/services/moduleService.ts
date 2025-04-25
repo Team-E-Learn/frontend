@@ -6,14 +6,12 @@ import type { AddModuleResponse, Module1 } from "./types";
 // throws an error with the relevant messsage if a failure occurs
 const activateModuleCode = async (userId: number, code: string) => {
     const url = `${apiBaseUrl}/v1/module/code/${userId}`;
+    const formData = new FormData();
+    formData.append('code', code);
+
     const response = await fetch(url, {
         method: "PUT",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-            code
-        }),
+        body: formData,
     })
     const data = await response.json();
     if (!response.ok) {

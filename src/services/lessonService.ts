@@ -50,14 +50,12 @@ const addLesson = async (
 const deleteLesson = async (lessonId: number) => {
     const url = `${apiBaseUrl}/v1/module/lesson`;
 
+    const formData = new FormData();
+    formData.append('lesson_id', lessonId.toString());
+
     const response = await fetch(url, {
         method: "DELETE",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-            lesson_id: lessonId.toString(),
-        }),
+        body: formData,
     });
     if (!response.ok) {
         const data: { message: string } = await response.json();
@@ -66,7 +64,7 @@ const deleteLesson = async (lessonId: number) => {
 };
 
 // makes a GET request to the endpoint at /v1/module/lesson/{lessonId}/block
-// returns the lessson blocks if successful
+// returns the lesson blocks if successful
 // throws an error containing the relevant message otherwise
 const getLessonBlocks = async (lessonId: number) => {
     const url = `${apiBaseUrl}/v1/module/lesson/${lessonId}/block`;
@@ -115,14 +113,12 @@ const addLessonBlock = async (lessonId: number, block: LessonBlock) => {
 const deleteLessonBlock = async (lessonId: number, blockId: number) => {
     const url = `${apiBaseUrl}/v1/module/lesson/${lessonId}/block`;
 
+    const formData = new FormData();
+    formData.append('block_id', blockId.toString());
+
     const response = await fetch(url, {
         method: "DELETE",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: new URLSearchParams({
-            block_id: blockId.toString()
-        })
+        body: formData,
     });
     if (!response.ok) {
         const data: { message: string } = await response.json();
