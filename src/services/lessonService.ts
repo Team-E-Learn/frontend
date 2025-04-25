@@ -48,7 +48,7 @@ const addLesson = async (
 // returns nothing if successful
 // throws an error containing the relevant message otherwise
 const deleteLesson = async (lessonId: number) => {
-    const url = `${apiBaseUrl}/v1/module/lesson`;
+    const url = `${apiBaseUrl}/v1/module/lesson/`;
 
     const formData = new FormData();
     formData.append('lesson_id', lessonId.toString());
