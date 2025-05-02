@@ -8,6 +8,8 @@
     import TextBlock from "../../../componenets/blocks/text-block.svelte";
     import TextImageBlock from "../../../componenets/blocks/text-image-block.svelte";
     import ImageBlock from "../../../componenets/blocks/image-block.svelte";
+    import "../../../services/lesson-service.ts";
+    import lessonService from "../../../services/lessonService.js";
 
     export let lesson_id: number; // pass in lesson id
 
@@ -128,6 +130,7 @@
     export let submitChanges = (block_id: any, data: any) => {
         let blockToSubmit: Blocks = blockData.find(block => block.block_id === block_id['block_id']);
         blockToSubmit.data = data;
+        lessonService.addLessonBlock(lesson_id, blockToSubmit)
     }
 
     // this function makes sure the JSON is updated so svelte's reactive states can work properly

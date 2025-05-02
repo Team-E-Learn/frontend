@@ -32,9 +32,7 @@ export interface LessonBlock {
     block_type: number;
     order: number;
     name: string;
-    data: {
-        [key: string]: string;
-    };
+    data: any[];
 }
 
 export interface Lesson {
