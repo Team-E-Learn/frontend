@@ -84,7 +84,7 @@ const login = async (email: string, password: string) => {
 // make a POST request to the endpoint at /v1/auth/register
 // returns the user info and token if successful
 // throws an error containing the relevant message otherwise
-const register = async (email: string, username: string, password: string) => {
+const register = async (email: string, username: string, password: string, accountType: "user" | "teacher") => {
     const url = `${apiBaseUrl}/v1/auth/register`;
 
     const response = await fetch(url, {
@@ -96,6 +96,7 @@ const register = async (email: string, username: string, password: string) => {
             email,
             username,
             password,
+            accountType,
         }),
     });
     if (!response.ok) {
