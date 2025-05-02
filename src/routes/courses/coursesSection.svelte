@@ -63,7 +63,7 @@
     }
 
     onMount(() => {
-        fetchOrgs(2);
+        fetchOrgs(1);
     });
 
 </script>

@@ -16,6 +16,7 @@
     let lessonsData: Lessons = [];
 
     async function fetchLessons(moduleId: number) {
+        console.log(moduleId)
         try {
             const data = await lessonService.getLessons(moduleId);
             lessonsData = data.lessons;
@@ -45,7 +46,7 @@
         let textBox = document.querySelector(".text")
         if(!addLesson || !textEntry || !textBox || !removeLesson) return;
 
-        // Create a new lesson entry
+        // creation a new lesson entry
         addLesson.addEventListener("click", (event: Event) => {
             textEntry.classList.remove("hidden")
             textBox.focus();

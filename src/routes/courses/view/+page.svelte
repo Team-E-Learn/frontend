@@ -33,7 +33,7 @@
             if (event.key === "Enter") {
                 if (!textEntry.classList.contains("hidden")) {
                     let input = textBox.value
-                    subscribeUser(2, input)
+                    subscribeUser(1, input)
                     textEntry.classList.add("hidden")
                 }
             }

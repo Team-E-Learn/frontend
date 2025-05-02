@@ -1,7 +1,8 @@
 :root {
-    --primary: #d5dfdb;
+    --primary: #ffffff;
     --secondary: #205781;
-    --accent: #4F959D;
+    --accent: #d5dfdb;
+    /*--accent: #4F959D;*/
     --text: #98D2C0;
     --hover: #6cd57e;
 }
