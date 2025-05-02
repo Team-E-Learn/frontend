@@ -1,15 +1,17 @@
 <script lang="ts">
-    import { handleLogin } from "./login"; // Import login logic
     import TwoFAModal from "$lib/components/TwoFA/+page.svelte"; // Import 2FA Modal component
     import { fly } from "svelte/transition";
-    import "../../styles/login/login.css"
+    import "../../styles/login/login.css";
     import { goto } from "$app/navigation";
+    import authService from "../../services/authService";
+    import { validateLogin } from "./login";
 
     let email: string = "";
     let password: string = "";
     let errorMessage: string = "";
-    let showModal: boolean = false; // Track modal visibility
-    let is2FARequired: boolean = false; // Track whether 2FA is required
+    let show2faModal: boolean = false; // Track modal visibility
+    let limitedJWT: string = "";
+    let securityCode: string = "";
 
     // Handle password input and enforce a 64-character limit
     const handlePasswordInput = (event: Event) => {
@@ -21,42 +23,42 @@
 
     // Handle form submission for login
     const onSubmit = async () => {
-        try {
-            errorMessage = "";
-            const response = await handleLogin(email, password);
-
-            if (!response.ok) {
-                errorMessage =
-                    response.message || "Login failed. Please try again.";
-                return;
-            }
-
-            // If login is successful
-            localStorage.setItem("token", response.token || "");
-            alert("Login successful!");
-            goto("/CourseHome");
-
-            // if (response.requires2FA) {
-            //   is2FARequired = true; // Flag for showing the 2FA modal
-            //   showModal = true; // Show the 2FA modal
-            // }
-        } catch (error) {
-            errorMessage = "An error occurred. Please try again later.";
-            console.error(error);
+        const { ok, message } = validateLogin(email, password);
+        if (!ok) {
+            errorMessage = message!;
+            return;
         }
+
+        try {
+            const response = await authService.login(email, password);
+            limitedJWT = response.limited_jwt;
+        } catch (error) {
+            errorMessage = (error as Error).message;
+            return;
+        }
+
+        errorMessage = "";
+        show2faModal = true;
     };
 
     // Handle closing the 2FA modal
-    const closeModal = () => {
-        showModal = false;
+    const close2faModal = () => {
+        show2faModal = false;
     };
 
     // Handle the verification of the 2FA code
-    const verifyCode = (event: CustomEvent) => {
-        const { code, trustDevice } = event.detail; // Extract data from the event
-        console.log("2FA Code:", code);
-        console.log("Trust Device:", trustDevice);
-        closeModal(); // Close the modal after verification
+    const verifyCode = async (): Promise<void> => {
+        try {
+            const response = await authService.verify2fa(
+                limitedJWT,
+                securityCode,
+            );
+            localStorage.setItem("token", response.full_access_jwt);
+            alert("Login successful!");
+            goto("/CourseHome");
+        } catch (error) {
+            errorMessage = "invalid code";
+        }
     };
 </script>
 
@@ -65,9 +67,6 @@
     <div class="middle-divider"></div>
     <div class="right-container">
         <h2 class="title">Login</h2>
-        <!-- <div class="subtitle" in:fly={{ x: 300, duration: 500 }}> -->
-        <!--   Please enter your email and password. -->
-        <!-- </div> -->
         <form on:submit|preventDefault={onSubmit}>
             <div class="input-container" in:fly={{ x: 300, duration: 500 }}>
                 <div>
@@ -107,6 +106,22 @@
 </div>
 
 <!-- 2FA Modal -->
-<!-- {#if showModal} -->
-<!--   <TwoFAModal on:close={closeModal} on:verify={verifyCode} /> -->
-<!-- {/if} -->
+{#if show2faModal}
+    <div class="overlay" on:click={close2faModal}></div>
+    <div class="code-input-popup">
+        <button class="close-button" on:click={close2faModal}>&times;</button>
+        <div class="input-container">
+            <label for="securityCode">Enter Security Code</label>
+            <input
+                type="text"
+                id="securityCode"
+                bind:value={securityCode}
+                placeholder="Enter your security code"
+            />
+        </div>
+        {#if errorMessage}
+            <p class="error-message">{errorMessage}</p>
+        {/if}
+        <button class="button" on:click={verifyCode}>Verify</button>
+    </div>
+{/if}
