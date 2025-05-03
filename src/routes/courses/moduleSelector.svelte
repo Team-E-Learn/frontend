@@ -14,9 +14,12 @@
 {#if mod.modules !== undefined}
     <div class="modules">
         {#each mod.modules as mods}
-            <a class="mod-buttons" href="/modules/View{mods.module_id}">{mods.name}</a>
+
             {#if create}
+                <a class="mod-buttons" href="/modules/creation{mods.module_id}">{mods.name}</a>
                 <button class="remove-mod" onclick={removeModule(mods.module_id)}>Remove module</button>
+            {:else }
+                <a class="mod-buttons" href="/modules/view{mods.module_id}">{mods.name}</a>
             {/if}
         {/each}
     </div>
