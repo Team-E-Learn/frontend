@@ -61,7 +61,6 @@
         }
     };
 </script>
-<!--
 <div class="container">
     <div class="left-container"></div>
     <div class="middle-divider"></div>
@@ -125,5 +124,3 @@
         <button class="button" on:click={verifyCode}>Verify</button>
     </div>
 {/if}
-
--->
