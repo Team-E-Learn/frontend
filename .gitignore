@@ -25,4 +25,6 @@ vite.config.ts.timestamp-*
 # Editor
 .vscode/
 .idea/
+deno.lock
+package-lock.json
 
