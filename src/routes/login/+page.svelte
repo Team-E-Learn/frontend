@@ -57,7 +57,7 @@
             localStorage.setItem("userID", response.user_id);
             localStorage.setItem("accountType", response.account_type);
             alert("Login successful!");
-            if (response.account_type === "teacher" {
+            if (response.account_type === "teacher") {
                 goto("/courses/creation");
             } else {
                 goto("/courses/view");
