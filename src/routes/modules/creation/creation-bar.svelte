@@ -106,8 +106,12 @@
             <button class="selection-button" id="editor">Block Editor</button>
         </div>
         <div class="blocks hidden" id="block">
-            <Header title="Text Blocks"/>
-            <button class="block-preview text1"> Text block type 1 </button>
+            <Header title="Add blocks"/>
+            <button class="block-preview text-block-button"> Text block </button>
+            <button class="block-preview image-block-button"> Image block </button>
+            <button class="block-preview text-image-block-button"> Text and Image block </button>
+            <button class="block-preview download-block-button"> Download block </button>
+            <button class="block-preview quiz-block-button"> Quiz block </button>
         </div>
         <div class="block-editor hidden" id="editor">
         </div>
