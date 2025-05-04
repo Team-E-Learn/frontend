@@ -139,31 +139,51 @@
         blockToSubmit.data = data;
     }
 
+    function addBlock(blockType: number, blocks: any){
+        const newBlock: Blocks = {
+            block_type: blockType,
+            block_id: count += 1,
+            order: count,
+            data: [],
+        }
+        let parent = blocks.parentElement;
+        let loaded = document.getElementById("loaded-lesson")
+        if(loaded === parent) {
+            blockData = [...blockData, newBlock];
+        }
+    }
+
     // this function makes sure the JSON is updated so svelte's reactive states can work properly
     function update() {
         blockData = [...blockData.sort((a, b) => a.order - b.order)];
     }
 
 
+
     onMount(() => {
-        let text1 = document.querySelector(".text1")
+        let text = document.querySelector(".text-block-button")
+        let image = document.querySelector(".image-block-button")
+        let textImage = document.querySelector(".text-image-block-button")
+        let download = document.querySelector(".download-block-button")
+        let quiz = document.querySelector(".quiz-block-button")
         let blocks =  document.getElementById(`blocks-${lesson_id}`);
 
-        if (!text1 && !blocks) return;
+        if ((!text && !blocks)||(!image && !blocks)||(!textImage && !blocks)||(!download && !blocks)||(!quiz && !blocks)) return;
 
-        text1.addEventListener("click", (event: Event) => {
-            //TODO: change data from temporary data
-            const newBlock: Blocks = {
-                block_type: 1,
-                block_id: count += 1,
-                order: count,
-                data: [{text: "temporary text"}],
-            }
-            let parent = blocks.parentElement;
-            let loaded = document.getElementById("loaded-lesson")
-            if(loaded === parent) {
-                blockData = [...blockData, newBlock];
-            }
+        text.addEventListener("click", (event: Event) => {
+            addBlock(1, blocks);
+        });
+        image.addEventListener("click", (event: Event) => {
+            addBlock(2, blocks);
+        });
+        textImage.addEventListener("click", (event: Event) => {
+            addBlock(3, blocks);
+        });
+        download.addEventListener("click", (event: Event) => {
+            addBlock(4, blocks);
+        });
+        quiz.addEventListener("click", (event: Event) => {
+            addBlock(5, blocks);
         });
     });
 
