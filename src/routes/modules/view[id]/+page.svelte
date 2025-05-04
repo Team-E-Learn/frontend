@@ -5,6 +5,7 @@
     import Dashboard from '../landingPageDashboard.svelte' // Import dashboard
     import {mount, onMount, tick} from "svelte"; // Import contents bar
     import { handleLessonButtonClick } from '../contents-bar-functions'
+    import {goto} from "$app/navigation";
 
     let { data } = $props(); // Get the module_id passed in from the home page
 
@@ -17,6 +18,11 @@
     let contentsRef: typeof Contents;
 
     onMount(() => {
+        if (!localStorage.getItem("token")) {
+            console.log("Redirecting...");
+            goto("/login");
+        }
+
         // TODO: clean this code up for a later date
         let parent = document.querySelector(".lessons"); // Get the parent object of the buttons
         if (!parent) return;

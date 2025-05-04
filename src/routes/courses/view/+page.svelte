@@ -6,6 +6,7 @@
     import Header from "../../../componenets/header.svelte"//import Header element
     import TextEntry from '../../../componenets/text-entry.svelte'
     import moduleService from '../../../services/moduleService';
+    import {goto} from "$app/navigation";
 
     function enableSubscribe(){
         document.querySelector(".entry")?.classList.remove("hidden");
@@ -22,6 +23,11 @@
     }
 
     onMount(() => {
+        if (!localStorage.getItem("token")) {
+            console.log("Redirecting...");
+            goto("/login");
+        }
+
         let textEntry = document.querySelector(".entry");
         let textBox = document.querySelector(".text")
         document.addEventListener("keydown", (event) => {

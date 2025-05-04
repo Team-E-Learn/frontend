@@ -5,8 +5,14 @@
     import Dashboard from "../homeDashboard.svelte";//import Dashboard element
     import Header from "../../../componenets/header.svelte"//import Header element
     import TextEntry from '../../../componenets/text-entry.svelte'
+    import {goto} from "$app/navigation";
 
     onMount(() => {
+        if (!localStorage.getItem("token")) {
+            console.log("Redirecting...");
+            goto("/login");
+        }
+
         document.addEventListener("keydown", (event) => {
             if (event.key === "Escape") {
                 textEntry.classList.add("hidden")
