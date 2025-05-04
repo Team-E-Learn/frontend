@@ -16,7 +16,6 @@
     let sections = [];
 
     function postLessons(lessonId: number, moduleId: number, title: string) {
-        console.log
         lessonService.addLesson(lessonId, moduleId, title)
             .then(() => {
                 console.log('Lesson added!');

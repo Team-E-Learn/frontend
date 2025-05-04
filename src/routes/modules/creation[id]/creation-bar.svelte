@@ -56,7 +56,6 @@
     onMount(() => {
         fetchLessons(module_id)
 
-
         let addLesson = document.querySelector(".add-lesson")
         let removeLesson = document.querySelector(".remove-lesson")
         let textEntry = document.querySelector(".entry")
