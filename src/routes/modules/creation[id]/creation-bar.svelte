@@ -21,6 +21,17 @@
         components[lesson_id]?.generateSections?.();
     }
 
+    function postLessons(lessonId: number, moduleId: number, title: string) {
+        console.log
+        lessonService.addLesson(lessonId, moduleId, title)
+            .then(() => {
+                console.log('Lesson added!');
+            })
+            .catch(err => {
+                console.error('Error adding lesson:', err);
+            });
+    }
+
     async function fetchLessons(moduleId: number) {
         console.log(moduleId)
         try {
@@ -101,13 +112,15 @@
             if (event.key === "Enter") {
                 if (!textEntry.classList.contains("hidden")) {
                     let input_name = textBox.value
-                    while (lessonsData.some(item => item.id === count)){
+                    while (lessonsData.some(item => item.id === count || count === 0)){
                         count += 1;
                     }
                     const newLesson: Lessons = {
                         title: input_name,
                         id: count,
                     };
+                    console.log(newLesson.id, module_id, newLesson.title)
+                    postLessons(newLesson.id, module_id, newLesson.title)
                     textBox.value = ""
                     // Add the new lesson to the array
                     lessonsData = [...lessonsData, newLesson];

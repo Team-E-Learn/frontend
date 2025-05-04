@@ -15,9 +15,9 @@
     let blockData = {};
     let sections = [];
 
-    function postLessons(lessonId: number, moduleId: number, title: string, sections: any[]) {
+    function postLessons(lessonId: number, moduleId: number, title: string) {
         console.log
-        lessonService.addLesson(lessonId, moduleId, title, sections)
+        lessonService.addLesson(lessonId, moduleId, title)
             .then(() => {
                 console.log('Lesson added!');
             })
