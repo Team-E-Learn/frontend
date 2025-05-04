@@ -1,5 +1,4 @@
 
-
 export function handleLessonButtonClick(event, loadedLessons: number[], creation: boolean, updateLessons: (lessons: number[]) => void){
     const target = event.target;
     if (!(target instanceof HTMLButtonElement)) return;
@@ -54,7 +53,6 @@ function updateActiveButton(target){
 function addLessonToLoaded(target, loadedLessons, updateLessons: (lessons: number[]) => void) {
     const lessonId = Number(target.dataset.lesson_id);
     if (!loadedLessons.includes(lessonId)) {
-        console.log("added")
         updateLessons([...loadedLessons, lessonId]);
     }
     updateLessonContainers(lessonId, loadedLessons);
@@ -77,7 +75,6 @@ function updateLessonContainers(lessonId, loadedLessons) {
 function moveLessonToContainer(lessonId, container) {
     const blockDiv = document.getElementById(`blocks-${lessonId}`);
     if (blockDiv) {
-        console.log("hit")
         container.appendChild(blockDiv);
     }
 }

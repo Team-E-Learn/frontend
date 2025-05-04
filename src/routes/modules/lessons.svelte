@@ -26,27 +26,30 @@
             });
     }
 
+    export function generateSections(){
+        const blockContainer = document.getElementById(`blocks-${info.id}`);
+        if (blockContainer) {
+            const data = blockContainer.getAttribute("data-block-data");
+            blockData = JSON.parse(data);
+        }
+        sections = [];
+        blockData.forEach((block) => {
+            sections = [...sections, block.name];
+        });
+    }
+
     onMount(() => {
         let lessonButtons: NodeListOf<HTMLElement> = document.querySelectorAll(".lesson-button");
         for (const btn: HTMLElement of lessonButtons) {
-            btn.addEventListener("click", (event: Event) => {
-                //TODO: make the code change the text
-                const blockContainer = document.getElementById(`blocks-${info.id}`);
-                if (blockContainer) {
-                    const data = blockContainer.getAttribute("data-block-data");
-                    blockData = JSON.parse(data);
-                }
-                sections = [];
-                blockData.forEach(() => {
-                    sections = [...sections, "Introduction"];
-                });
-
+            btn.addEventListener("click", async (event: Event) => {
                 document.querySelectorAll(".lesson-section").forEach((section) => {
                     section.classList.add("hidden");
                 })
                 event.target.parentElement.parentElement.querySelector(".lesson-section")?.classList.remove("hidden");
                 // top scroll
                 document.querySelectorAll(".block-container > *")[0].scrollIntoView({ behavior: "smooth" });
+
+                generateSections();
             })
         }
     });

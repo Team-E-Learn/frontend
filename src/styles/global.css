@@ -17,7 +17,7 @@ body {
     color: var(--text);
 }
 
-a, h2, h1, h3, h4, h5 {
+a, h2, h1, h3, h4, h5, button {
     color: var(--text);
 }
 

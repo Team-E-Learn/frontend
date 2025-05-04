@@ -11,7 +11,9 @@
 
     export let module_id;
 
-    let lessons: Lessons = []
+    let lessons: Lessons[] = []
+
+    let components: Record<number, Lesson> = {};
 
     async function fetchLessons(moduleId: number) {
         try {
@@ -23,6 +25,10 @@
         }
     }
 
+    export function callGenerateSections(lesson_id: number){
+        components[lesson_id]?.generateSections?.();
+    }
+
     onMount(() => {
         fetchLessons(module_id)
     });
@@ -32,7 +38,7 @@
     <div class="contents ">
         <div class="lessons" id="lesson">
             {#each lessons as lesson}
-                <Lesson info={lesson} creation={false}/>
+                <Lesson info={lesson} bind:this={components[lesson.id]} creation={false}/>
             {/each}
         </div>
     </div>

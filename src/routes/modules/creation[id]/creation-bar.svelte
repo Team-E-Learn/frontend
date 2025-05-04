@@ -15,6 +15,12 @@
     // Initialize as an empty array
     let lessonsData: Lessons = [];
 
+    let components: Record<number, Lesson> = {};
+
+    export function callGenerateSections(lesson_id: number){
+        components[lesson_id]?.generateSections?.();
+    }
+
     async function fetchLessons(moduleId: number) {
         console.log(moduleId)
         try {
@@ -126,6 +132,7 @@
             })
         }
     });
+
 </script>
 
 <div class="content-stick">
@@ -147,7 +154,7 @@
                 <button class="remove-lesson">-</button>
             </div>
             {#each lessonsData as lesson}
-                <Lesson info={lesson} creation={true}, module_id={module_id}/>
+                <Lesson info={lesson} bind:this={components[lesson.id]} creation={true}, module_id={module_id}/>
             {/each}
         </div>
     </div>
