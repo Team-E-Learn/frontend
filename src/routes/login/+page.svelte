@@ -61,7 +61,7 @@
         }
     };
 </script>
-
+<!--
 <div class="container">
     <div class="left-container"></div>
     <div class="middle-divider"></div>
@@ -105,7 +105,7 @@
     </div>
 </div>
 
-<!-- 2FA Modal -->
+ 2fa modal
 {#if show2faModal}
     <div class="overlay" on:click={close2faModal}></div>
     <div class="code-input-popup">
@@ -125,3 +125,5 @@
         <button class="button" on:click={verifyCode}>Verify</button>
     </div>
 {/if}
+
+-->

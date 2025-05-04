@@ -22,12 +22,14 @@
 
     let id: string = block_id.toString()
 
+    // Initialize local variables with block data
+    let title: string = blockData[0]?.title ?? "";
+    let body: string = blockData[0]?.text ?? "";
+
     function saveChanges() {
-        let title = Array.from(document.getElementById("text-block")?.querySelectorAll("title &&[id=id]") ?? []).map(el => el.textContent ?? "").join(" ");
-        let text = Array.from(document.getElementById("text-block")?.querySelectorAll("body &&[id=id]") ?? []).map(el => el.textContent ?? "").join(" ");
         let data: textBlock = {
             title: title,
-            text: text
+            text: body
         }
         submitChanges(block_id, data);
     }
@@ -36,9 +38,9 @@
 
 <div class="text-block" style="--blockOrder: {order}">
     {#if editMode}
-        <input type="text" class="title" name="title" id="{id}" placeholder="Enter Title here" value="{blockData[0]['title']}" >
-        <textarea class="body" name="body" id="{id}" placeholder="Enter Title here">{blockData[0]["text"]}</textarea>
-        <input type="submit" class="submit" id="{id}" value="Save Changes" on:click={saveChanges}>
+        <input type="text" class="title" name="title" bind:value={title} placeholder="Enter Title here">
+        <textarea class="body" name="body" bind:value={title} placeholder="Enter Title here">{blockData[0]["text"]}</textarea>
+        <input type="submit" class="submit" value="Save Changes" on:click={saveChanges}>
         <div class="buttons">
             <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
             <button class="down"  on:click={moveBlock({block_id}, false)} >Move Down</button>

@@ -22,14 +22,13 @@
 
     let id: string = block_id.toString()
 
-    function saveChanges() {
-        // gets the data from the inputs and puts them into the format of the interface
+    let imageLink: string = blockData[0]?.image ?? "";
+    let altText: string = blockData[0]?.altText ?? "";
 
-        let image = (document.getElementById("image-block")?.querySelector("[name='image']&&[id=id]") as HTMLInputElement)?.value ?? "";
-        let altText = (document.getElementById("image-block")?.querySelector("[name='altText']&&[id=id]") as HTMLInputElement)?.value ?? "";
+    function saveChanges() {
 
         let data: imageBlock = {
-            image: image,
+            image: imageLink,
             altText: altText
         }
         submitChanges(block_id, data);
@@ -40,8 +39,8 @@
 
     {#if editMode}
         <div class="image-block-edit" style="--blockOrder: {order}">
-            <input type="text" class="image" name="image" id="{id}" placeholder="input image link" value={blockData[0]["image"]}>
-            <input type="text" class="altText" name="altText" id="{id}" placeholder="input alt text" value={blockData[0]["altText"]}>
+            <input type="text" class="image" name="image" bind:value={imageLink} placeholder="input image link">
+            <input type="text" class="altText" name="altText" bind:value={altText} placeholder="input alt text">
             <input type="submit" class="submit" id="{id}" value="Save Changes" on:click={saveChanges}>
             <div class="buttons">
                 <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>

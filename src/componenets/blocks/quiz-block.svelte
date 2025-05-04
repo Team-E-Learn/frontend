@@ -2,25 +2,11 @@
 
     import "../../styles/blocks/quiz-block.css"
     interface quizBlock {
-        question: string,
+        question: string;
         options: {
-            A: {
-                text: string,
-                isCorrect: boolean
-            },
-            B: {
-                text: string,
-                isCorrect: boolean
-            },
-            C: {
-                text: string,
-                isCorrect: boolean
-            },
-            D: {
-                text: string,
-                isCorrect: boolean
-            }
-        }
+            text: string;
+            isCorrect: boolean;
+        }[];
     }
 
     function isAnswer(answer: boolean) {
@@ -41,6 +27,7 @@
     export let deleteBlock: any;
     export let editMode: boolean;
     export let name: string;
+    export let submitChanges: any;
 
 </script>
 

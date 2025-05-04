@@ -23,14 +23,14 @@
 
     let id: string = block_id.toString()
 
+    let downloadLink: string = blockData[0]?.downloadLink ?? "";
+    let fileName: string = blockData[0]?.fileName ?? "";
+
     function saveChanges() {
-        // gets the data from the inputs and puts them into the format of the interface
-        let downloadLink = (document.getElementById("download-block")?.querySelector("[name='file']&&[id=id]") as HTMLInputElement)?.value ?? "";
-        let altText = (document.getElementById("download-block")?.querySelector("[name='altText']&&[id=id]") as HTMLInputElement)?.value ?? "";
 
         let data: downloadBlock = {
             downloadLink: downloadLink,
-            fileName: altText
+            fileName: fileName
         }
         submitChanges(block_id, data);
     }
@@ -38,8 +38,8 @@
 
 <div class="download-block" style="--blockOrder: {order}">
     {#if editMode}
-        <input type="text" class="file" name="file" id="{id}" alt="input file link" value={blockData[0]["downloadLink"]}>
-        <input type="text" class="altText" name="altText" id="{id}" value={blockData[0]["fileName"]}>
+        <input type="text" class="file" name="file" bind:value={downloadLink} placeholder="input file link">
+        <input type="text" class="altText" name="altText" bind:value={fileName} placeholder="input filename">
         <input type="submit" class="submit" id="{id}" value="Save Changes" on:click={saveChanges}>
 
         <div class="buttons">
