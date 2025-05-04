@@ -2,26 +2,68 @@
     import '../../../styles/module-creation/creation.css'; // Import styles
     import Lesson from "../lessons.svelte"
     import Header from "../../../componenets/header.svelte"
+    import lessonService from "../../../services/lessonService"
     import {onMount} from "svelte";
     interface Lessons {
-            lesson_name: string;
-            lesson_id: number;
-            sections: { section_name: string; }[];
-        }//create lessons json
+        title: string;
+        id: number;
+    }//create lessons json
+
+    export let module_id;
+    let count = 0;
 
     // Initialize as an empty array
-    let lessonsData: Lessons[] = [];
+    let lessonsData: Lessons = [];
+
+    let components: Record<number, Lesson> = {};
+
+    export function callGenerateSections(lesson_id: number){
+        components[lesson_id]?.generateSections?.();
+    }
+
+    function postLessons(lessonId: number, moduleId: number, title: string) {
+        console.log
+        lessonService.addLesson(lessonId, moduleId, title)
+            .then(() => {
+                console.log('Lesson added!');
+            })
+            .catch(err => {
+                console.error('Error adding lesson:', err);
+            });
+    }
+
+    async function fetchLessons(moduleId: number) {
+        console.log(moduleId)
+        try {
+            const data = await lessonService.getLessons(moduleId);
+            lessonsData = data.lessons;
+        } catch (err) {
+            error = 'Failed to fetch lessons';
+            console.error(err);
+        }
+    }
+
+    async function deleteLessons(lessonId: number) {
+        lessonService.deleteLesson(lessonId)
+            .then(() => {
+                console.log('Lesson deleted!');
+            })
+            .catch(err => {
+                console.error('Error deleting lesson:', err);
+            });
+    }
 
     onMount(() => {
+        fetchLessons(module_id)
 
-        let count = 0;
+
         let addLesson = document.querySelector(".add-lesson")
         let removeLesson = document.querySelector(".remove-lesson")
         let textEntry = document.querySelector(".entry")
         let textBox = document.querySelector(".text")
         if(!addLesson || !textEntry || !textBox || !removeLesson) return;
 
-        // Create a new lesson entry
+        // creation a new lesson entry
         addLesson.addEventListener("click", (event: Event) => {
             textEntry.classList.remove("hidden")
             textBox.focus();
@@ -34,8 +76,11 @@
                     // Get lesson ID from the section's dataset
                     const lessonId: number = Number(section.dataset.lessonId);
 
+
                     // Remove the lesson from lessonsData
-                    lessonsData = lessonsData.filter((lesson: Lessons) => lesson.lesson_id !== lessonId);
+                    lessonsData = lessonsData.filter((lesson: Lessons) => lesson.id !== lessonId);
+
+                    deleteLessons(lessonId)
 
                     //TODO: (maybe) make the lesson bellow removed lesson active (stops there being a chance of a lesson not being active)
                     document.querySelectorAll(".lesson-button").forEach(btn => btn.classList.remove("active"));
@@ -67,11 +112,15 @@
             if (event.key === "Enter") {
                 if (!textEntry.classList.contains("hidden")) {
                     let input_name = textBox.value
+                    while (lessonsData.some(item => item.id === count || count === 0)){
+                        count += 1;
+                    }
                     const newLesson: Lessons = {
-                        lesson_name: input_name,
-                        lesson_id: count += 1,
-                        sections: [{section_name: "yes"}]
+                        title: input_name,
+                        id: count,
                     };
+                    console.log(newLesson.id, module_id, newLesson.title)
+                    postLessons(newLesson.id, module_id, newLesson.title)
                     textBox.value = ""
                     // Add the new lesson to the array
                     lessonsData = [...lessonsData, newLesson];
@@ -96,6 +145,7 @@
             })
         }
     });
+
 </script>
 
 <div class="content-stick">
@@ -117,7 +167,7 @@
                 <button class="remove-lesson">-</button>
             </div>
             {#each lessonsData as lesson}
-                <Lesson info={lesson}/>
+                <Lesson info={lesson} bind:this={components[lesson.id]} creation={true}, module_id={module_id}/>
             {/each}
         </div>
     </div>

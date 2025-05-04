@@ -23,7 +23,7 @@ export const createJWT = async (userId: number): Promise<string> => {
     ["sign"]
   );
 
-  // Create the JWT token using the secret key
+  // creation the JWT token using the secret key
   const token = await create(header, payload, secretKey);  // 'create' now returns a Promise<string>
 
   return token;

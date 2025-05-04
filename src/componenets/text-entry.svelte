@@ -1,12 +1,14 @@
 <script lang="ts">
-    import '../../../styles/module-creation/text-entry.css'
+    import '../styles/module-creation/text-entry.css'
+
+    export let text;
 
 
 </script>
 
 <div class="entry hidden">
     <div class="center">
-        <h2>Enter lesson name:</h2>
+        <h2>{text}</h2>
         <input class="text" value="">
     </div>
 </div>
