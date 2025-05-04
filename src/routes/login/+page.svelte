@@ -104,7 +104,6 @@
     </div>
 </div>
 
- 2fa modal
 {#if show2faModal}
     <div class="overlay" on:click={close2faModal}></div>
     <div class="code-input-popup">
