@@ -79,24 +79,24 @@
             name: "quiz block",
             data: [{
                 question: "press option A",
-                options : {
-                    A: {
+                options : [
+                    {
                         text: "Option A",
                         isCorrect: true
                     },
-                    B: {
+                    {
                         text: "Option B",
                         isCorrect: false
                     },
-                    C: {
+                    {
                         text: "Option C",
                         isCorrect: false
                     },
-                    D: {
+                    {
                         text: "Option D",
                         isCorrect: false
                     },
-                }
+                ]
             }],
         }
     ];

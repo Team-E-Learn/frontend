@@ -29,14 +29,47 @@
     export let name: string;
     export let submitChanges: any;
 
+    // Local initialization of variables for blockData
+    let question: string = blockData[0]?.question ?? "";
+    let options = blockData[0]?.options.map(o => ({ ...o })) ?? [];
+
+    // Functions for editing
+    function addOption(): void {
+        options = [...options, { text: "", isCorrect: false }];
+    }
+
+    function removeOption(index: number): void {
+        options = options.filter((_, i) => i !== index);
+    }
+
+    function saveChanges(): void {
+        let data: quizBlock = {
+            question: question,
+            options: options
+        }
+        console.log(data)
+        submitChanges(block_id, data);
+    }
+
 </script>
 
 <div class="quiz-block" style="--blockOrder: {order}">
     {#if editMode}
-        <div class= "buttons" >
-            <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
-            <button class="down"  on:click={moveBlock({block_id}, false)} >Move Down</button>
-            <button class="delete" on:click={deleteBlock({block_id})}>Delete</button>
+        <input type="text" class="input" bind:value={question} placeholder="Enter question here"/>
+
+        <div class="options-edit">
+            {#each options as option, index}
+                <div class="option-row">
+                    <input type="text" class="input" bind:value={option.text} placeholder="Option text"/>
+                    <label>
+                        <input type="checkbox" bind:checked={option.isCorrect} />
+                        Correct
+                    </label>
+                    <button on:click={() => removeOption(index)}>Remove</button>
+                </div>
+            {/each}
+            <button on:click={addOption}>Add Option</button>
+            <button on:click={saveChanges}>Save Changes</button>
         </div>
     {:else}
     <h1>{blockData[0]["question"]}</h1>
