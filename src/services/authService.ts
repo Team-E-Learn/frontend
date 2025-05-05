@@ -16,9 +16,9 @@ const verify2fa = async (limitedJWT: string, code: string) => {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": `Bearer ${limitedJWT}`
         },
         body: new URLSearchParams({
-            "Limited JWT": limitedJWT,
             code: code,
         }),
     });

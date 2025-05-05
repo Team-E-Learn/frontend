@@ -91,7 +91,7 @@
   ];
 </script>
 
-<Header title="Dashboard"/>
+<Header title="Dashboard" button={true}/>
 
 <div id="dashboard" class="dashboard">
   <div class="announcements">

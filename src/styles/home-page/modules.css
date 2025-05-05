@@ -22,3 +22,6 @@
 .mod-buttons:hover{
     background-color: #222225;
 }
+.remove-mod{
+    background-color: var(--accent);
+}

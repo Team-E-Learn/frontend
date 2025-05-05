@@ -1,6 +1,8 @@
 interface Verify2faSuccessResponse {
     message: "success";
     full_access_jwt: string;
+    user_id: number;
+    account_type: string;
 }
 
 interface Verify2faFailureResponse {
