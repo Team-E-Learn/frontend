@@ -1,7 +1,7 @@
 <script lang="ts">
     import '../../../styles/global.css'; // Import global styles
     import Contents from './contentsBar.svelte' // Import contents component
-    import Blocks from './block-system.svelte' // Import contents component
+    import Blocks from '../block-system.svelte' // Import contents component
     import Dashboard from '../landingPageDashboard.svelte' // Import dashboard
     import {mount, onMount} from "svelte"; // Import contents bar
     import { handleLessonButtonClick } from '../contents-bar-functions'
@@ -29,7 +29,7 @@
     <Contents />
     <div id="loaded-lesson">
         {#each loadedLessons as lesson}
-            <Blocks lesson_id={lesson}/>
+            <Blocks lesson_id={lesson} create={false}/>
         {/each}
     </div>
 </div>
