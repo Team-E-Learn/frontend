@@ -107,10 +107,6 @@
         }
     }
 
-    function update(){
-        blockData = [...blockData]
-    }
-
     export let deleteBlock = (block_id: any) => {
         let indexToRemove: number = blockData.findIndex(block => block.block_id === block_id['block_id']);
         blockData = [...blockData.slice(0, indexToRemove), ...blockData.slice(indexToRemove + 1)];
@@ -121,11 +117,14 @@
     }
 
     function addBlock(blockType: number, blocks: any){
+        // Checks it is adding block to loaded lesson
         let parent = blocks.parentElement;
         let loaded = document.getElementById("loaded-lesson")
         if(loaded !== parent) {
             return;
         }
+
+        // gets the next highest count and order and adds new block
         let count = Math.max(0, ...blockData.map(b => b.block_id)) + 1;
         let order = Math.max(0, ...blockData.map(b => b.order)) + 1;
         const newBlock: Blocks = {
