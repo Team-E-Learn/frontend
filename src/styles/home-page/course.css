@@ -9,8 +9,12 @@
 }
 
 .subscribe{
-    background-color: var(--secondary);
+    background-color: var(--accent);
     width: 20%;
     height: 2rem;
     border-radius: 25px;
+}
+
+.subscribe:hover{
+    background-color: var(--secondary2);
 }

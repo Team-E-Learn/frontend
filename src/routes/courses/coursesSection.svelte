@@ -63,7 +63,7 @@
     }
 
     onMount(() => {
-        fetchOrgs(1);
+        fetchOrgs(localStorage.userID);
     });
 
 </script>

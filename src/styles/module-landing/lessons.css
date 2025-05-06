@@ -7,7 +7,7 @@
     height: 3rem;
     text-align: left;
     font-size: 25px;
-    background-color: var(--secondary);
+    background-color: var(--secondary2);
     border: black;
     cursor: pointer;
 }

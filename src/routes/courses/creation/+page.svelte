@@ -5,8 +5,16 @@
     import Dashboard from "../homeDashboard.svelte";//import Dashboard element
     import Header from "../../../componenets/header.svelte"//import Header element
     import TextEntry from '../../../componenets/text-entry.svelte'
+    import {goto} from "$app/navigation";
 
     onMount(() => {
+        if(localStorage.ccountType === "user"){
+            goto("/courses/view")
+        }
+        //TODO: remove this line when login works
+        localStorage.setItem("userID", 2);
+
+
         document.addEventListener("keydown", (event) => {
             if (event.key === "Escape") {
                 textEntry.classList.add("hidden")

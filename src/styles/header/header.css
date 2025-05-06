@@ -1,5 +1,5 @@
 .divider{
-    background-image: linear-gradient(to right, var(--accent) , var(--primary));;
+    background-image: linear-gradient(to right, var(--secondary2) , white);;
     padding: 0.5rem;
     margin: 0;
 }
