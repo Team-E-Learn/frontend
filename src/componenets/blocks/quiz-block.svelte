@@ -27,7 +27,6 @@
     export let deleteBlock: any;
     export let editMode: boolean;
     export let name: string;
-    export let submitChanges: any;
 
     // Local initialization of variables for blockData
     let question: string = blockData[0]?.question ?? "";
@@ -41,16 +40,6 @@
     function removeOption(index: number): void {
         options = options.filter((_, i) => i !== index);
     }
-
-    function saveChanges(): void {
-        let data: quizBlock = {
-            question: question,
-            options: options
-        }
-        console.log(data)
-        submitChanges(block_id, data);
-    }
-
 </script>
 
 <div class="quiz-block" style="--blockOrder: {order}">
@@ -68,8 +57,7 @@
                     <button on:click={() => removeOption(index)}>Remove</button>
                 </div>
             {/each}
-            <button on:click={addOption}>Add Option</button>
-            <button on:click={saveChanges}>Save Changes</button>
+            <button on:click={addOption}>Add Option</button>#
         </div>
     {:else}
     <h1>{blockData[0]["question"]}</h1>

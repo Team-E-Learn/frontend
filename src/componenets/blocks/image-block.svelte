@@ -17,22 +17,12 @@
     export let moveBlock;
     export let deleteBlock: any;
     export let editMode: boolean;
-    export let submitChanges: any;
     export let name: string;
 
     let id: string = block_id.toString()
 
     let imageLink: string = blockData[0]?.image ?? "";
     let altText: string = blockData[0]?.altText ?? "";
-
-    function saveChanges() {
-
-        let data: imageBlock = {
-            image: imageLink,
-            altText: altText
-        }
-        submitChanges(block_id, data);
-    }
 
 </script>
 
@@ -41,7 +31,6 @@
         <div class="image-block-edit" style="--blockOrder: {order}">
             <input type="text" class="image" name="image" bind:value={imageLink} placeholder="input image link">
             <input type="text" class="altText" name="altText" bind:value={altText} placeholder="input alt text">
-            <input type="submit" class="submit" id="{id}" value="Save Changes" on:click={saveChanges}>
             <div class="buttons">
                 <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
                 <button class="down"  on:click={moveBlock({block_id}, false)}>Move Down</button>

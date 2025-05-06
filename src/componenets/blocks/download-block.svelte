@@ -18,29 +18,18 @@
     export let moveBlock: any;
     export let deleteBlock: any;
     export let editMode: boolean;
-    export let submitChanges: any;
     export let name: string;
 
     let id: string = block_id.toString()
 
     let downloadLink: string = blockData[0]?.downloadLink ?? "";
     let fileName: string = blockData[0]?.fileName ?? "";
-
-    function saveChanges() {
-
-        let data: downloadBlock = {
-            downloadLink: downloadLink,
-            fileName: fileName
-        }
-        submitChanges(block_id, data);
-    }
 </script>
 
 <div class="download-block" style="--blockOrder: {order}">
     {#if editMode}
         <input type="text" class="file" name="file" bind:value={downloadLink} placeholder="input file link">
         <input type="text" class="altText" name="altText" bind:value={fileName} placeholder="input filename">
-        <input type="submit" class="submit" id="{id}" value="Save Changes" on:click={saveChanges}>
 
         <div class="buttons">
             <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>

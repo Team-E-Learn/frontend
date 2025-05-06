@@ -72,96 +72,73 @@
                 downloadLink: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fsillycattvseries.fandom.com%2Fwiki%2FBig_Poo&psig=AOvVaw2p48Vdi8o33dYzsITLi7Xa&ust=1740067636205000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCOD-uq-P0IsDFQAAAAAdAAAAABAE",
                 fileName: "document.docx"
             }],
-        },
-        {
-            block_type: 5,
-            block_id: 5,
-            order: 5,
-            name: "quiz block",
-            data: [{
-                question: "press option A",
-                options : [
-                    {
-                        text: "Option A",
-                        isCorrect: true
-                    },
-                    {
-                        text: "Option B",
-                        isCorrect: false
-                    },
-                    {
-                        text: "Option C",
-                        isCorrect: false
-                    },
-                    {
-                        text: "Option D",
-                        isCorrect: false
-                    },
-                ]
-            }],
         }
     ];
 
-    let count: number = 0;
-
-    export let saveBlocks = () => {
-        for (let i in blockData){
-            lessonService.addLessonBlock(lesson_id, blockData[i])
+    function getDefaultBlockData(type: number): any[] {
+        switch(type) {
+            case 1: return [{ title: "New Title", text: "Edit this text..." }];
+            case 2: return [{ image: "", altText: "" }];
+            case 3: return [{ title: "", text: "", image: "", altText: "" }];
+            case 4: return [{ downloadLink: "", fileName: "file.txt" }];
+            case 5: return [{ question: "", options: [], answer: "" }];
+            default: return [];
         }
     }
 
-
     export let moveBlock = (block_id: any, up: boolean) => {
         let direction = up ? -1: 1
-        let moveBlock: Blocks = blockData.find(block => block.block_id === block_id['block_id']);
-        // Returns out of the function if the block is at the top or bottom
-        if (!moveBlock || (moveBlock.order === 1 && up) || (moveBlock.order === blockData.length && !up)) return;
-        let otherMoveBlock: Blocks = blockData.find(block => block.order === moveBlock.order + direction);
-        if (otherMoveBlock) {
-            moveBlock.order += direction;
-            otherMoveBlock.order -= direction;
-            update()
-        }
+        let currentBlock = blockData.find(block => block.block_id === block_id['block_id']);
 
+        if (!currentBlock || (currentBlock.order === 1 && up) || (currentBlock.order === blockData.length && !up)) return;
+
+        let targetBlock = blockData.find(block => block.order === currentBlock.order + direction);
+
+        if (targetBlock) {
+            blockData = blockData.map(block => {
+                if (block.block_id === currentBlock.block_id) {
+                    return { ...block, order: block.order + direction };
+                } else if (block.block_id === targetBlock.block_id) {
+                    return { ...block, order: block.order - direction };
+                } else {
+                    return block;
+                }
+            });
+        }
+    }
+
+    function update(){
+        blockData = [...blockData]
     }
 
     export let deleteBlock = (block_id: any) => {
         let indexToRemove: number = blockData.findIndex(block => block.block_id === block_id['block_id']);
-        let deletedBlock: Blocks = blockData.splice(indexToRemove, 1)[0];
+        blockData = [...blockData.slice(0, indexToRemove), ...blockData.slice(indexToRemove + 1)];
         // corrects the order of the blocks below the deleted block
-        for (let i in blockData) {
-            if (blockData[i]['order'] > deletedBlock.order) blockData[i]['order'] -= 1;
+        for (let i = indexToRemove; i < blockData.length; i++) {
+            blockData[i].order -= 1;
         }
-        update()
-    }
-
-    export let submitChanges = (block_id: any, data: any) => {
-        let blockToSubmit: Blocks = blockData.find(block => block.block_id === block_id['block_id']);
-        blockToSubmit.data = data;
     }
 
     function addBlock(blockType: number, blocks: any){
-        const newBlock: Blocks = {
-            block_type: blockType,
-            block_id: count += 1,
-            order: count,
-            data: [],
-        }
         let parent = blocks.parentElement;
         let loaded = document.getElementById("loaded-lesson")
-        if(loaded === parent) {
-            blockData = [...blockData, newBlock];
+        if(loaded !== parent) {
+            return;
         }
+        let count = Math.max(0, ...blockData.map(b => b.block_id)) + 1;
+        let order = Math.max(0, ...blockData.map(b => b.order)) + 1;
+        const newBlock: Blocks = {
+            block_type: blockType,
+            block_id: count,
+            order: order,
+            data: getDefaultBlockData(blockType),
+        }
+        blockData = [...blockData, newBlock];
     }
-
-    // this function makes sure the JSON is updated so svelte's reactive states can work properly
-    function update() {
-        blockData = [...blockData.sort((a, b) => a.order - b.order)];
-    }
-
-
 
     onMount(() => {
+        console.log(lesson_id)
         let text = document.querySelector(".text-block-button")
         let image = document.querySelector(".image-block-button")
         let textImage = document.querySelector(".text-image-block-button")
@@ -169,21 +146,19 @@
         let quiz = document.querySelector(".quiz-block-button")
         let blocks =  document.getElementById(`blocks-${lesson_id}`);
 
-        if ((!text && !blocks)||(!image && !blocks)||(!textImage && !blocks)||(!download && !blocks)||(!quiz && !blocks)) return;
-
-        text.addEventListener("click", (event: Event) => {
+        text?.addEventListener("click", (event: Event) => {
             addBlock(1, blocks);
         });
-        image.addEventListener("click", (event: Event) => {
+        image?.addEventListener("click", (event: Event) => {
             addBlock(2, blocks);
         });
-        textImage.addEventListener("click", (event: Event) => {
+        textImage?.addEventListener("click", (event: Event) => {
             addBlock(3, blocks);
         });
-        download.addEventListener("click", (event: Event) => {
+        download?.addEventListener("click", (event: Event) => {
             addBlock(4, blocks);
         });
-        quiz.addEventListener("click", (event: Event) => {
+        quiz?.addEventListener("click", (event: Event) => {
             addBlock(5, blocks);
         });
     });
@@ -191,17 +166,17 @@
 </script>
 
 <div id="blocks-{lesson_id}" class="block-container"> <!-- flex box that stores the blocks -->
-    {#each blockData as block} <!-- running through the block json -->
+    {#each blockData.slice().sort((a, b) => a.order - b.order) as block} <!-- running through the block json -->
         {#if block.block_type === 1}
-            <TextBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} submitChanges={submitChanges} name={block.name} editMode={create}/>
+            <TextBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} name={block.name} editMode={create}/>
         {:else if block.block_type === 2}
-            <ImageBlock block_id={block.block_id} order={block.order} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} submitChanges={submitChanges} name={block.name} editMode={create}/>
+            <ImageBlock block_id={block.block_id} order={block.order} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} name={block.name} editMode={create}/>
         {:else if block.block_type === 3}
-            <TextImageBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} submitChanges={submitChanges} name={block.name} editMode={create}/>
+            <TextImageBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} name={block.name} editMode={create}/>
         {:else if block.block_type === 4}
-            <DownloadBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} submitChanges={submitChanges} name={block.name} editMode={create}/>
+            <DownloadBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} name={block.name} editMode={create}/>
         {:else if block.block_type === 5}
-            <QuizBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} submitChanges={submitChanges} name={block.name} editMode={create}/>
+            <QuizBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} name={block.name} editMode={create}/>
         {/if}
     {/each}
 </div>

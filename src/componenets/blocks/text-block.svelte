@@ -17,7 +17,6 @@
     export let moveBlock: any;
     export let deleteBlock: any;
     export let editMode: boolean;
-    export let submitChanges: any;
     export let name: string;
 
     let id: string = block_id.toString()
@@ -26,21 +25,12 @@
     let title: string = blockData[0]?.title ?? "";
     let body: string = blockData[0]?.text ?? "";
 
-    function saveChanges() {
-        let data: textBlock = {
-            title: title,
-            text: body
-        }
-        submitChanges(block_id, data);
-    }
-
 </script>
 
 <div class="text-block" style="--blockOrder: {order}">
     {#if editMode}
         <input type="text" class="title" name="title" bind:value={title} placeholder="Enter Title here">
         <textarea class="body" name="body" bind:value={title} placeholder="Enter Title here">{blockData[0]["text"]}</textarea>
-        <input type="submit" class="submit" value="Save Changes" on:click={saveChanges}>
         <div class="buttons">
             <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
             <button class="down"  on:click={moveBlock({block_id}, false)} >Move Down</button>

@@ -31,17 +31,6 @@
     let imageLink: string = blockData[0]?.image ?? "";
     let altText: string = blockData[0]?.altText ?? "";
 
-    function saveChanges() {
-        let data: textImageBlock = {
-            title: title,
-            text: body,
-            image: imageLink,
-            altText: altText
-        }
-        console.log(data)
-        submitChanges(block_id, data);
-    }
-
 </script>
 
 <div class = "text-image-block" style="--blockOrder: {order}">
@@ -50,7 +39,6 @@
         <textarea class="body" name="body" bind:value={body} placeholder="Enter Body text here">{blockData[0]["text"]}</textarea>
         <input type="text" name="image" bind:value={imageLink} class="image" placeholder="input image link">
         <input type="text" class="altText" bind:value={altText} name="altText" placeholder="input alt text">
-        <input type="submit" class="submit" value="Save Changes" on:click={saveChanges}>
         <div class="buttons">
             <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
             <button class="down"  on:click={moveBlock({block_id}, false)} >Move Down</button>
