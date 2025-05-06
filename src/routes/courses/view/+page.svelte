@@ -14,7 +14,12 @@
     }
 
 
-    async function subscribeUser(userID: number, code: string) {
+    async function subscribeUser(userID: number | null, code: string) {
+        if (userID === null) {
+            console.error('An error occurred: failed to get user id');
+            return;
+        }
+
         try {
             await moduleService.activateModuleCode(userID, code);
         } catch (error) {
@@ -39,7 +44,7 @@
             if (event.key === "Enter") {
                 if (!textEntry.classList.contains("hidden")) {
                     let input = textBox.value
-                    subscribeUser(1, input)
+                    subscribeUser(localStorage.getItem("userID"), input)
                     textEntry.classList.add("hidden")
                 }
             }

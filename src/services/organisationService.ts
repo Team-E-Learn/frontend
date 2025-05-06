@@ -5,12 +5,17 @@ import type { CreateOrganisationResponse, Organisation } from "./types";
 // if successful, returns the organisation and its modules
 // throws an error containing the relevant message otherwise
 const createOrganisation = async (org: Organisation) => {
+    const token: string | null = localStorage.getItem("token");
+    if (token === null) {
+        throw new Error(`an error occurred`);
+    }
     const url = `${apiBaseUrl}/v1/org`;
 
     const response = await fetch(url, {
         method: "POST",
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": `Bearer ${token}`
         },
         body: new URLSearchParams({
             name: org.name,

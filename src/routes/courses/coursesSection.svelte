@@ -63,7 +63,10 @@
     }
 
     onMount(() => {
-        fetchOrgs(1);
+        let userId: number | null = localStorage.getItem("userID");
+        if (userId === null)
+            return;
+        fetchOrgs(userId);
     });
 
 </script>
