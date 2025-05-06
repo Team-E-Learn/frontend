@@ -15,15 +15,8 @@
     let blockData = {};
     let sections = [];
 
-    function postLessons(lessonId: number, moduleId: number, title: string) {
-        console.log
-        lessonService.addLesson(lessonId, moduleId, title)
-            .then(() => {
-                console.log('Lesson added!');
-            })
-            .catch(err => {
-                console.error('Error adding lesson:', err);
-            });
+    function postBlocks(){
+
     }
 
     export function generateSections(){
@@ -59,7 +52,7 @@
     <div class="lesson-header">
         <button class="lesson-button" data-lesson_id="{info.id}">{info.title}</button>
         {#if creation}
-            <button class="save-button" on:click={() => postLessons(info.id, module_id, info.title, [])}>Save</button>
+            <button class="save-button" on:click={() => postBlocks()}>Save</button>
         {/if}
 
     </div>

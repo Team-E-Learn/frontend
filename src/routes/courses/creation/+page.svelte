@@ -8,11 +8,13 @@
     import {goto} from "$app/navigation";
 
     onMount(() => {
-        if(localStorage.ccountType === "user"){
+        if(localStorage.accountType === "user"){
             goto("/courses/view")
         }
         //TODO: remove this line when login works
         localStorage.setItem("userID", 2);
+        localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJlbGVhcm4tYmFja2VuZCIsImF1ZCI6ImVsZWFybi1mdWxsIiwic3ViIjoyLCJleHAiOjE3NzgwNzMwNDB9.sld-lLNtYlitSSHzcMe6xz7X1cUfU0pv9kRg9-QTcos=");
+        localStorage.setItem("accountType", "teacher");
 
 
         document.addEventListener("keydown", (event) => {
