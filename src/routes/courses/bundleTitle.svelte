@@ -7,24 +7,14 @@
         id: number;
         modules: { name: string; module_id: number }[];
     }; // pass though bundle info from json
+    export let org_name: string;
 
     export let removeBundle;
     export let create: boolean;
 
-    let count: number = 0;
     function newModule() {
-        while (bundle.modules.some(item => item.module_id === count)){
-            count += 1;
-        }
-        let newMod = {
-            name: "mod1",
-            module_id: count,
-        }
 
-        bundle.modules = [...bundle.modules, newMod];
     }
-
-
 </script>
 
 <div class="organisation bundle">

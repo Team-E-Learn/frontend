@@ -13,33 +13,14 @@
 
     export let create: boolean;
 
-    let countMod: number = 0;
-
     function newModule() {
-        while (org.modules.some(item => item.module_id === countMod)){
-            countMod += 1;
-        }
-        let newMod = {
-            name: "mod1",
-            module_id: countMod,
-        }
 
-        org.modules = [...org.modules, newMod];
     }
 
-    let countBundle: number = 0;
     function newBundle() {
-        while (org.bundles.some(item => item.id === countBundle)){
-            countBundle += 1;
-        }
-        let newBundle = {
-            bundle_name: "bundle",
-            id: countBundle,
-            modules: []
-        }
 
-        org.bundles = [...org.bundles, newBundle];
     }
+
     function removeBundle(id){
         org.bundles = org.bundles.filter(bundle => bundle.id !== id);
     }
@@ -61,7 +42,7 @@
     <!-- Use an {#each} loop to render bundles components -->
     {#if org.bundles !== undefined}
         {#each org.bundles as bundle}
-            <Bundles bundle={bundle} removeBundle={removeBundle} create={create}/>
+            <Bundles bundle={bundle} removeBundle={removeBundle} org_name={org.org_name} create={create}/>
         {/each}
     {/if}
     {#if create}

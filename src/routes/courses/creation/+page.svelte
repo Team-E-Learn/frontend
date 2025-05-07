@@ -21,25 +21,12 @@
         if(localStorage.accountType === "user"){
             goto("/courses/view")
         }
-
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") {
-                textEntry.classList.add("hidden")
-            }
-
-            // If the enter text element is on screen
-            if (event.key === "Enter") {
-                if (!textEntry.classList.contains("hidden")) {
-                    let input_name = textBox.value
-                    // TODO: add value to list
-                    textBox.value = ""
-                }
-            }
-        });
     })
 </script>
 
-
+<TextEntry text="Org Title:" id="add_org_text"/>
+<TextEntry text="Bundle Title:" id="add_bundle_text"/>
+<TextEntry text="Module Title:" id="add_mod_text"/>
 <!-- calls header element -->
 <Header title="Home Page"/>
 <!-- calls dashboard element -->

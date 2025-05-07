@@ -95,18 +95,14 @@ export interface Module1 extends Module {
 
 export interface Organisation {
     org_name: string,
-    org_id: number,
     bundles: {
-        name: string,
-        id: number,
+        bundle_name: string,
         modules: {
-            name: string,
-            module_id: number
+            name: string
         }[]
     }[]
     modules: {
-        name: string,
-        module_id: number
+        name: string
     }[]
 }
 

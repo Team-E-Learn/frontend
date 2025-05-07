@@ -1,8 +1,7 @@
 <script lang="ts">
     import "../../styles/home-page/course.css" //import styles
-    import Organisation from "./OrganisationTitle.svelte"
+    import OrganisationComp from "./OrganisationTitle.svelte"
     import userService from "../../services/userService"
-    import orgService from "../../services/organisationService"
     import {onMount} from "svelte";
     import organisationService from "../../services/organisationService";
 
@@ -28,20 +27,11 @@
 
     let courseInfo: Org[] = [];
 
-    let count: number = 0
-
     function newOrg(){
-        while (courseInfo.some(item => item.org_id === count)){
-            count += 1;
-        }
-        let newOrg: Org = {
-            org_name: "test",
-            org_id: count,
-            bundles: [],
-            modules: [],
-        }
-
-        courseInfo = [...courseInfo, newOrg];
+        const org_textbox = document.getElementById("add_org_text");
+        org_textbox.classList.remove("hidden");
+        const child = org_textbox.getElementsByClassName("text")[0] as HTMLElement | undefined;
+        child?.focus();
     }
 
 
@@ -58,10 +48,10 @@
         }
     }
 
-    async function postOrg() {
+    async function postOrg(org_name: string, bundles: { bundle_name: string; modules: { name: string;}[]}[], modules: { name: string;}[]){
         try{
             for (let org in courseInfo){
-                await organisationService.createOrganisation(org, localStorage.userID);
+                await organisationService.createOrganisation(org_name, bundles, modules, localStorage.userID);
             }
         } catch (err) {
             console.error(err);
@@ -69,11 +59,37 @@
     }
 
     onMount(() => {
-        fetchOrgs(localStorage.userID);
         let userId: number | null = localStorage.getItem("userID");
         if (userId === null)
             return;
         fetchOrgs(userId);
+
+        const org_textbox = document.getElementById("add_org_text");
+        if (!org_textbox){
+            console.log("undefined")
+        }
+        const child = org_textbox.getElementsByClassName("text")[0] as HTMLElement | undefined;
+        if (child === undefined) {
+            console.log("textEntry not found");
+            return;
+        }
+        // check if enter is pressed
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                org_textbox.classList.add("hidden")
+            }
+
+            // If the enter text element is on screen
+            if (event.key === "Enter") {
+                if (!org_textbox.classList.contains("hidden")) {
+                    let input_name = child.value;
+                    courseInfo = [...courseInfo, postOrg(input_name, [[]], [])];
+                    child.value = "";
+                    // Add the new lesson to the array
+                    org_textbox.classList.add("hidden");
+                }
+            }
+        });
     });
 
 </script>
@@ -84,7 +100,7 @@
     {/if}
     <!-- Use an {#each} loop to render Organisation components -->
     {#each courseInfo as organisation}
-        <Organisation org={organisation} removeOrg={deleteOrg} create={create}/>
+        <OrganisationComp org={organisation} removeOrg={deleteOrg} create={create}/>
     {/each}
     {#if create}
         <button class="add-org" onclick={newOrg}>New organisation</button>

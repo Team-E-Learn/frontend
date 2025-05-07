@@ -135,7 +135,6 @@
                         title: input_name,
                         id: count,
                     };
-                    console.log(newLesson.id, module_id, newLesson.title)
                     postLessons(newLesson.id, module_id, newLesson.title)
                     textBox.value = ""
                     // Add the new lesson to the array
