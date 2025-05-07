@@ -1,8 +1,7 @@
 <script lang="ts">
     import '../../../styles/global.css'; // Import global styles
-    import Creation from './creation-bar.svelte'; // Import creation bar
+    import Creation from './creation-bar.svelte'; // Import creation[id] bar
     import Blocks from '../block-system.svelte' // Import contents component
-
     import Dashboard from '../landingPageDashboard.svelte' // Import dashboard
     import TextEntry from '../../../componenets/text-entry.svelte'
     import {mount, onMount, tick} from "svelte"; // Import contents bar
@@ -22,8 +21,12 @@
 
     let contentsRef: typeof Contents;
 
-
     onMount(() => {
+        if (!localStorage.getItem("token")) {
+            console.log("Redirecting...");
+            goto("/login");
+        }
+
         if(localStorage.accountType === "user"){
             goto(`/modules/view${data.module_id}`)
         }

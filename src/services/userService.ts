@@ -5,8 +5,18 @@ import type { DashboardElement, Subscription, UserProfile } from "./types";
 // returns the dashboard elements if successful
 // throws an error otherwise
 const getHomeDashboard = async (userId: number) => {
+    const token: string | null = localStorage.getItem("token");
+    if (token === null) {
+        throw new Error(`an error occurred`);
+    }
+
     const url = `${apiBaseUrl}/v1/user/${userId}/dashboard`;
-    const response = await fetch(url, { method: "GET" });
+    const response = await fetch(url, { 
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
     if (!response.ok) {
         throw new Error(`an error occurred`);
     }
@@ -18,8 +28,18 @@ const getHomeDashboard = async (userId: number) => {
 // returns the dashboard elements if successful
 // throws an error otherwise
 const getModuleDashboard = async (userId: number, moduleId: number) => {
+    const token: string | null = localStorage.getItem("token");
+    if (token === null) {
+        throw new Error(`an error occurred`);
+    }
+
     const url = `${apiBaseUrl}/v1/user/${userId}/dashboard/module/${moduleId}`;
-    const response = await fetch(url, { method: "GET" });
+    const response = await fetch(url, { 
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
     if (!response.ok) {
         throw new Error(`an error occurred`);
     }
@@ -31,8 +51,18 @@ const getModuleDashboard = async (userId: number, moduleId: number) => {
 // returns the user profile if successful
 // throws an error otherwise
 const getUserProfile = async (userId: number) => {
+    const token: string | null = localStorage.getItem("token");
+    if (token === null) {
+        throw new Error(`an error occurred`);
+    }
+
     const url = `${apiBaseUrl}/v1/user/${userId}/profile`;
-    const response = await fetch(url, { method: "GET" });
+    const response = await fetch(url, { 
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
     if (!response.ok) {
         throw new Error(`an error occurred`);
     }
@@ -47,8 +77,18 @@ const getUserProfile = async (userId: number) => {
 // returns the user's subscriptions if successful
 // throws an error otherwise
 const getUserSubscriptions = async (userId: number) => {
+    const token: string | null = localStorage.getItem("token");
+    if (token === null) {
+        throw new Error(`an error occurred`);
+    }
+
     const url = `${apiBaseUrl}/v1/user/${userId}/subscriptions`;
-    const response = await fetch(url, { method: "GET" });
+    const response = await fetch(url, { 
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
     if (!response.ok) {
         throw new Error(`an error occurred`);
     }

@@ -2,7 +2,6 @@
     import '../../styles/module-landing/lessons.css'; // Import styles
     import Section from "./sections.svelte";
     import {onMount} from "svelte";
-    import lessonService from "../../services/lessonService";
 
     export let info: {
         title: string,

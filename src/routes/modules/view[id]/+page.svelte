@@ -18,6 +18,11 @@
     let contentsRef: typeof Contents;
 
     onMount(() => {
+        if (!localStorage.getItem("token")) {
+            console.log("Redirecting...");
+            goto("/login");
+        }
+
         if(localStorage.accountType === "teacher"){
             goto(`/modules/creation${data.module_id}`)
         }

@@ -64,6 +64,10 @@
 
     onMount(() => {
         fetchOrgs(localStorage.userID);
+        let userId: number | null = localStorage.getItem("userID");
+        if (userId === null)
+            return;
+        fetchOrgs(userId);
     });
 
 </script>

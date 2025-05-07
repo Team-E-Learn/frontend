@@ -5,8 +5,21 @@ import type { Lesson, LessonBlock } from "./types";
 // returns the lessons if successful
 // throws an error otherwise
 const getLessons = async (moduleId: number) => {
+    const token: string | null = localStorage.getItem("token");
+    if (token === null) {
+        throw new Error(`an error occurred`);
+    }
+
     const url = new URL(`${apiBaseUrl}/v1/module/${moduleId}/lessons`);
-    const response = await fetch(url, { method: "GET" });
+    const response = await fetch(
+        url, 
+        { 
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+    );
     if (!response.ok) {
         throw new Error(`an error occurred`);
     }
@@ -23,12 +36,18 @@ const addLesson = async (
     moduleId: number,
     title: string,
 ) => {
+    const token: string | null = localStorage.getItem("token");
+    if (token === null) {
+        throw new Error(`an error occurred`);
+    }
+
     const url = `${apiBaseUrl}/v1/module/lesson`;
 
     const response = await fetch(url, {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": `Bearer ${token}`
         },
         body: new URLSearchParams({
             lesson_id: lessonId.toString(),
@@ -48,6 +67,10 @@ const addLesson = async (
 // returns nothing if successful
 // throws an error containing the relevant message otherwise
 const deleteLesson = async (lessonId: number) => {
+    const token: string | null = localStorage.getItem("token");
+    if (token === null) {
+        throw new Error(`an error occurred`);
+    }
     const url = `${apiBaseUrl}/v1/module/lesson/`;
 
     const formData = new FormData();
@@ -55,6 +78,9 @@ const deleteLesson = async (lessonId: number) => {
 
     const response = await fetch(url, {
         method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
         body: formData,
     });
     if (!response.ok) {
@@ -67,10 +93,17 @@ const deleteLesson = async (lessonId: number) => {
 // returns the lesson blocks if successful
 // throws an error containing the relevant message otherwise
 const getLessonBlocks = async (lessonId: number) => {
+    const token: string | null = localStorage.getItem("token");
+    if (token === null) {
+        throw new Error(`an error occurred`);
+    }
     const url = `${apiBaseUrl}/v1/module/lesson/${lessonId}/block`;
 
     const response = await fetch(url, {
         method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
     });
     if (!response.ok) {
         const data: { message: string } = await response.json();
@@ -85,12 +118,17 @@ const getLessonBlocks = async (lessonId: number) => {
 // returns nothing if successful
 // throws an error containing the relevant message otherwise
 const addLessonBlock = async (lessonId: number, block: LessonBlock) => {
+    const token: string | null = localStorage.getItem("token");
+    if (token === null) {
+        throw new Error(`an error occurred`);
+    }
     const url = `${apiBaseUrl}/v1/module/lesson/${lessonId}/block`;
 
     const response = await fetch(url, {
         method: "POST",
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": `Bearer ${token}`
         },
         body: new URLSearchParams({
             lesson_id: lessonId.toString(),
@@ -111,6 +149,10 @@ const addLessonBlock = async (lessonId: number, block: LessonBlock) => {
 // returns nothing if successful
 // throws an error containing the relevant message otherwise
 const deleteLessonBlock = async (lessonId: number, blockId: number) => {
+    const token: string | null = localStorage.getItem("token");
+    if (token === null) {
+        throw new Error(`an error occurred`);
+    }
     const url = `${apiBaseUrl}/v1/module/lesson/${lessonId}/block`;
 
     const formData = new FormData();
@@ -118,6 +160,9 @@ const deleteLessonBlock = async (lessonId: number, blockId: number) => {
 
     const response = await fetch(url, {
         method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
         body: formData,
     });
     if (!response.ok) {

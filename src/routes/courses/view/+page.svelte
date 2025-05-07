@@ -14,7 +14,7 @@
     }
 
 
-    async function subscribeUser(code: string) {
+    async function subscribeUser(userID: number, code: string) {
         try {
             await moduleService.activateModuleCode(localStorage.userID, code);
         } catch (error) {
@@ -23,15 +23,21 @@
     }
 
     onMount(() => {
-        if(localStorage.accountType === "teacher"){
-            goto("/courses/creation")
-        }
         //TODO: remove this line when login works
         localStorage.setItem("userID", 1);
         localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJlbGVhcm4tYmFja2VuZCIsImF1ZCI6ImVsZWFybi1mdWxsIiwic3ViIjoxLCJleHAiOjE3NzgwNzMwNDB9.mS3XKPHnrzE8UfGj-sVs2307evgdSoRtj7wQlLDKiGQ=");
         localStorage.setItem("accountType", "user");
 
         console.log(localStorage.userID)
+
+        if (!localStorage.getItem("token")) {
+            console.log("Redirecting...");
+            goto("/login");
+        }
+
+        if(localStorage.accountType === "teacher"){
+            goto("/courses/creation")
+        }
 
         let textEntry = document.querySelector(".entry");
         let textBox = document.querySelector(".text")
@@ -44,7 +50,7 @@
             if (event.key === "Enter") {
                 if (!textEntry.classList.contains("hidden")) {
                     let input = textBox.value
-                    subscribeUser(input)
+                    subscribeUser(localStorage.getItem("userID"), input)
                     textEntry.classList.add("hidden")
                 }
             }
