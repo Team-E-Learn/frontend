@@ -18,7 +18,7 @@ const createOrganisation = async (org: Organisation, owner_id: number) => {
             "Authorization": `Bearer ${token}`
         },
         body: new URLSearchParams({
-            name: org.name,
+            name: org.org_name,
             description: "Blank",
             modules: JSON.stringify(org.modules),
             owner_id: owner_id.toString()

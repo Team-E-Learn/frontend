@@ -15,6 +15,10 @@
 
     let components: Record<number, Lesson> = {};
 
+    export function callGenerateSections(lesson_id: number){
+        components[lesson_id]?.generateSections?.();
+    }
+
     async function fetchLessons(moduleId: number) {
         try {
             const data = await lessonService.getLessons(moduleId);
@@ -23,10 +27,6 @@
             error = 'Failed to fetch lessons';
             console.error(err);
         }
-    }
-
-    export function callGenerateSections(lesson_id: number){
-        components[lesson_id]?.generateSections?.();
     }
 
     onMount(() => {

@@ -6,7 +6,7 @@
     import TextEntry from '../../../componenets/text-entry.svelte'
     import {mount, onMount, tick} from "svelte"; // Import contents bar
     import { handleLessonButtonClick } from '../contents-bar-functions'
-    import Contents from "../view[id]/contentsBar.svelte";
+    import Contents from "../view[id]/contents-bar.svelte";
     import {goto} from "$app/navigation";
 
     let { data } = $props(); // Get the module_id passed in from the home page

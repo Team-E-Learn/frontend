@@ -94,10 +94,20 @@ export interface Module1 extends Module {
 }
 
 export interface Organisation {
-    name: string;
-    description: string;
-    modules: { name: string; description: string }[];
-    owner_id: number;
+    org_name: string,
+    org_id: number,
+    bundles: {
+        name: string,
+        id: number,
+        modules: {
+            name: string,
+            module_id: number
+        }[]
+    }[]
+    modules: {
+        name: string,
+        module_id: number
+    }[]
 }
 
 export interface CreateOrganisationResponse {

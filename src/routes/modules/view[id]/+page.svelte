@@ -1,6 +1,6 @@
 <script lang="ts">
     import '../../../styles/global.css'; // Import global styles
-    import Contents from './contentsBar.svelte' // Import contents component
+    import Contents from './contents-bar.svelte' // Import contents component
     import Blocks from '../block-system.svelte' // Import contents component
     import Dashboard from '../landingPageDashboard.svelte' // Import dashboard
     import {onMount, tick} from "svelte"; // Import contents bar
@@ -27,7 +27,6 @@
             goto(`/modules/creation${data.module_id}`)
         }
 
-        // TODO: clean this code up for a later date
         let parent = document.querySelector(".lessons"); // Get the parent object of the buttons
         if (!parent) return;
 
