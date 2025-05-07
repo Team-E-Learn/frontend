@@ -30,7 +30,7 @@
 
         console.log(localStorage.userID)
 
-        if (!localStorage.getItem("token")) {
+        if (localStorage.getItem("token") === null) {
             console.log("Redirecting...");
             goto("/login");
         }

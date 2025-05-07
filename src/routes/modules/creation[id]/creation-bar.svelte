@@ -26,13 +26,13 @@
 
     function postBlocks(lesson_id: number){
         for (block in blocks[lesson_id].blockData){
-            updateBlock(lesson_id, block)
+            updateBlock(module_id, lesson_id, block);
         }
     }
 
-    async function updateBlock(lesson_id: number, block: Blocks){
+    async function updateBlock(module_id: number, lesson_id: number, block: Blocks){
         try {
-            await lessonService.addLessonBlock(lesson_id, block);
+            await lessonService.addLessonBlock(module_id, lesson_id, block);
             console.log('Lesson block added successfully');
         } catch (error) {
             console.error('Error adding lesson block:', error);
@@ -40,7 +40,6 @@
     }
 
     function postLessons(lessonId: number, moduleId: number, title: string) {
-        console.log
         lessonService.addLesson(lessonId, moduleId, title)
             .then(() => {
                 console.log('Lesson added!');
