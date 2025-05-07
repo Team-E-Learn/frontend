@@ -109,8 +109,20 @@ export interface Organisation {
 export interface CreateOrganisationResponse {
     message: string;
     Organisation: {
+        name: string,
         id: number,
-        name: string;
+        bundles: {
+            bundle_id: number,
+            bundle_name: string,
+            modules: {
+                name: string,
+                module_id: number
+            }[]
+        }[]
+        modules: {
+            name: string,
+            module_id: number
+        }[]
     };
-    modules: { id: number; name: string; }[];
+
 }

@@ -6,11 +6,11 @@
     import organisationService from "../../services/organisationService";
 
     interface Org {
-        org_name: string,
-        org_id: number,
+        name: string,
+        id: number,
         bundles: {
-            name: string,
-            id: number,
+            bundle_id: number,
+            bundle_name: string,
             modules: {
                 name: string,
                 module_id: number
@@ -50,9 +50,8 @@
 
     async function postOrg(org_name: string, bundles: { bundle_name: string; modules: { name: string;}[]}[], modules: { name: string;}[]){
         try{
-            for (let org in courseInfo){
-                await organisationService.createOrganisation(org_name, bundles, modules, localStorage.userID);
-            }
+            let resp = await organisationService.createOrganisation(org_name, bundles, modules, localStorage.userID);
+            return resp.Organisation;
         } catch (err) {
             console.error(err);
         }
@@ -74,7 +73,7 @@
             return;
         }
         // check if enter is pressed
-        document.addEventListener("keydown", (event) => {
+        document.addEventListener("keydown", async (event) => {
             if (event.key === "Escape") {
                 org_textbox.classList.add("hidden")
             }
@@ -83,7 +82,9 @@
             if (event.key === "Enter") {
                 if (!org_textbox.classList.contains("hidden")) {
                     let input_name = child.value;
-                    courseInfo = [...courseInfo, postOrg(input_name, [[]], [])];
+                    let newData = await postOrg(input_name, [], [])
+                    courseInfo = [...courseInfo, newData];
+                    console.log(newData)
                     child.value = "";
                     // Add the new lesson to the array
                     org_textbox.classList.add("hidden");
@@ -104,6 +105,5 @@
     {/each}
     {#if create}
         <button class="add-org" onclick={newOrg}>New organisation</button>
-        <button class="save-button" onclick={postOrg}>Save</button>
     {/if}
 </div>

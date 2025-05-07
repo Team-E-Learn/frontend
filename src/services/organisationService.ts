@@ -9,7 +9,7 @@ const createOrganisation = async (org_name: string, bundles: { bundle_name: stri
     if (token === null) {
         throw new Error(`an error occurred`);
     }
-    const url = `${apiBaseUrl}/v1/org`;
+    const url = `${apiBaseUrl}/v1/org/`;
 
     const response = await fetch(url, {
         method: "POST",
@@ -30,10 +30,8 @@ const createOrganisation = async (org_name: string, bundles: { bundle_name: stri
         throw new Error(data.message);
     }
 
-    return {
-        organisation: data.Organisation,
-        modules: data.modules,
-    }
+    return data;
+
 };
 
 export default { createOrganisation };
