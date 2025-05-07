@@ -14,11 +14,14 @@
 
     let loadedLessons: number[] = $state([]);
 
+    let blocks: Record<number, Blocks> = {};
+
     function updateLessons(newLessons: number[]) {
         loadedLessons = newLessons;
     }
 
     let contentsRef: typeof Contents;
+
 
     onMount(() => {
         if(localStorage.accountType === "user"){
@@ -44,7 +47,7 @@
     <Creation module_id={data.module_id} bind:this={contentsRef}/>
     <div id="loaded-lesson">
         {#each loadedLessons as lesson}
-            <Blocks lesson_id={lesson} create={true}/>
+            <Blocks lesson_id={lesson} create={true} bind:this={blocks[lesson]}/>
         {/each}
     </div>
 </div>

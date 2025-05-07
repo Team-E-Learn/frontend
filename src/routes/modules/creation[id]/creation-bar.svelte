@@ -4,6 +4,7 @@
     import Header from "../../../componenets/header.svelte"
     import lessonService from "../../../services/lessonService"
     import {onMount} from "svelte";
+    import Blocks from "../block-system.svelte";
     interface Lessons {
         title: string;
         id: number;
@@ -19,6 +20,23 @@
 
     export function callGenerateSections(lesson_id: number){
         components[lesson_id]?.generateSections?.();
+    }
+
+    export let blocks: Record<number, Blocks> = {};
+
+    function postBlocks(lesson_id: number){
+        for (block in blocks[lesson_id].blockData){
+            updateBlock(lesson_id, block)
+        }
+    }
+
+    async function updateBlock(lesson_id: number, block: Blocks){
+        try {
+            await lessonService.addLessonBlock(lesson_id, block);
+            console.log('Lesson block added successfully');
+        } catch (error) {
+            console.error('Error adding lesson block:', error);
+        }
     }
 
     function postLessons(lessonId: number, moduleId: number, title: string) {
