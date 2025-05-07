@@ -66,7 +66,7 @@ const addLesson = async (
 // passes the lesson_id as formdata
 // returns nothing if successful
 // throws an error containing the relevant message otherwise
-const deleteLesson = async (lessonId: number) => {
+const deleteLesson = async (moduleId: number, lessonId: number) => {
     const token: string | null = localStorage.getItem("token");
     if (token === null) {
         throw new Error(`an error occurred`);
@@ -74,6 +74,7 @@ const deleteLesson = async (lessonId: number) => {
     const url = `${apiBaseUrl}/v1/module/lesson/`;
 
     const formData = new FormData();
+    formData.append("module_id", moduleId.toString());
     formData.append('lesson_id', lessonId.toString());
 
     const response = await fetch(url, {

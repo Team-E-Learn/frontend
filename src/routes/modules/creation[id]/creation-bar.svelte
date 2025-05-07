@@ -61,7 +61,7 @@
     }
 
     async function deleteLessons(lessonId: number) {
-        lessonService.deleteLesson(lessonId)
+        lessonService.deleteLesson(module_id, lessonId)
             .then(() => {
                 console.log('Lesson deleted!');
             })
