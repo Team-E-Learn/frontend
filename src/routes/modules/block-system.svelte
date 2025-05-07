@@ -10,7 +10,9 @@
     import ImageBlock from "../../componenets/blocks/image-block.svelte";
     import lessonService from "../../services/lessonService";
     import Lesson from "./lessons.svelte";
+    import moduleService from "../../services/moduleService";
 
+    export let module_id: number;
     export let lesson_id: number; // pass in lesson id
     export let create: boolean
 
@@ -33,50 +35,17 @@
     block_type: 5 = quiz block
      */
     //TODO: get this data from the database
-    let blockData: Blocks[] = [
-        {
-            block_type: 1,
-            block_id: 1,
-            order: 1,
-            name: "text block",
-            data: [{
-                title: "Lorem Ipsum",
-                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            }],
-        },
-        {
-            block_type: 2,
-            block_id: 2,
-            order: 2,
-            name: "image block",
-            data: [{
-                image: image,
-                altText: "Bliss location, Sonoma Valley in 2006"
-            }],
-        },
-        {
-            block_type: 3,
-            block_id: 3,
-            order: 3,
-            name: "text and image block",
-            data: [{
-                title: "Lorem Ipsum",
-                text: " Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                image: image,
-                altText: "Bliss location, Sonoma Valley in 2006"
-            }],
-        },
-        {
-            block_type: 4,
-            block_id: 4,
-            order: 4,
-            name: "download block",
-            data: [{
-                downloadLink: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fsillycattvseries.fandom.com%2Fwiki%2FBig_Poo&psig=AOvVaw2p48Vdi8o33dYzsITLi7Xa&ust=1740067636205000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCOD-uq-P0IsDFQAAAAAdAAAAABAE",
-                fileName: "document.docx"
-            }],
+    let blockData: Blocks[] = [];
+
+    async function getBlocks(){
+        try {
+            const data = await lessonService.getLessonsBlocks(module_id, lesson_id);
+            blockData = data.lessons;
+        } catch (err) {
+            error = 'Failed to fetch lessons';
+            console.error(err);
         }
-    ];
+    }
 
     function getDefaultBlockData(type: number): any[] {
         switch(type) {
@@ -110,9 +79,17 @@
         }
     }
 
-    export let deleteBlock = (block_id: any) => {
+    export let deleteBlock = async (block_id: any) => {
         let indexToRemove: number = blockData.findIndex(block => block.block_id === block_id['block_id']);
         blockData = [...blockData.slice(0, indexToRemove), ...blockData.slice(indexToRemove + 1)];
+        lessonService.deleteLessonBlock(module_id, lesson_id, block_id)
+            .then(() => {
+                console.log('Lesson deleted!');
+            })
+            .catch(err => {
+                console.error('Error deleting lesson:', err);
+            });
+
         // corrects the order of the blocks below the deleted block
         for (let i = indexToRemove; i < blockData.length; i++) {
             blockData[i].order -= 1;
@@ -141,6 +118,9 @@
 
     onMount(() => {
         console.log(lesson_id)
+
+        getBlocks();
+
         let text = document.querySelector(".text-block-button")
         let image = document.querySelector(".image-block-button")
         let textImage = document.querySelector(".text-image-block-button")

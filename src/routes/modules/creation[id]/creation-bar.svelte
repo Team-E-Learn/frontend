@@ -187,7 +187,7 @@
                 <button class="remove-lesson">-</button>
             </div>
             {#each lessonsData as lesson}
-                <Lesson info={lesson} bind:this={components[lesson.id]} creation={true}, module_id={module_id}/>
+                <Lesson info={lesson} bind:this={components[lesson.id]} creation={true} postBlocks={postBlocks} module_id={module_id}/>
             {/each}
         </div>
     </div>

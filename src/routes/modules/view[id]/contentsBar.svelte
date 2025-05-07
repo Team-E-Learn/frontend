@@ -38,7 +38,7 @@
     <div class="contents ">
         <div class="lessons" id="lesson">
             {#each lessons as lesson}
-                <Lesson info={lesson} postBlocks={postBlocks} bind:this={components[lesson.id]} creation={false}/>
+                <Lesson info={lesson} bind:this={components[lesson.id]} creation={false}/>
             {/each}
         </div>
     </div>

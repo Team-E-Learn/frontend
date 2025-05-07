@@ -4,6 +4,7 @@
     import userService from "../../services/userService"
     import orgService from "../../services/organisationService"
     import {onMount} from "svelte";
+    import organisationService from "../../services/organisationService";
 
     interface Org {
         org_name: string,
@@ -53,13 +54,18 @@
             const data = await userService.getUserSubscriptions(userId);
             courseInfo = data
         } catch (err) {
-            error = 'Failed to fetch lessons';
             console.error(err);
         }
     }
 
     async function postOrg() {
-
+        try{
+            for (let org in courseInfo){
+                await organisationService.createOrganisation(org, localStorage.userID);
+            }
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     onMount(() => {
@@ -82,5 +88,6 @@
     {/each}
     {#if create}
         <button class="add-org" onclick={newOrg}>New organisation</button>
+        <button class="save-button" onclick={postOrg}>Save</button>
     {/if}
 </div>

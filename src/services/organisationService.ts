@@ -4,7 +4,7 @@ import type { CreateOrganisationResponse, Organisation } from "./types";
 // makes a POST request to the endpoint at /v1/org
 // if successful, returns the organisation and its modules
 // throws an error containing the relevant message otherwise
-const createOrganisation = async (org: Organisation) => {
+const createOrganisation = async (org: Organisation, owner_id: number) => {
     const token: string | null = localStorage.getItem("token");
     if (token === null) {
         throw new Error(`an error occurred`);
@@ -19,9 +19,9 @@ const createOrganisation = async (org: Organisation) => {
         },
         body: new URLSearchParams({
             name: org.name,
-            description: org.description,
+            description: "Blank",
             modules: JSON.stringify(org.modules),
-            owner_id: org.owner_id.toString()
+            owner_id: owner_id.toString()
         })
     });
 
