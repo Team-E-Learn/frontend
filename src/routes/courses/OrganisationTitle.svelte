@@ -21,15 +21,25 @@
         }[]
     }; // pass through organisation details from json
     export let removeOrg;
-
+    export let postOrg;
     export let create: boolean;
 
-    function newModule() {
+    let activeOrg: boolean = false;
 
+    function newModule() {
+        const mod_textbox = document.getElementById("add_mod_text");
+        mod_textbox.classList.remove("hidden");
+        const child_mod = mod_textbox.getElementsByClassName("text")[0] as HTMLElement | undefined;
+        child_mod?.focus();
+        activeOrg = true;
     }
 
     function newBundle() {
-
+        const bundle_textbox = document.getElementById("add_bundle_text");
+        bundle_textbox.classList.remove("hidden");
+        const child_bundle = bundle_textbox.getElementsByClassName("text")[0] as HTMLElement | undefined;
+        child_bundle?.focus();
+        activeOrg = true;
     }
 
     function removeBundle(id){
@@ -37,7 +47,57 @@
     }
 
     onMount(() => {
-        console.log(org.name);
+        const orgWithoutIds = {
+            name: org.name,
+            bundles: org.bundles.map(bundle => ({
+                bundle_name: bundle.bundle_name,
+                modules: bundle.modules.map(module => ({
+                    name: module.name
+                }))
+            })),
+            modules: org.modules.map(module => ({
+                name: module.name
+            }))
+        };
+
+        const bundle_textbox = document.getElementById("add_bundle_text");
+        const child_bundle = bundle_textbox.getElementsByClassName("text")[0] as HTMLElement | undefined;
+
+        const mod_textbox = document.getElementById("add_mod_text");
+        const child_mod = mod_textbox.getElementsByClassName("text")[0] as HTMLElement | undefined;
+
+        // check if enter is pressed
+        document.addEventListener("keydown", async (event) => {
+            if (event.key === "Escape") {
+                mod_textbox.classList.add("hidden");
+                bundle_textbox.classList.add("hidden");
+            }
+
+            // If the enter text element is on screen
+            if (event.key === "Enter") {
+                if (!mod_textbox.classList.contains("hidden") && activeOrg) {
+                    activeOrg = false;
+                    let input_name = child_mod.value;
+                    let newData = await postOrg(org.name, orgWithoutIds.bundles, [...orgWithoutIds.modules, {name: input_name}])
+                    org.modules = newData.modules;
+                    child_mod.value = "";
+                    // Add the new lesson to the array
+                    mod_textbox.classList.add("hidden");
+                }
+                if (!bundle_textbox.classList.contains("hidden") && activeOrg) {
+                    activeOrg = false;
+                    let input_name = child_bundle.value;
+                    let newData = await postOrg(org.name, [...orgWithoutIds.bundles, {
+                        bundle_name: input_name,
+                        modules: []
+                    }], orgWithoutIds.modules)
+                    org.bundles = newData.bundles;
+                    child_bundle.value = "";
+                    // Add the new lesson to the array
+                    bundle_textbox.classList.add("hidden");
+                }
+            }
+        });
     });
 
 </script>

@@ -41,8 +41,8 @@
 
     async function fetchOrgs(userId: number) {
         try {
-            const data = await userService.getUserSubscriptions(userId);
-            courseInfo = data
+            courseInfo = await userService.getUserSubscriptions(userId);
+            console.log(courseInfo)
         } catch (err) {
             console.error(err);
         }
@@ -64,14 +64,7 @@
         fetchOrgs(userId);
 
         const org_textbox = document.getElementById("add_org_text");
-        if (!org_textbox){
-            console.log("undefined")
-        }
         const child = org_textbox.getElementsByClassName("text")[0] as HTMLElement | undefined;
-        if (child === undefined) {
-            console.log("textEntry not found");
-            return;
-        }
         // check if enter is pressed
         document.addEventListener("keydown", async (event) => {
             if (event.key === "Escape") {
@@ -83,8 +76,18 @@
                 if (!org_textbox.classList.contains("hidden")) {
                     let input_name = child.value;
                     let newData = await postOrg(input_name, [], [])
-                    courseInfo = [...courseInfo, newData];
-                    console.log(newData)
+                    const index = courseInfo.findIndex(course => course.id === newData.id);
+                    if (index !== -1) {
+                        // Replace the existing entry
+                        courseInfo = [
+                            ...courseInfo.slice(0, index),
+                            newData,
+                            ...courseInfo.slice(index + 1)
+                        ];
+                    } else {
+                        // Add the new entry
+                        courseInfo = [...courseInfo, newData];
+                    }
                     child.value = "";
                     // Add the new lesson to the array
                     org_textbox.classList.add("hidden");
@@ -101,7 +104,7 @@
     {/if}
     <!-- Use an {#each} loop to render Organisation components -->
     {#each courseInfo as organisation}
-        <OrganisationComp org={organisation} removeOrg={deleteOrg} create={create}/>
+        <OrganisationComp bind:org={organisation} postOrg={postOrg} removeOrg={deleteOrg} create={create}/>
     {/each}
     {#if create}
         <button class="add-org" onclick={newOrg}>New organisation</button>

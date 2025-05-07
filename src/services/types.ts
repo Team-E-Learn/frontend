@@ -74,7 +74,7 @@ export interface UserProfile {
 
 interface Module {
     name: string;
-    module_id: number;
+    id: number;
 }
 interface Bundle {
     bundle_id: number;
@@ -82,8 +82,8 @@ interface Bundle {
     modules: Module[];
 }
 export interface Subscription {
-    org_name: string;
-    org_id: number;
+    name: string;
+    id: number;
     bundles: Bundle[];
     modules: Module[];
 }
@@ -109,20 +109,19 @@ export interface Organisation {
 export interface CreateOrganisationResponse {
     message: string;
     Organisation: {
-        name: string,
-        id: number,
+        name: string;
+        id: number;
         bundles: {
-            bundle_id: number,
-            bundle_name: string,
+            bundle_id: number;
+            bundle_name: string;
             modules: {
-                name: string,
-                module_id: number
-            }[]
-        }[]
+                name: string;
+                module_id: number;
+            }[];
+        }[];
         modules: {
-            name: string,
-            module_id: number
-        }[]
+            id: number;
+            name: string;
+        }[];
     };
-
 }

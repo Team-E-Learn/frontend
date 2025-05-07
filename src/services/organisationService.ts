@@ -29,7 +29,7 @@ const createOrganisation = async (org_name: string, bundles: { bundle_name: stri
     if (!response.ok) {
         throw new Error(data.message);
     }
-
+    console.log(data)
     return data;
 
 };
