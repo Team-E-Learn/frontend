@@ -11,13 +11,10 @@
 
     export let creation: boolean;
     export let module_id: number;
+    export let postBlocks;
 
     let blockData = {};
     let sections = [];
-
-    function postBlocks(){
-
-    }
 
     export function generateSections(){
         const blockContainer = document.getElementById(`blocks-${info.id}`);
@@ -52,7 +49,7 @@
     <div class="lesson-header">
         <button class="lesson-button" data-lesson_id="{info.id}">{info.title}</button>
         {#if creation}
-            <button class="save-button" on:click={() => postBlocks()}>Save</button>
+            <button class="save-button" on:click={() => postBlocks(info.id)}>Save</button>
         {/if}
 
     </div>

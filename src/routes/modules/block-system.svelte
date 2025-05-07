@@ -9,9 +9,12 @@
     import TextImageBlock from "../../componenets/blocks/text-image-block.svelte";
     import ImageBlock from "../../componenets/blocks/image-block.svelte";
     import lessonService from "../../services/lessonService";
+    import Lesson from "./lessons.svelte";
 
     export let lesson_id: number; // pass in lesson id
     export let create: boolean
+
+
 
     interface Blocks {
         block_type: number;

@@ -11,6 +11,8 @@
 
     let loadedLessons: number[] = $state([]);
 
+    let blocks: Record<number, Blocks> = {};
+
     function updateLessons(newLessons: number[]) {
         loadedLessons = newLessons;
     }
@@ -38,10 +40,10 @@
 
 <Dashboard/>
 <div style="position: relative;">
-    <Contents module_id={data.module_id} bind:this={contentsRef}/>
+    <Contents module_id={data.module_id} blocks={blocks} bind:this={contentsRef}/>
     <div id="loaded-lesson">
         {#each loadedLessons as lesson}
-            <Blocks lesson_id={lesson} create={false}/>
+            <Blocks lesson_id={lesson} create={false} bind:this={blocks[lesson]}/>
         {/each}
     </div>
 </div>
