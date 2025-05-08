@@ -1,0 +1,10 @@
+.divider{
+    background-image: linear-gradient(to right, var(--secondary2) , white);;
+    padding: 0.5rem;
+    margin: 0;
+}
+
+.Title{
+    color: #000000;
+    margin: 0;
+}

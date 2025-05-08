@@ -1,0 +1,33 @@
+.download-block {
+    background-color: var(--accent);
+    padding: 2rem;
+    border-radius: 1rem;
+    border: 3px solid var(--secondary2);
+    display: flex;
+    flex-direction: column;
+    margin: 0 0.2rem 0.5rem 0.2rem;
+}
+
+.download-block a {
+    color: black;
+}
+.download-block a:hover {
+    color: var(--hover);
+}
+
+.file {
+    background-color: transparent;
+    border: 3px solid var(--accent);
+    flex-grow: 1;
+}
+
+.submit {
+    background-color: transparent;
+    border: 3px solid var(--accent);
+    flex-grow: 1;
+}
+
+.submit:hover {
+    background-color: var(--hover);
+    color: black;
+}

@@ -10,18 +10,12 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
 	"dependencies": {
-		"@types/deno": "^2.0.0",
-		"qrcode": "^1.5.4",
-		"speakeasy": "^2.0.0"
+		"@types/deno": "^2.0.0"
 	},
 	"devDependencies": {
-<<<<<<< HEAD
-		"@sveltejs/adapter-auto": "^3.0.0",
-		"@sveltejs/kit": "^2.15.1",
-=======
+		"@svelte-put/qr": "^2.1.0",
 		"@sveltejs/adapter-node": "^5.2.9",
 		"@sveltejs/kit": "^2.10.1",
->>>>>>> 14d6230a9c886683381193e03c46e2a18c2d1a1c
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
