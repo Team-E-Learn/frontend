@@ -3,54 +3,110 @@
     import Modules from "./moduleSelector.svelte" //imports modules element
     import Bundles from "./bundleTitle.svelte" //imports bundle element
     import Header from "../../componenets/header.svelte"
+    import {onMount} from "svelte";
     export let org: {
-        org_name: string;
-        org_id: number;
-        bundles: { bundle_name: string; id: number; modules: { name: string; module_id: number }[] }[];
-        modules: { name: string; module_id: number }[];
+        name: string,
+        id: number,
+        bundles: {
+            bundle_id: number,
+            bundle_name: string,
+            modules: {
+                name: string,
+                module_id: number
+            }[]
+        }[]
+        modules: {
+            name: string,
+            module_id: number
+        }[]
     }; // pass through organisation details from json
     export let removeOrg;
-
+    export let postOrg;
     export let create: boolean;
 
-    let countMod: number = 0;
+    let activeOrg: boolean = false;
 
     function newModule() {
-        while (org.modules.some(item => item.module_id === countMod)){
-            countMod += 1;
-        }
-        let newMod = {
-            name: "mod1",
-            module_id: countMod,
-        }
-
-        org.modules = [...org.modules, newMod];
+        const mod_textbox = document.getElementById("add_mod_text");
+        mod_textbox.classList.remove("hidden");
+        const child_mod = mod_textbox.getElementsByClassName("text")[0] as HTMLElement | undefined;
+        child_mod?.focus();
+        activeOrg = true;
     }
 
-    let countBundle: number = 0;
     function newBundle() {
-        while (org.bundles.some(item => item.id === countBundle)){
-            countBundle += 1;
-        }
-        let newBundle = {
-            bundle_name: "bundle",
-            id: countBundle,
-            modules: []
-        }
-
-        org.bundles = [...org.bundles, newBundle];
+        const bundle_textbox = document.getElementById("add_bundle_text");
+        bundle_textbox.classList.remove("hidden");
+        const child_bundle = bundle_textbox.getElementsByClassName("text")[0] as HTMLElement | undefined;
+        child_bundle?.focus();
+        activeOrg = true;
     }
+
     function removeBundle(id){
         org.bundles = org.bundles.filter(bundle => bundle.id !== id);
     }
+
+    onMount(() => {
+        const orgWithoutIds = {
+            name: org.name,
+            bundles: org.bundles.map(bundle => ({
+                bundle_name: bundle.bundle_name,
+                modules: bundle.modules.map(module => ({
+                    name: module.name
+                }))
+            })),
+            modules: org.modules.map(module => ({
+                name: module.name
+            }))
+        };
+
+        const bundle_textbox = document.getElementById("add_bundle_text");
+        const child_bundle = bundle_textbox.getElementsByClassName("text")[0] as HTMLElement | undefined;
+
+        const mod_textbox = document.getElementById("add_mod_text");
+        const child_mod = mod_textbox.getElementsByClassName("text")[0] as HTMLElement | undefined;
+
+        // check if enter is pressed
+        document.addEventListener("keydown", async (event) => {
+            if (event.key === "Escape") {
+                mod_textbox.classList.add("hidden");
+                bundle_textbox.classList.add("hidden");
+            }
+
+            // If the enter text element is on screen
+            if (event.key === "Enter") {
+                if (!mod_textbox.classList.contains("hidden") && activeOrg) {
+                    activeOrg = false;
+                    let input_name = child_mod.value;
+                    let newData = await postOrg(org.name, orgWithoutIds.bundles, [...orgWithoutIds.modules, {name: input_name}])
+                    org.modules = newData.modules;
+                    child_mod.value = "";
+                    // Add the new lesson to the array
+                    mod_textbox.classList.add("hidden");
+                }
+                if (!bundle_textbox.classList.contains("hidden") && activeOrg) {
+                    activeOrg = false;
+                    let input_name = child_bundle.value;
+                    let newData = await postOrg(org.name, [...orgWithoutIds.bundles, {
+                        bundle_name: input_name,
+                        modules: []
+                    }], orgWithoutIds.modules)
+                    org.bundles = newData.bundles;
+                    child_bundle.value = "";
+                    // Add the new lesson to the array
+                    bundle_textbox.classList.add("hidden");
+                }
+            }
+        });
+    });
 
 </script>
 
 <div class="organisation">
     {#if create}
-        <button class="remove-org" onclick={removeOrg(org.org_id)}>Remove organisation</button>
+        <button class="remove-org" onclick={removeOrg(org.id)}>Remove organisation</button>
     {/if}
-    <Header title={org.org_name}/>
+    <Header title={org.name}/>
     <!-- Render standalone modules -->
     {#if org.modules}
         <Modules mod={{ modules: org.modules }} create={create}/>
@@ -61,7 +117,7 @@
     <!-- Use an {#each} loop to render bundles components -->
     {#if org.bundles !== undefined}
         {#each org.bundles as bundle}
-            <Bundles bundle={bundle} removeBundle={removeBundle} create={create}/>
+            <Bundles bundle={bundle} removeBundle={removeBundle} postOrg={postOrg} org={org} create={create}/>
         {/each}
     {/if}
     {#if create}

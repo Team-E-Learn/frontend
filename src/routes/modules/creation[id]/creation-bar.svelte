@@ -4,6 +4,7 @@
     import Header from "../../../componenets/header.svelte"
     import lessonService from "../../../services/lessonService"
     import {onMount} from "svelte";
+    import Blocks from "../block-system.svelte";
     interface Lessons {
         title: string;
         id: number;
@@ -21,8 +22,25 @@
         components[lesson_id]?.generateSections?.();
     }
 
+    export let blocks: Record<number, Blocks> = {};
+
+    function postBlocks(lesson_id: number){
+        console.log(blocks[lesson_id])
+        for (block in blocks[lesson_id].blockData){
+            updateBlock(module_id, lesson_id, block);
+        }
+    }
+
+    async function updateBlock(module_id: number, lesson_id: number, block: Blocks){
+        try {
+            await lessonService.addLessonBlock(module_id, lesson_id, block);
+            console.log('Lesson block added successfully');
+        } catch (error) {
+            console.error('Error adding lesson block:', error);
+        }
+    }
+
     function postLessons(lessonId: number, moduleId: number, title: string) {
-        console.log
         lessonService.addLesson(lessonId, moduleId, title)
             .then(() => {
                 console.log('Lesson added!');
@@ -44,7 +62,7 @@
     }
 
     async function deleteLessons(lessonId: number) {
-        lessonService.deleteLesson(lessonId)
+        lessonService.deleteLesson(module_id, lessonId)
             .then(() => {
                 console.log('Lesson deleted!');
             })
@@ -55,7 +73,6 @@
 
     onMount(() => {
         fetchLessons(module_id)
-
 
         let addLesson = document.querySelector(".add-lesson")
         let removeLesson = document.querySelector(".remove-lesson")
@@ -119,7 +136,6 @@
                         title: input_name,
                         id: count,
                     };
-                    console.log(newLesson.id, module_id, newLesson.title)
                     postLessons(newLesson.id, module_id, newLesson.title)
                     textBox.value = ""
                     // Add the new lesson to the array
@@ -156,8 +172,12 @@
             <button class="selection-button" id="editor">Block Editor</button>
         </div>
         <div class="blocks hidden" id="block">
-            <Header title="Text Blocks"/>
-            <button class="block-preview text1"> Text block type 1 </button>
+            <Header title="Add blocks"/>
+            <button class="block-preview text-block-button"> Text block </button>
+            <button class="block-preview image-block-button"> Image block </button>
+            <button class="block-preview text-image-block-button"> Text and Image block </button>
+            <button class="block-preview download-block-button"> Download block </button>
+            <button class="block-preview quiz-block-button"> Quiz block </button>
         </div>
         <div class="block-editor hidden" id="editor">
         </div>
@@ -167,7 +187,7 @@
                 <button class="remove-lesson">-</button>
             </div>
             {#each lessonsData as lesson}
-                <Lesson info={lesson} bind:this={components[lesson.id]} creation={true}, module_id={module_id}/>
+                <Lesson info={lesson} bind:this={components[lesson.id]} creation={true} postBlocks={postBlocks} module_id={module_id}/>
             {/each}
         </div>
     </div>

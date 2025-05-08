@@ -19,26 +19,18 @@
     export let editMode: boolean;
     export let name: string;
 
-    function saveChanges() {
-        // gets the data from the inputs and puts them into the format of the interface
+    let id: string = block_id.toString()
 
-        let image = (document.getElementById("image-block")?.querySelector("[name='image']") as HTMLInputElement)?.value ?? "";
-        let altText = (document.getElementById("image-block")?.querySelector("[name='altText']") as HTMLInputElement)?.value ?? "";
-
-        let data: imageBlock = {
-            image: image,
-            altText: altText
-        }
-    }
+    let imageLink: string = blockData[0]?.image ?? "";
+    let altText: string = blockData[0]?.altText ?? "";
 
 </script>
 
 
     {#if editMode}
         <div class="image-block-edit" style="--blockOrder: {order}">
-            <input type="text" class="image" name="image" placeholder="input image link" value={blockData[0]["image"]}>
-            <input type="text" class="altText" name="altText" placeholder="input alt text" value={blockData[0]["altText"]}>
-            <input type="submit" class="submit" value="Save Changes" on:click={saveChanges}>
+            <input type="text" class="image" name="image" bind:value={imageLink} placeholder="input image link">
+            <input type="text" class="altText" name="altText" bind:value={altText} placeholder="input alt text">
             <div class="buttons">
                 <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
                 <button class="down"  on:click={moveBlock({block_id}, false)}>Move Down</button>

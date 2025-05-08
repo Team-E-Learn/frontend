@@ -34,15 +34,12 @@ export interface LessonBlock {
     block_type: number;
     order: number;
     name: string;
-    data: {
-        [key: string]: string;
-    };
+    data: any[];
 }
 
 export interface Lesson {
     id: number;
     title: string;
-    description: string;
 }
 
 interface AddModuleSuccessResponse {
@@ -76,7 +73,7 @@ export interface UserProfile {
 
 interface Module {
     name: string;
-    module_id: number;
+    id: number;
 }
 interface Bundle {
     bundle_id: number;
@@ -84,8 +81,8 @@ interface Bundle {
     modules: Module[];
 }
 export interface Subscription {
-    org_name: string;
-    org_id: number;
+    name: string;
+    id: number;
     bundles: Bundle[];
     modules: Module[];
 }
@@ -96,17 +93,34 @@ export interface Module1 extends Module {
 }
 
 export interface Organisation {
-    name: string;
-    description: string;
-    modules: { name: string; description: string }[];
-    owner_id: number;
+    org_name: string,
+    bundles: {
+        bundle_name: string,
+        modules: {
+            name: string
+        }[]
+    }[]
+    modules: {
+        name: string
+    }[]
 }
 
 export interface CreateOrganisationResponse {
     message: string;
     Organisation: {
-        id: number,
         name: string;
+        id: number;
+        bundles: {
+            bundle_id: number;
+            bundle_name: string;
+            modules: {
+                name: string;
+                module_id: number;
+            }[];
+        }[];
+        modules: {
+            id: number;
+            name: string;
+        }[];
     };
-    modules: { id: number; name: string; }[];
 }

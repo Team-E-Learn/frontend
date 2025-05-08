@@ -7,24 +7,26 @@
     import TextEntry from '../../../componenets/text-entry.svelte'
 
     onMount(() => {
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") {
-                textEntry.classList.add("hidden")
-            }
+        //TODO: remove this line when login works
+        localStorage.setItem("userID", 2);
+        localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJlbGVhcm4tYmFja2VuZCIsImF1ZCI6ImVsZWFybi1mdWxsIiwic3ViIjoyLCJleHAiOjE3NzgwNzMwNDB9.sld-lLNtYlitSSHzcMe6xz7X1cUfU0pv9kRg9-QTcos=");
+        localStorage.setItem("accountType", "teacher");
 
-            // If the enter text element is on screen
-            if (event.key === "Enter") {
-                if (!textEntry.classList.contains("hidden")) {
-                    let input_name = textBox.value
-                    // TODO: add value to list
-                    textBox.value = ""
-                }
-            }
-        });
+
+        if (!localStorage.getItem("token")) {
+            console.log("Redirecting...");
+            goto("/login");
+        }
+
+        if(localStorage.accountType === "user"){
+            goto("/courses/view")
+        }
     })
 </script>
 
-
+<TextEntry text="Org Title:" id="add_org_text"/>
+<TextEntry text="Bundle Title:" id="add_bundle_text"/>
+<TextEntry text="Module Title:" id="add_mod_text"/>
 <!-- calls header element -->
 <Header title="Home Page"/>
 <!-- calls dashboard element -->

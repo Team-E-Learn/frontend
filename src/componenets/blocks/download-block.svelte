@@ -20,23 +20,16 @@
     export let editMode: boolean;
     export let name: string;
 
-    function saveChanges() {
-        // gets the data from the inputs and puts them into the format of the interface
-        let downloadLink = (document.getElementById("download-block")?.querySelector("[name='file']") as HTMLInputElement)?.value ?? "";
-        let altText = (document.getElementById("download-block")?.querySelector("[name='altText']") as HTMLInputElement)?.value ?? "";
+    let id: string = block_id.toString()
 
-        let data: downloadBlock = {
-            downloadLink: downloadLink,
-            fileName: altText
-        }
-    }
+    let downloadLink: string = blockData[0]?.downloadLink ?? "";
+    let fileName: string = blockData[0]?.fileName ?? "";
 </script>
 
 <div class="download-block" style="--blockOrder: {order}">
     {#if editMode}
-        <input type="text" class="file" name="file" alt="input file link" value={blockData[0]["downloadLink"]}>
-        <input type="text" class="altText" name="altText" value={blockData[0]["fileName"]}>
-        <input type="submit" class="submit" value="Save Changes" on:click={saveChanges}>
+        <input type="text" class="file" name="file" bind:value={downloadLink} placeholder="input file link">
+        <input type="text" class="altText" name="altText" bind:value={fileName} placeholder="input filename">
 
         <div class="buttons">
             <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>

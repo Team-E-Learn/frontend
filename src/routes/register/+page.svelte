@@ -200,9 +200,17 @@
                 limitedJWT,
                 securityCode,
             );
+            
             localStorage.setItem("token", response.full_access_jwt);
+            localStorage.setItem("userID", response.user_id);
+            localStorage.setItem("accountType", response.account_type);
             alert("Registration successful!");
-            goto("/CourseHome");
+            if (response.account_type === "teacher") {
+                goto("/courses/creation");
+            } else {
+                goto("/courses/view");
+            }
+
             closeCodeInput();
         } catch (error) {
             errorMessage = "invalid code";

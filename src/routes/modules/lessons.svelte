@@ -2,7 +2,6 @@
     import '../../styles/module-landing/lessons.css'; // Import styles
     import Section from "./sections.svelte";
     import {onMount} from "svelte";
-    import lessonService from "../../services/lessonService";
 
     export let info: {
         title: string,
@@ -11,20 +10,10 @@
 
     export let creation: boolean;
     export let module_id: number;
+    export let postBlocks;
 
     let blockData = {};
     let sections = [];
-
-    function postLessons(lessonId: number, moduleId: number, title: string) {
-        console.log
-        lessonService.addLesson(lessonId, moduleId, title)
-            .then(() => {
-                console.log('Lesson added!');
-            })
-            .catch(err => {
-                console.error('Error adding lesson:', err);
-            });
-    }
 
     export function generateSections(){
         const blockContainer = document.getElementById(`blocks-${info.id}`);
@@ -47,9 +36,9 @@
                 })
                 event.target.parentElement.parentElement.querySelector(".lesson-section")?.classList.remove("hidden");
                 // top scroll
-                document.querySelectorAll(".block-container > *")[0].scrollIntoView({ behavior: "smooth" });
+                document.querySelectorAll(".block-container > *")[0]?.scrollIntoView({ behavior: "smooth" });
 
-                generateSections();
+                //generateSections();
             })
         }
     });
@@ -59,7 +48,7 @@
     <div class="lesson-header">
         <button class="lesson-button" data-lesson_id="{info.id}">{info.title}</button>
         {#if creation}
-            <button class="save-button" on:click={() => postLessons(info.id, module_id, info.title, [])}>Save</button>
+            <button class="save-button" on:click={postBlocks(info.id)}>Save</button>
         {/if}
 
     </div>

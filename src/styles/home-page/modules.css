@@ -10,7 +10,7 @@
 
 .mod-buttons{
     border-radius: 25px;
-    background-color: var(--secondary);
+    background-color: var(--accent);
     text-align: center;
     min-width: 10%;
     padding: 1%;
@@ -20,7 +20,7 @@
 }
 
 .mod-buttons:hover{
-    background-color: #222225;
+    background-color: var(--secondary2);
 }
 .remove-mod{
     background-color: var(--accent);

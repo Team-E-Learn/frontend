@@ -4,19 +4,24 @@ import type { CreateOrganisationResponse, Organisation } from "./types";
 // makes a POST request to the endpoint at /v1/org
 // if successful, returns the organisation and its modules
 // throws an error containing the relevant message otherwise
-const createOrganisation = async (org: Organisation) => {
-    const url = `${apiBaseUrl}/v1/org`;
+const createOrganisation = async (org_name: string, bundles: { bundle_name: string; modules: { name: string;}[]}[], modules: { name: string;}[], owner_id: number) => {
+    const token: string | null = localStorage.getItem("token");
+    if (token === null) {
+        throw new Error(`an error occurred`);
+    }
+    const url = `${apiBaseUrl}/v1/org/`;
 
     const response = await fetch(url, {
         method: "POST",
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": `Bearer ${token}`
         },
         body: new URLSearchParams({
-            name: org.name,
-            description: org.description,
-            modules: JSON.stringify(org.modules),
-            owner_id: org.owner_id.toString()
+            name: org_name,
+            bundles: JSON.stringify(bundles),
+            modules: JSON.stringify(modules),
+            owner_id: owner_id.toString()
         })
     });
 
@@ -24,11 +29,9 @@ const createOrganisation = async (org: Organisation) => {
     if (!response.ok) {
         throw new Error(data.message);
     }
+    console.log(data)
+    return data;
 
-    return {
-        organisation: data.Organisation,
-        modules: data.modules,
-    }
 };
 
 export default { createOrganisation };

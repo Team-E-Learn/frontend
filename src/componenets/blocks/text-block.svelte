@@ -19,22 +19,18 @@
     export let editMode: boolean;
     export let name: string;
 
-    function saveChanges() {
-        let title = Array.from(document.getElementById("text-block")?.querySelectorAll("title") ?? []).map(el => el.textContent ?? "").join(" ");
-        let text = Array.from(document.getElementById("text-block")?.querySelectorAll("body") ?? []).map(el => el.textContent ?? "").join(" ");
-        let data: textBlock = {
-            title: title,
-            text: text
-        }
-    }
+    let id: string = block_id.toString()
+
+    // Initialize local variables with block data
+    let title: string = blockData[0]?.title ?? "";
+    let body: string = blockData[0]?.text ?? "";
 
 </script>
 
 <div class="text-block" style="--blockOrder: {order}">
     {#if editMode}
-        <input type="text" class="title" name="title" placeholder="Enter Title here" value="{blockData[0]['title']}" >
-        <textarea class="body" name="body" placeholder="Enter Title here">{blockData[0]["text"]}</textarea>
-        <input type="submit" class="submit" value="Save Changes" on:click={saveChanges}>
+        <input type="text" class="title" name="title" bind:value={title} placeholder="Enter Title here">
+        <textarea class="body" name="body" bind:value={body} placeholder="Enter Title here">{blockData[0]["text"]}</textarea>
         <div class="buttons">
             <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
             <button class="down"  on:click={moveBlock({block_id}, false)} >Move Down</button>
