@@ -9,8 +9,6 @@
     import TextImageBlock from "../../componenets/blocks/text-image-block.svelte";
     import ImageBlock from "../../componenets/blocks/image-block.svelte";
     import lessonService from "../../services/lessonService";
-    import Lesson from "./lessons.svelte";
-    import moduleService from "../../services/moduleService";
 
     export let module_id: number;
     export let lesson_id: number; // pass in lesson id
@@ -39,10 +37,10 @@
 
     async function getBlocks(){
         try {
-            const data = await lessonService.getLessonsBlocks(module_id, lesson_id);
-            blockData = data.lessons;
+            const data = await lessonService.getLessonBlocks(module_id, lesson_id);
+            blockData = [...data.blocks];
+            console.log(blockData)
         } catch (err) {
-            error = 'Failed to fetch lessons';
             console.error(err);
         }
     }
@@ -117,8 +115,6 @@
     }
 
     onMount(() => {
-        console.log(lesson_id)
-
         getBlocks();
 
         let text = document.querySelector(".text-block-button")
@@ -147,8 +143,8 @@
 
 </script>
 
-<div id="blocks-{lesson_id}" class="block-container"> <!-- flex box that stores the blocks -->
-    {#each blockData.slice().sort((a, b) => a.order - b.order) as block} <!-- running through the block json -->
+<div id="blocks-{lesson_id}" class="block-container" data-block-data={JSON.stringify(blockData)}> <!-- flex box that stores the blocks -->
+    {#each blockData as block} <!-- running through the block json -->
         {#if block.block_type === 1}
             <TextBlock order={block.order} block_id={block.block_id} blockData={block.data} deleteBlock={deleteBlock} moveBlock={moveBlock} name={block.name} editMode={create}/>
         {:else if block.block_type === 2}

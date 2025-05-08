@@ -36,9 +36,9 @@
                 })
                 event.target.parentElement.parentElement.querySelector(".lesson-section")?.classList.remove("hidden");
                 // top scroll
-                document.querySelectorAll(".block-container > *")[0].scrollIntoView({ behavior: "smooth" });
+                document.querySelectorAll(".block-container > *")[0]?.scrollIntoView({ behavior: "smooth" });
 
-                generateSections();
+                //generateSections();
             })
         }
     });
@@ -48,7 +48,7 @@
     <div class="lesson-header">
         <button class="lesson-button" data-lesson_id="{info.id}">{info.title}</button>
         {#if creation}
-            <button class="save-button" on:click={() => postBlocks(info.id)}>Save</button>
+            <button class="save-button" on:click={postBlocks(info.id)}>Save</button>
         {/if}
 
     </div>

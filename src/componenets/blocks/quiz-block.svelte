@@ -10,7 +10,7 @@
     }
 
     function isAnswer(answer: boolean) {
-        if (answer == true) {
+        if (answer === true) {
             alert("correct")
         } else {
             alert("incorrect")

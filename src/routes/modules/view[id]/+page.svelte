@@ -35,7 +35,7 @@
             handleLessonButtonClick(event, loadedLessons, false, updateLessons)
             let target = event.target;
             await tick();
-            contentsRef.callGenerateSections(Number(target.dataset.lesson_id));
+            contentsRef?.callGenerateSections(Number(target.dataset.lesson_id));
         });
     });
 </script>
@@ -45,7 +45,7 @@
     <Contents module_id={data.module_id} bind:this={contentsRef}/>
     <div id="loaded-lesson">
         {#each loadedLessons as lesson}
-            <Blocks lesson_id={lesson} create={false}/>
+            <Blocks lesson_id={lesson} module_id={data.module_id} create={false}/>
         {/each}
     </div>
 </div>

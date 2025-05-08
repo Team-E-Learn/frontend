@@ -50,7 +50,7 @@
     <Creation module_id={data.module_id} bind:this={contentsRef} blocks={blocks}/>
     <div id="loaded-lesson">
         {#each loadedLessons as lesson}
-            <Blocks lesson_id={lesson} create={true} bind:this={blocks[lesson]}/>
+            <Blocks lesson_id={lesson} module_id={data.module_id} create={true} bind:this={blocks[lesson]}/>
         {/each}
     </div>
 </div>

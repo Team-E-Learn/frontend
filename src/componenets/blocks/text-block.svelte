@@ -30,7 +30,7 @@
 <div class="text-block" style="--blockOrder: {order}">
     {#if editMode}
         <input type="text" class="title" name="title" bind:value={title} placeholder="Enter Title here">
-        <textarea class="body" name="body" bind:value={title} placeholder="Enter Title here">{blockData[0]["text"]}</textarea>
+        <textarea class="body" name="body" bind:value={body} placeholder="Enter Title here">{blockData[0]["text"]}</textarea>
         <div class="buttons">
             <button class="up" on:click={moveBlock({block_id}, true)}>Move Up</button>
             <button class="down"  on:click={moveBlock({block_id}, false)} >Move Down</button>

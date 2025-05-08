@@ -25,6 +25,7 @@
     export let blocks: Record<number, Blocks> = {};
 
     function postBlocks(lesson_id: number){
+        console.log(blocks[lesson_id])
         for (block in blocks[lesson_id].blockData){
             updateBlock(module_id, lesson_id, block);
         }

@@ -117,7 +117,7 @@
     <!-- Use an {#each} loop to render bundles components -->
     {#if org.bundles !== undefined}
         {#each org.bundles as bundle}
-            <Bundles bundle={bundle} removeBundle={removeBundle} org_name={org.name} create={create}/>
+            <Bundles bundle={bundle} removeBundle={removeBundle} postOrg={postOrg} org={org} create={create}/>
         {/each}
     {/if}
     {#if create}

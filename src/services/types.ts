@@ -40,7 +40,6 @@ export interface LessonBlock {
 export interface Lesson {
     id: number;
     title: string;
-    description: string;
 }
 
 interface AddModuleSuccessResponse {

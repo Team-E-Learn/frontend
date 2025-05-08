@@ -12,10 +12,10 @@
 
 .image-block-edit{
     display: flex;
-    background-color: var(--secondary);
+    background-color: var(--accent);
     padding : 2rem;
     border-radius: 1rem;
-    border: 3px solid var(--accent);
+    border: 3px solid var(--secondary2);
     flex-direction: column;
 }
 

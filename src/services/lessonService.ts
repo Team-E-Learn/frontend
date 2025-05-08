@@ -41,7 +41,7 @@ const addLesson = async (
         throw new Error(`an error occurred`);
     }
 
-    const url = `${apiBaseUrl}/v1/module/lesson`;
+    const url = `${apiBaseUrl}/v1/module/lesson/`;
 
     const response = await fetch(url, {
         method: "POST",
@@ -82,7 +82,7 @@ const deleteLesson = async (moduleId: number, lessonId: number) => {
         headers: {
             "Authorization": `Bearer ${token}`
         },
-        body: formData,
+        body: formData
     });
     if (!response.ok) {
         const data: { message: string } = await response.json();
@@ -98,9 +98,9 @@ const getLessonBlocks = async (moduleId: number, lessonId: number) => {
     if (token === null) {
         throw new Error(`an error occurred`);
     }
-    const url = `${apiBaseUrl}/v1/module/lesson/${lessonId}/block` + new URLSearchParams({
-        module_id: moduleId
-    }).toString();
+    console.log(moduleId, lessonId)
+
+    const url = `${apiBaseUrl}/v1/module/lesson/${lessonId}/block?module_id=${moduleId}`;
 
     const response = await fetch(url, {
         method: "GET",
@@ -108,10 +108,12 @@ const getLessonBlocks = async (moduleId: number, lessonId: number) => {
             "Authorization": `Bearer ${token}`
         }
     });
+
     if (!response.ok) {
         const data: { message: string } = await response.json();
         throw new Error(data.message);
     }
+
     const data: { blocks: LessonBlock[] } = await response.json();
     return data;
 };
